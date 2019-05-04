@@ -1,0 +1,25 @@
+{
+  "name": "authenticator-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --config ./webpack.config.dev.js --hot --history-api-fallback --progress --mode development"
+  },
+  "author": "Francis Mitra",
+  "license": "MIT",
+  "dependencies": {
+    "preact": "^8.4.2",
+    "preact-redux": "^2.0.3",
+    "preact-router": "^2.6.1",
+    "whatwg-fetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "ts-loader": "^5.4.5",
+    "typescript": "^3.4.5",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.1",
+    "webpack-dev-server": "^3.3.1"
+  }
+}
