@@ -1,4 +1,3 @@
-/** @jsx h */
 import { h, Component } from 'preact';
 import Router from 'preact-router';
 
