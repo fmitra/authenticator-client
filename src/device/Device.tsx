@@ -1,10 +1,11 @@
+/** @jsx h */
 import { h } from 'preact';
 
 interface Props {
-  path: string
+  path: string;
 }
 
-function Device(props: Props) {
+function Device(props: Props): JSX.Element {
   console.log(props)
 
   return (

@@ -1,3 +1,4 @@
+/** @jsx h */
 import { h, Component } from 'preact';
 import Router from 'preact-router';
 
@@ -8,7 +9,7 @@ import Device from 'src/device/Device';
 import ROUTES from 'src/authenticator/routes';
 
 export default class App extends Component {
-  render() {
+  public render(): JSX.Element {
     return (
       <Router>
         <Login path={ROUTES.LOGIN} />
