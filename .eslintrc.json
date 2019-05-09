@@ -20,6 +20,15 @@
     }
   },
   "rules": {
-    "@typescript-eslint/indent": ["error", 2]
+    "@typescript-eslint/indent": ["error", 2],
+    "@typescript-eslint/no-unused-vars": ["error", {
+      "vars": "all",
+      "args": "none"
+    }],
+    // ignore valid preact properties
+    "react/no-unknown-property": [2, {"ignore": [
+      "for",
+      "class"
+    ]}]
   }
 }

@@ -4,9 +4,7 @@ interface Props {
   path: string;
 }
 
-function Device(props: Props): JSX.Element {
-  console.log(props)
-
+const Device = (props: Props): JSX.Element => {
   return (
     <div>
       Device

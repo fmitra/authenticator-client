@@ -4,9 +4,7 @@ interface Props {
   path: string;
 }
 
-function Login(props: Props): JSX.Element {
-  console.log(props)
-
+const Login = (props: Props): JSX.Element => {
   return (
     <div>
       Login
