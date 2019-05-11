@@ -1,6 +1,6 @@
 import { h } from 'preact';
 
-import { Input } from 'src/form';
+import { Input } from '@authenticator/form';
 
 interface Props {
   path: string;
@@ -10,6 +10,10 @@ const Signup = (props: Props): JSX.Element => {
   return (
     <div class="signup">
       <form class="signup-form">
+
+        <div class="test-text">
+          Hello world
+        </div>
 
         <Input
           class="signup-input"

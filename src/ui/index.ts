@@ -1,3 +1,3 @@
-import style from 'src/ui/style';
+import classes from '@authenticator/ui/classes';
 
-export { style };
+export { classes };

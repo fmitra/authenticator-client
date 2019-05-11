@@ -1,6 +1,6 @@
 import { h } from 'preact';
 
-import { style } from 'src/ui';
+import { classes } from '@authenticator/ui';
 
 interface Props {
   label: string;
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const Input = (props: Props): JSX.Element => (
-  <div class={style({
+  <div class={classes({
     "input": true,
     [props.class]: Boolean(props.class),
   })}>

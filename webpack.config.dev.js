@@ -1,13 +1,13 @@
 const path = require('path');
 
 const dirs = {
-  sources: path.resolve(__dirname, 'src'),
+  sources: path.resolve(__dirname, 'src/'),
   dist: path.resolve(__dirname, 'dist'),
 };
 
 module.exports = {
   context: dirs.sources,
-  entry: './app.tsx',
+  entry: './index.tsx',
 
   output: {
     path: dirs.dist,
@@ -27,7 +27,7 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     alias: {
-      'src': dirs.sources
+      '@authenticator': dirs.sources
     }
   },
 

@@ -1,3 +1,3 @@
-import Input from 'src/form/Input';
+import Input from '@authenticator/form/Input';
 
 export { Input };

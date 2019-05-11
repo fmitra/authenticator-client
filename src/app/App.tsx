@@ -1,11 +1,10 @@
 import { h, Component } from 'preact';
 import Router from 'preact-router';
 
-import Login from 'src/login/Login';
-import Signup from 'src/signup/Signup';
-import Device from 'src/device/Device';
-
-import ROUTES from 'src/authenticator/routes';
+import Login from '@authenticator/login/Login';
+import Signup from '@authenticator/signup/Signup';
+import Device from '@authenticator/device/Device';
+import ROUTES from '@authenticator/app/routes';
 
 export default class App extends Component {
   public render(): JSX.Element {

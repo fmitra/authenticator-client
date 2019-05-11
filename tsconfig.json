@@ -21,8 +21,16 @@
     "noUnusedParameters": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@authenticator/*": ["src/*"]
+    }
   },
+  "include": ["src/**/*"],
   "exclude": [
     "node_modules"
   ]
