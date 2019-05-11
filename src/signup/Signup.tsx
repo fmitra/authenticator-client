@@ -11,10 +11,6 @@ const Signup = (props: Props): JSX.Element => {
     <div class="signup">
       <form class="signup-form">
 
-        <div class="test-text">
-          Hello world
-        </div>
-
         <Input
           class="signup-input"
           label="Password"

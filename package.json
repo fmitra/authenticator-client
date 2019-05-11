@@ -14,7 +14,7 @@
     "preact": "^8.4.2",
     "preact-redux": "^2.0.3",
     "preact-router": "^2.6.1",
-    "whatwg-fetch": "^3.0.0"
+    "store2": "^2.7.1"
   },
   "devDependencies": {
     "@types/jest": "^24.0.12",

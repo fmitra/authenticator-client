@@ -9,7 +9,6 @@
     "sourceMap": true,
     "outDir": "dist",
     "removeComments": true,
-    "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
@@ -26,6 +25,7 @@
       "node_modules/@types"
     ],
     "baseUrl": ".",
+    "lib": ["es2015", "dom"],
     "paths": {
       "@authenticator/*": ["src/*"]
     }
