@@ -4,9 +4,11 @@ import { bindActionCreators } from 'redux';
 
 import { register, Registration } from '@authenticator/signup/actions';
 import { State } from '@authenticator/signup/reducer';
+import { SignupRequest } from '@authenticator/requests';
 import Signup from '@authenticator/signup/Signup';
 
-const mapDispatchToProps = (dispatch: Dispatch): { register: Registration } => (
+//const mapDispatchToProps = (dispatch: Dispatch): { register: Registration } => (
+const mapDispatchToProps = (dispatch: Dispatch): { register: { (data: SignupRequest): Registration }} => (
   bindActionCreators({ register }, dispatch)
 );
 

@@ -4,40 +4,46 @@ import {
   REQUEST_SUCCESS
 } from '@authenticator/signup/constants';
 
+import { APIError } from '@authenticator/requests';
+
 export interface State {
-  error: string;
+  error: APIError | null;
 }
 
 export interface Action {
   type: string;
+  error?: APIError;
 }
 
 const defaultState: State = {
-  error: '',
+  error: null,
 };
 
 export default (state: State = defaultState, action: Action): State => {
   switch(action.type) {
     case REQUEST: {
-      return Object.assign({}, state, {
-        error: "a request started",
-      });
+      return {
+        ...state,
+        error: null,
+      };
     }
 
     case REQUEST_ERROR: {
-      return Object.assign({}, state, {
-        error: "an error occurred",
-      });
+      return {
+        ...state,
+        error: action.error ? action.error : null,
+      };
     }
 
     case REQUEST_SUCCESS: {
-      return Object.assign({}, state, {
-        error: "there should be no error",
-      });
+      return {
+        ...state,
+        error: null,
+      };
     }
 
     default: {
-      return Object.assign({}, state);
+      return { ...state };
     }
   }
 };
