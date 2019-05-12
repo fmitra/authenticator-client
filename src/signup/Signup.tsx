@@ -1,33 +1,48 @@
-import { h } from 'preact';
+import { h, Component } from 'preact';
 
 import { Input } from '@authenticator/form';
 
-interface Props {
-  path: string;
+export interface Props {
+  path?: string;
+  error: string;
+  register: { (): any };
 }
 
-const Signup = (props: Props): JSX.Element => {
-  return (
-    <div class="signup">
-      <form class="signup-form">
+interface State {
+  [key: string]: any;
+}
 
-        <Input
-          class="signup-input"
-          label="Password"
-          type="password"
-          id="signup-password"
-          error="Password is too short" />
+export default class Signup extends Component<Props, State> {
+  static defaultProps = {
+    error: "",
+    register: () => {},
+  };
 
-        <Input
-          class="signup-input"
-          label="Username"
-          type="text"
-          id="signup-username"
-          error="Username is not valid" />
+  render(): JSX.Element {
+    return (
+      <div class="signup">
+        <form class="signup-form">
 
-      </form>
-    </div>
-  );
-};
+          <div class="test" onClick={this.props.register}>
+            Click Me
+          </div>
 
-export default Signup;
+          <Input
+            class="signup-input"
+            label="Password"
+            type="password"
+            id="signup-password"
+            error="Password is too short" />
+
+          <Input
+            class="signup-input"
+            label="Username"
+            type="text"
+            id="signup-username"
+            error="Username is not valid" />
+
+        </form>
+      </div>
+    );
+  }
+}

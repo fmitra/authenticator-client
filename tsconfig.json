@@ -21,6 +21,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
+    "experimentalDecorators": true,
     "typeRoots": [
       "node_modules/@types"
     ],

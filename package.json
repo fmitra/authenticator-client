@@ -14,6 +14,8 @@
     "preact": "^8.4.2",
     "preact-redux": "^2.0.3",
     "preact-router": "^2.6.1",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
     "store2": "^2.7.1"
   },
   "devDependencies": {
