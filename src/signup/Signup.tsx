@@ -20,8 +20,6 @@ export default class Signup extends Component<Props, State> {
   };
 
   render(): JSX.Element {
-    console.log('rendering', this.props);
-
     return (
       <div class="signup">
         <form class="signup-form">

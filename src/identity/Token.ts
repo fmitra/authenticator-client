@@ -1,4 +1,5 @@
 import store from 'store2';
+import config from '@authenticator/config';
 
 export interface JWT {
   exp: number;
@@ -48,8 +49,7 @@ class Token {
     let token: JWT = JSON.parse(atob(b64Token))
     this.token = token;
 
-    // TODO Move to settings
-    const tokenName = 'jwt-token';
+    const tokenName = config.token.name;
     store.set(tokenName, t);
   }
 

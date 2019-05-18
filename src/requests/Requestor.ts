@@ -1,4 +1,5 @@
 import store from 'store2';
+import config from '@authenticator/config';
 
 interface RequestOpt {
   method: string;
@@ -24,7 +25,7 @@ export default class Requestor {
   protected prefix: string;
 
   constructor() {
-    this.baseURL = 'http://api.authenticator.local';
+    this.baseURL = config.api.baseURL;
     this.prefix = 'api/v1';
   }
 
@@ -69,8 +70,7 @@ export default class Requestor {
   }
 
   protected headers(): {[key: string]: string} {
-    // TODO Move to settings
-    const tokenName = 'jwt-token';
+    const tokenName = config.token.name;
     const jwt: string = store.get(tokenName);
 
     const headers: {[key: string]: string} = {

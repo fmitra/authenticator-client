@@ -27,7 +27,7 @@ export type Registration = ThunkAction<void, { signup: State }, void, Action>;
  * and localStorage, otherwise we dispatch an error notice
  * to the UI.
  */
-export const register = (data: SignupRequest): Registration => async (dispatch): Promise<void>  => {
+export const register = (data: SignupRequest): Registration => async (dispatch): Promise<void> => {
   let response: APIResponse<SignupResponse>;
 
   dispatch({ type: REQUEST });

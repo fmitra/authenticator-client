@@ -6,7 +6,10 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint --ext .ts,.tsx src",
-    "start": "webpack-dev-server --config ./webpack.config.dev.js --hot --history-api-fallback --progress --mode development"
+    "start": "webpack-dev-server --config ./webpack.config.dev.js --hot --history-api-fallback --progress --mode development",
+    "config:dev": "cp ./src/config/default.ts ./src/config/local.ts",
+    "config:stage": "echo \"Staging configuration not enabled\" && exit 1",
+    "config:prod": "echo \"Production configuration not enabled\" && exit 1"
   },
   "author": "Francis Mitra",
   "license": "MIT",
