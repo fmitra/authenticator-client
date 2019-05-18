@@ -1,7 +1,7 @@
 import { ThunkAction } from 'redux-thunk';
 
 import { Action, State } from '@authenticator/signup/reducer';
-import { Token } from '@authenticator/identity';
+import Token from '@authenticator/identity/Token';
 import {
   REQUEST,
   REQUEST_ERROR,

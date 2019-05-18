@@ -16,10 +16,10 @@ export interface JWT {
  * A singleton class to manage the lifecycle of a token.
  */
 class Token {
-  private token: JWT;
+  private parsedToken: JWT;
 
   constructor() {
-    this.token = {
+    this.parsedToken = {
       exp: 0,
       jti: '',
       iss: '',
@@ -47,42 +47,47 @@ class Token {
     const b64Token = t.split('.')[1];
 
     let token: JWT = JSON.parse(atob(b64Token))
-    this.token = token;
+    this.parsedToken = token;
 
     const tokenName = config.token.name;
     store.set(tokenName, t);
   }
 
+  get token(): string {
+    const tokenName = config.token.name;
+    return store.get(tokenName);
+  }
+
   get expiresAt(): Date {
-    return new Date(this.token.exp * 1000);
+    return new Date(this.parsedToken.exp * 1000);
   }
 
   get jti(): string {
-    return this.token.jti;
+    return this.parsedToken.jti;
   }
 
   get issuer(): string {
-    return this.token.iss;
+    return this.parsedToken.iss;
   }
 
   get userID(): string {
-    return this.token.user_id;
+    return this.parsedToken.user_id;
   }
 
   get clientID(): string {
-    return this.token.client_id;
+    return this.parsedToken.client_id;
   }
 
   get email(): string {
-    return this.token.email;
+    return this.parsedToken.email;
   }
 
   get phoneNumber(): string {
-    return this.token.phone_number;
+    return this.parsedToken.phone_number;
   }
 
   get state(): string {
-    return this.token.state;
+    return this.parsedToken.state;
   }
 };
 
