@@ -2,14 +2,14 @@ import {
   REQUEST,
   REQUEST_ERROR,
   REQUEST_SUCCESS
-} from '@authenticator/signup/constants';
+} from '@authenticator/signupVerify/constants';
 
 import { APIError } from '@authenticator/requests';
 
 export interface State {
   error: APIError | null;
   isRequesting: boolean;
-  isRegistered: boolean;
+  isVerified: boolean;
 }
 
 export interface Action {
@@ -20,7 +20,7 @@ export interface Action {
 const defaultState: State = {
   error: null,
   isRequesting: false,
-  isRegistered: false,
+  isVerified: false,
 };
 
 export default (state: State = defaultState, action: Action): State => {
@@ -30,7 +30,7 @@ export default (state: State = defaultState, action: Action): State => {
         ...state,
         error: null,
         isRequesting: true,
-        isRegistered: false,
+        isVerified: false,
       };
     }
 
@@ -39,7 +39,7 @@ export default (state: State = defaultState, action: Action): State => {
         ...state,
         error: action.error ? action.error : null,
         isRequesting: false,
-        isRegistered: false,
+        isVerified: false,
       };
     }
 
@@ -48,7 +48,7 @@ export default (state: State = defaultState, action: Action): State => {
         ...state,
         error: null,
         isRequesting: false,
-        isRegistered: true,
+        isVerified: true,
       };
     }
 

@@ -13,7 +13,7 @@ export interface JWT {
 }
 
 /**
- * A singleton class to manage the lifecycle of a token.
+ * A singleton class to manage a token stored in localStorage.
  */
 class Token {
   private parsedToken: JWT;
@@ -46,16 +46,15 @@ class Token {
   set(t: string): void {
     const b64Token = t.split('.')[1];
 
-    let token: JWT = JSON.parse(atob(b64Token))
-    this.parsedToken = token;
+    this.parsedToken = JSON.parse(atob(b64Token));
 
-    const tokenName = config.token.name;
-    store.set(tokenName, t);
+    const localToken = config.token.name;
+    store.set(localToken, t);
   }
 
   get token(): string {
-    const tokenName = config.token.name;
-    return store.get(tokenName);
+    const localToken = config.token.name;
+    return store.get(localToken);
   }
 
   get expiresAt(): Date {

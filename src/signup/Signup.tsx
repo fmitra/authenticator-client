@@ -1,6 +1,8 @@
 import { h, Component } from 'preact';
+import { route } from 'preact-router';
 
 import config from '@authenticator/config';
+import routes from '@authenticator/app/routes';
 import { Button, Input } from '@authenticator/form';
 import { SignupRequest, APIError } from '@authenticator/requests';
 import { IDToggle, InputEmail, InputPhone } from '@authenticator/signup/components';
@@ -10,6 +12,8 @@ export interface Props {
   path?: string;
   error: APIError | null;
   register: { (data: SignupRequest): any };
+  isRegistered: boolean;
+  isRequesting: boolean;
 }
 
 interface State {
@@ -42,7 +46,15 @@ export default class Signup extends Component<Props, State> {
   static defaultProps = {
     error: null,
     register: (data: SignupRequest): void => {},
+    isRegistered: false,
+    isRequesting: false,
   };
+
+  componentWillReceiveProps(props: Props, state: State): void {
+    if (props.isRegistered) {
+      route(routes.SIGNUP_VERIFY);
+    }
+  }
 
   handleToggleID = (): void => {
     const newIDType = this.state.identityType === INPUT_PHONE
@@ -77,8 +89,7 @@ export default class Signup extends Component<Props, State> {
     );
     const renderEmail = this.state.identityType === INPUT_EMAIL;
     const renderPhone = this.state.identityType === INPUT_PHONE;
-
-    console.log(this.state);
+    const requestError = this.props.error ? this.props.error.message : '';
 
     return (
       <div class='signup'>
@@ -96,7 +107,11 @@ export default class Signup extends Component<Props, State> {
             onClick={this.handleToggleID}
             activeID={this.state.identityType} /> }
 
-          <Button name='Signup' onClick={this.handleSubmit} />
+          <Button
+            name='Signup'
+            error={requestError}
+            isDisabled={this.props.isRequesting}
+            onClick={this.handleSubmit} />
         </form>
       </div>
     );

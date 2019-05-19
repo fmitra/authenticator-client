@@ -4,6 +4,7 @@ import config from '@authenticator/config';
 interface RequestOpt {
   method: string;
   body?: string;
+  credentials?: 'same-origin' | 'omit' | 'include';
   headers: {[key: string]: string};
 }
 
@@ -52,12 +53,14 @@ export default class Requestor {
         return;
       }
 
+      // TODO Look into making the response fields mandatory
+      // and perhaps set defaults so we dont need to check it in the actions.
       response.resultError = body.error;
     };
 
     try {
       const resp = await fetch(request);
-      onSuccess(resp);
+      await onSuccess(resp);
     } catch (e) {
       onError(e);
     }
@@ -92,6 +95,7 @@ export default class Requestor {
     const opts: RequestOpt = {
       method: 'POST',
       headers: this.headers(),
+      credentials: 'include',
     }
 
     if (data) {

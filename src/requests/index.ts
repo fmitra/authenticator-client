@@ -1,6 +1,7 @@
 import SignupAPI, {
   SignupResponse,
   SignupRequest,
+  VerifyRequest,
 } from '@authenticator/requests/SignupAPI';
 import {
   APIError,
@@ -11,6 +12,7 @@ export {
   SignupAPI,
   SignupRequest,
   SignupResponse,
+  VerifyRequest,
   APIError,
   APIResponse,
 };
