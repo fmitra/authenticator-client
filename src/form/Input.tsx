@@ -1,40 +1,29 @@
 import { h, Component } from 'preact';
 
 import { classes } from '@authenticator/ui';
+import { NullAppError } from '@authenticator/errors';
 
 interface Props {
   label: string;
   type: string;
   class: string;
-  validator?: { (v: string | number): string };
-  onChange: { (e: Event): void };
+  validator?: { (v: string | number): NullAppError };
+  onChange: { (ev: Event, err: NullAppError ): void };
   id: string;
 }
 
-interface State {
-  error: string;
-}
-
-const ErrorMessage = (props: { message: string }): JSX.Element => (
-  <div class='input__error'>{props.message}</div>
-);
-
-export default class Input extends Component<Props, State> {
+export default class Input extends Component<Props, {}> {
   handleInput = (e: Event): void => {
     const { validator, onChange } = this.props;
     const { value } = (e.currentTarget as HTMLFormElement);
 
     if (!validator) {
-      onChange(e);
+      onChange(e, null);
       return;
     }
 
-    const errorMessage = validator(value);
-    this.setState({ error: errorMessage });
-
-    if (!errorMessage) {
-      onChange(e);
-    }
+    const error = validator(value);
+    onChange(e, error);
   }
 
   render(): JSX.Element {
@@ -54,8 +43,6 @@ export default class Input extends Component<Props, State> {
           type={this.props.type}
           onChange={this.handleInput}
         />
-
-        { this.state.error && <ErrorMessage message={this.state.error} /> }
 
       </div>
     );

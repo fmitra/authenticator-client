@@ -2,17 +2,21 @@ import { h } from 'preact';
 
 import { Input } from '@authenticator/form';
 import { isMaybeEmail } from '@authenticator/identity/validators';
+import { NullAppError } from '@authenticator/errors';
 
 interface Props {
-  onChange: { (e: Event): void };
+  onChange: { (evt: Event, error: NullAppError ): void };
 }
 
-const validateEmail = (inputValue: string | number): string => {
+const validateEmail = (inputValue: string | number): NullAppError => {
   if (isMaybeEmail(String(inputValue))) {
-    return '';
+    return null;
   }
 
-  return 'Please enter a valid email address';
+  return {
+    message: 'Please enter a valid email address',
+    code: 'invalid_email',
+  };
 };
 
 const InputEmail = (props: Props): JSX.Element => (

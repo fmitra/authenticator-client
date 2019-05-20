@@ -5,6 +5,9 @@ interface AppConfig {
   api: {
     baseURL: string;
   };
+  password: {
+    minLength: number;
+  };
   validUserIdentity: {
     email: boolean;
     phone: boolean;
@@ -17,6 +20,9 @@ const config: AppConfig = {
   },
   api: {
     baseURL: 'https://api.authenticator.local',
+  },
+  password: {
+    minLength: 8,
   },
   validUserIdentity: {
     email: true,

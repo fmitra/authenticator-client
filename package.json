@@ -5,6 +5,7 @@
   "main": "index.tsx",
   "scripts": {
     "test": "jest",
+    "test:dev": "jest -o --watch",
     "lint": "eslint --ext .ts,.tsx src",
     "start": "webpack-dev-server --config ./webpack.config.dev.js --hot --https --history-api-fallback --progress --mode development",
     "config:dev": "cp ./src/config/development.ts ./src/config/local.ts",

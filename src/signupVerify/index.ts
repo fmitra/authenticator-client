@@ -1,3 +1,3 @@
-import SignupVerify from '@authenticator/signupVerify/SignupVerify';
+import Container from '@authenticator/signupVerify/Container';
 
-export default SignupVerify;
+export default Container;

@@ -1,5 +1,5 @@
 export const isMaybeEmail = (value: string): boolean => {
-  return value.indexOf('@') != -1;
+  return value.includes('@');
 };
 
 export const isMaybePhone = (value: string): boolean => {

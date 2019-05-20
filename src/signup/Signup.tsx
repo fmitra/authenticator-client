@@ -3,14 +3,20 @@ import { route } from 'preact-router';
 
 import config from '@authenticator/config';
 import routes from '@authenticator/app/routes';
-import { Button, Input } from '@authenticator/form';
-import { SignupRequest, APIError } from '@authenticator/requests';
-import { IDToggle, InputEmail, InputPhone } from '@authenticator/signup/components';
+import { Button } from '@authenticator/form';
+import { SignupRequest } from '@authenticator/requests';
+import { NullAppError, FormErrors, Errors } from '@authenticator/errors';
+import {
+  IDToggle,
+  InputPassword,
+  InputEmail,
+  InputPhone,
+} from '@authenticator/signup/components';
 import { INPUT_PHONE, INPUT_EMAIL } from '@authenticator/signup/constants';
 
 export interface Props {
   path?: string;
-  error: APIError | null;
+  error: NullAppError;
   register: { (data: SignupRequest): any };
   isRegistered: boolean;
   isRequesting: boolean;
@@ -20,6 +26,7 @@ interface State {
   identityType: string;
   username: string;
   password: string;
+  errors: FormErrors;
 }
 
 export default class Signup extends Component<Props, State> {
@@ -40,6 +47,7 @@ export default class Signup extends Component<Props, State> {
       identityType,
       username: '',
       password: '',
+      errors: new FormErrors(),
     };
   }
 
@@ -51,6 +59,10 @@ export default class Signup extends Component<Props, State> {
   };
 
   componentWillReceiveProps(props: Props, state: State): void {
+    this.setState({
+      errors: this.state.errors.update(props.error, 'request'),
+    });
+
     if (props.isRegistered) {
       route(routes.SIGNUP_VERIFY);
     }
@@ -64,14 +76,20 @@ export default class Signup extends Component<Props, State> {
     this.setState({ identityType: newIDType });
   }
 
-  handleUsername = (e: Event): void => {
-    const { value } = (e.currentTarget as HTMLFormElement);
-    this.setState({ username: value });
+  handleUsername = (evt: Event, error: NullAppError): void => {
+    const { value } = (evt.currentTarget as HTMLFormElement);
+    this.setState({
+      username: value,
+      errors: this.state.errors.update(error, 'username'),
+    });
   }
 
-  handlePassword = (e: Event): void => {
-    const { value } = (e.currentTarget as HTMLFormElement);
-    this.setState({ password: value });
+  handlePassword = (evt: Event, error: NullAppError): void => {
+    const { value } = (evt.currentTarget as HTMLFormElement);
+    this.setState({
+      password: value,
+      errors: this.state.errors.update(error, 'password'),
+    });
   }
 
   handleSubmit = (): void => {
@@ -89,27 +107,22 @@ export default class Signup extends Component<Props, State> {
     );
     const renderEmail = this.state.identityType === INPUT_EMAIL;
     const renderPhone = this.state.identityType === INPUT_PHONE;
-    const requestError = this.props.error ? this.props.error.message : '';
 
     return (
       <div class='signup'>
         <form class='signup-form'>
-          <Input
-            class='signup-input'
-            label='Password'
-            type='password'
-            onChange={this.handlePassword}
-            id='signup-password' />
-
+          <InputPassword onChange={this.handlePassword} />
           { renderEmail && <InputEmail onChange={this.handleUsername} /> }
           { renderPhone && <InputPhone onChange={this.handleUsername} /> }
           { renderIDToggle && <IDToggle
             onClick={this.handleToggleID}
             activeID={this.state.identityType} /> }
 
+          <Errors class='signup__errors' errors={this.state.errors} />
+
           <Button
             name='Signup'
-            error={requestError}
+            hasError={this.state.errors.notOk}
             isDisabled={this.props.isRequesting}
             onClick={this.handleSubmit} />
         </form>

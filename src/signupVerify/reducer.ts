@@ -3,18 +3,17 @@ import {
   REQUEST_ERROR,
   REQUEST_SUCCESS
 } from '@authenticator/signupVerify/constants';
-
-import { APIError } from '@authenticator/requests';
+import { AppError, NullAppError } from '@authenticator/errors';
 
 export interface State {
-  error: APIError | null;
+  error: NullAppError;
   isRequesting: boolean;
   isVerified: boolean;
 }
 
 export interface Action {
   type: string;
-  error?: APIError;
+  error?: AppError;
 }
 
 const defaultState: State = {

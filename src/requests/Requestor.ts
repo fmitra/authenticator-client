@@ -1,6 +1,8 @@
 import store from 'store2';
 import config from '@authenticator/config';
 
+import { AppError } from '@authenticator/errors';
+
 interface RequestOpt {
   method: string;
   body?: string;
@@ -8,16 +10,11 @@ interface RequestOpt {
   headers: {[key: string]: string};
 }
 
-export interface APIError {
-  code: string;
-  message: string;
-}
-
 export interface APIResponse<T> {
   ok?: boolean;
   status?: number;
   resultSuccess?: T;
-  resultError?: APIError;
+  resultError?: AppError;
   requestError?: any;
 }
 

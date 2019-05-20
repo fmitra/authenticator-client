@@ -2,17 +2,21 @@ import { h } from 'preact';
 
 import { Input } from '@authenticator/form';
 import { isMaybePhone } from '@authenticator/identity/validators';
+import { NullAppError } from '@authenticator/errors';
 
 interface Props {
-  onChange: { (e: Event): void };
+  onChange: { (evt: Event, error: NullAppError ): void };
 }
 
-const validatePhone = (inputValue: string | number): string => {
+const validatePhone = (inputValue: string | number): NullAppError => {
   if (isMaybePhone(String(inputValue))) {
-    return '';
+    return null;
   }
 
-  return 'Please enter a valid phone';
+  return {
+    message: 'Please enter a valid phone',
+    code: 'invalid_phone',
+  };
 };
 
 const InputPhone = (props: Props): JSX.Element => (
