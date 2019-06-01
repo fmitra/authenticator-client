@@ -1,3 +1,3 @@
 import config from '@authenticator/config/default';
 
-export default config
+export default config;

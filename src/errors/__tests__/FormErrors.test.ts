@@ -1,7 +1,7 @@
 import FormErrors from '@authenticator/errors/FormErrors';
 
 describe('FormErrors Test', (): void => {
-  it('organizes errors by key', (): void => {
+  test('organizes errors by key', (): void => {
     const formErrors = new FormErrors();
     const error = {
       message: 'Something bad happened',
@@ -19,7 +19,7 @@ describe('FormErrors Test', (): void => {
     });
   });
 
-  it('removes an error by key', (): void => {
+  test('removes an error by key', (): void => {
     const formErrors = new FormErrors();
     const error = {
       message: 'Something bad happened',
@@ -38,7 +38,7 @@ describe('FormErrors Test', (): void => {
     });
   });
 
-  it('`ok` checks for no errors found', (): void => {
+  test('`ok` checks for no errors found', (): void => {
     const formErrors = new FormErrors();
     expect(formErrors.ok).toBe(true);
 
@@ -50,7 +50,7 @@ describe('FormErrors Test', (): void => {
     expect(formErrors.ok).toBe(false);
   });
 
-  it('`notOk` checks for no errors found', (): void => {
+  test('`notOk` checks for no errors found', (): void => {
     const formErrors = new FormErrors();
     expect(formErrors.notOk).toBe(false);
 

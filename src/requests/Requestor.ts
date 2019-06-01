@@ -34,8 +34,8 @@ export default class Requestor {
       response.status = fetchResp.status;
       response.ok = false;
       response.resultError = {
-        code: "request_failure",
-        message: "Unable to complete request. Please check your connection",
+        code: 'request_failure',
+        message: 'Unable to complete request. Please try again later.',
       };
       response.requestError = fetchResp;
     };
@@ -50,8 +50,6 @@ export default class Requestor {
         return;
       }
 
-      // TODO Look into making the response fields mandatory
-      // and perhaps set defaults so we dont need to check it in the actions.
       response.resultError = body.error;
     };
 

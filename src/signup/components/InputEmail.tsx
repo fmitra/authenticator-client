@@ -23,7 +23,7 @@ const InputEmail = (props: Props): JSX.Element => (
   <Input
     class='signup-input'
     label='Username'
-    type='text'
+    type='email'
     id='signup-username-email'
     onChange={props.onChange}
     validator={validateEmail} />

@@ -4,7 +4,7 @@ import { deep } from 'preact-render-spy';
 import { FormErrors, Errors } from '@authenticator/errors';
 
 describe('Errors Test', (): void => {
-  it('renders all error messages', (): void => {
+  test('renders all error messages', (): void => {
     const errors = {
       password: {
         message: 'Password must be 6 characters or more',
@@ -20,7 +20,7 @@ describe('Errors Test', (): void => {
     expect(component.find('.error__message').length).toBe(2);
   });
 
-  it('renders no error message', (): void => {
+  test('renders no error message', (): void => {
     const errors = {};
     const formErrors = new FormErrors(errors);
     const component = deep(<Errors class='signup-errors' errors={formErrors} />);
