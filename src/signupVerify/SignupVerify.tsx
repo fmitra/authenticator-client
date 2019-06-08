@@ -16,7 +16,7 @@ interface Props {
 
 interface State {
   code: string;
-  error: { message: string, code: string } | null;
+  error: { message: string; code: string } | null;
 }
 
 export default class SignupVerify extends Component<Props, State> {

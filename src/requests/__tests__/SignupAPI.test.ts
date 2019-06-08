@@ -22,7 +22,7 @@ describe('SignupAPI Test', (): void => {
       password: 'swordfish',
       identity: 'jane@example.com',
       type: 'email',
-    })
+    });
     expect(response.ok).toBe(true);
     expect(response.resultSuccess).toEqual({
       token: 'jwt-token',
@@ -42,7 +42,7 @@ describe('SignupAPI Test', (): void => {
 
     const response = await SignupAPI.verify({
       code: '012345',
-    })
+    });
     expect(response.ok).toBe(true);
     expect(response.resultSuccess).toEqual({
       token: 'jwt-token',

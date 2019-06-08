@@ -24,9 +24,9 @@ describe('Requestor Test', (): void => {
         password: 'swordfish',
         identity: 'jane@example.com',
         type: 'email',
-      })
+      });
     } catch (e) {
-      response = e
+      response = e;
     }
     expect(response.ok).toBe(false);
     expect(response.resultError).toEqual({
@@ -53,9 +53,9 @@ describe('Requestor Test', (): void => {
         password: 'swordfish',
         identity: 'jane@example.com',
         type: 'email',
-      })
+      });
     } catch (e) {
-      response = e
+      response = e;
     }
     expect(response.ok).toBe(false);
     expect(response.resultError).toEqual({
@@ -76,13 +76,13 @@ describe('Requestor Test', (): void => {
 
     const response = await SignupAPI.verify({
       code: '012345',
-    })
+    });
     expect(response.ok).toBe(true);
     expect(response.resultSuccess).toEqual({
       token: 'jwt-token',
       clientID: 'client-id',
     });
-    const request = fetchMock.calls()[0][1]
+    const request = fetchMock.calls()[0][1];
     const headers = request ? request.headers : {};
     expect(headers).toEqual({
       'content-type': ['application/json'],

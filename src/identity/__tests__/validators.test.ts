@@ -21,7 +21,7 @@ describe('validators Test', (): void => {
       },
     ];
 
-    tableTest.forEach(testCase => {
+    tableTest.forEach((testCase): void => {
       expect(isMaybeEmail(testCase.email)).toBe(testCase.result);
     });
   });
@@ -42,7 +42,7 @@ describe('validators Test', (): void => {
       },
     ];
 
-    tableTest.forEach(testCase => {
+    tableTest.forEach((testCase): void => {
       expect(isMaybePhone(testCase.phone)).toBe(testCase.result);
     });
   });

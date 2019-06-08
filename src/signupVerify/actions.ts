@@ -46,6 +46,7 @@ export const verify = (data: VerifyRequest): Verification => async (dispatch): P
       code: 'invalid_token',
       message: 'Token is not correctly formatted',
     } });
+    return;
   }
 
   dispatch({ type: REQUEST_SUCCESS });
