@@ -1,8 +1,6 @@
 import { h, Component } from 'preact';
-import { route } from 'preact-router';
 
 import config from '@authenticator/config';
-import routes from '@authenticator/app/routes';
 import { Button } from '@authenticator/form';
 import { SignupRequest } from '@authenticator/requests';
 import { NullAppError, FormErrors, Errors } from '@authenticator/errors';
@@ -18,7 +16,6 @@ export interface Props {
   path?: string;
   error: NullAppError;
   register: { (data: SignupRequest): any };
-  isRegistered: boolean;
   isRequesting: boolean;
 }
 
@@ -54,7 +51,6 @@ export default class Signup extends Component<Props, State> {
   static defaultProps = {
     error: null,
     register: (data: SignupRequest): void => {},
-    isRegistered: false,
     isRequesting: false,
   };
 
@@ -62,10 +58,6 @@ export default class Signup extends Component<Props, State> {
     this.setState({
       errors: this.state.errors.update(props.error, 'request'),
     });
-
-    if (props.isRegistered) {
-      route(routes.SIGNUP_VERIFY);
-    }
   }
 
   handleToggleID = (): void => {

@@ -1,5 +1,7 @@
 import { ThunkAction } from 'redux-thunk';
+import { push } from 'preact-router-redux';
 
+import routes from '@authenticator/app/routes';
 import { Action, State } from '@authenticator/signup/reducer';
 import Token from '@authenticator/identity/Token';
 import {
@@ -58,4 +60,5 @@ export const register = (data: SignupRequest): Registration => async (dispatch):
   }
 
   dispatch({ type: REQUEST_SUCCESS });
+  dispatch(push(routes.SIGNUP_VERIFY));
 };

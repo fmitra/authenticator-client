@@ -10,12 +10,10 @@ describe('SignupVerify Reducer Test', (): void => {
     const currentState = {
       error: null,
       isRequesting: false,
-      isVerified: false,
     };
     expect(reducer(currentState, { type: REQUEST })).toEqual({
       error: null,
       isRequesting: true,
-      isVerified: false,
     });
   });
 
@@ -23,7 +21,6 @@ describe('SignupVerify Reducer Test', (): void => {
     const currentState = {
       error: null,
       isRequesting: false,
-      isVerified: false,
     };
     const error = {
       message: 'Whoops something bad happened',
@@ -35,7 +32,6 @@ describe('SignupVerify Reducer Test', (): void => {
         code: 'error_code',
       },
       isRequesting: false,
-      isVerified: false,
     });
   });
 
@@ -43,12 +39,10 @@ describe('SignupVerify Reducer Test', (): void => {
     const currentState = {
       error: null,
       isRequesting: false,
-      isVerified: false,
     };
     expect(reducer(currentState, { type: REQUEST_SUCCESS })).toEqual({
       error: null,
       isRequesting: false,
-      isVerified: true,
     });
   });
 });

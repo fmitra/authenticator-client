@@ -1,7 +1,5 @@
 import { h, Component } from 'preact';
-import { route } from 'preact-router';
 
-import routes from '@authenticator/app/routes';
 import { Input, Button } from '@authenticator/form';
 import { VerifyRequest } from '@authenticator/requests';
 import { NullAppError } from '@authenticator/errors';
@@ -11,7 +9,6 @@ interface Props {
   error: NullAppError;
   verify: { (data: VerifyRequest): any };
   isRequesting: boolean;
-  isVerified: boolean;
 }
 
 interface State {
@@ -24,15 +21,10 @@ export default class SignupVerify extends Component<Props, State> {
     error: null,
     verify: (data: VerifyRequest): void => {},
     isRequesting: false,
-    isVerified: false,
   };
 
   componentWillReceiveProps(props: Props, state: State): void {
     this.setState({ error: props.error });
-
-    if (props.isVerified) {
-      route(routes.SIGNUP_SUCCESS);
-    }
   }
 
   handleCode = (e: Event): void => {

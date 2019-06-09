@@ -1,8 +1,10 @@
 import fetchMock from 'fetch-mock';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
+
 import config from '@authenticator/config';
 import { register } from '@authenticator/signup/actions';
+import routes from '@authenticator/app/routes';
 import { SignupRequest } from '@authenticator/requests';
 import {
   REQUEST,
@@ -82,7 +84,7 @@ describe('Signup Actions Register Test', (): void => {
     ]);
   });
 
-  test('dispatches success', async (): Promise<void> => {
+  test('routes to verification on success', async (): Promise<void> => {
     const url = `${config.api.baseURL}/api/v1/signup`;
     fetchMock.mock(url, {
       status: 201,
@@ -96,6 +98,15 @@ describe('Signup Actions Register Test', (): void => {
     expect(storeMock.getActions()).toEqual([
       { type: REQUEST },
       { type: REQUEST_SUCCESS },
+      {
+        payload: {
+          args: [
+            routes.SIGNUP_VERIFY,
+          ],
+          method: 'push',
+        },
+        type: '@@router/CALL_HISTORY_METHOD',
+      },
     ]);
   });
 });

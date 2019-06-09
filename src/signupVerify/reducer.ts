@@ -8,7 +8,6 @@ import { AppError, NullAppError } from '@authenticator/errors';
 export interface State {
   error: NullAppError;
   isRequesting: boolean;
-  isVerified: boolean;
 }
 
 export interface Action {
@@ -19,7 +18,6 @@ export interface Action {
 const defaultState: State = {
   error: null,
   isRequesting: false,
-  isVerified: false,
 };
 
 export default (state: State = defaultState, action: Action): State => {
@@ -29,7 +27,6 @@ export default (state: State = defaultState, action: Action): State => {
         ...state,
         error: null,
         isRequesting: true,
-        isVerified: false,
       };
     }
 
@@ -38,7 +35,6 @@ export default (state: State = defaultState, action: Action): State => {
         ...state,
         error: action.error ? action.error : null,
         isRequesting: false,
-        isVerified: false,
       };
     }
 
@@ -47,7 +43,6 @@ export default (state: State = defaultState, action: Action): State => {
         ...state,
         error: null,
         isRequesting: false,
-        isVerified: true,
       };
     }
 

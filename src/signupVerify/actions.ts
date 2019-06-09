@@ -1,5 +1,7 @@
 import { ThunkAction } from 'redux-thunk';
+import { push } from 'preact-router-redux';
 
+import routes from '@authenticator/app/routes';
 import { Action, State } from '@authenticator/signupVerify/reducer';
 import Token from '@authenticator/identity/Token';
 import {
@@ -50,4 +52,5 @@ export const verify = (data: VerifyRequest): Verification => async (dispatch): P
   }
 
   dispatch({ type: REQUEST_SUCCESS });
+  dispatch(push(routes.SIGNUP_SUCCESS));
 };

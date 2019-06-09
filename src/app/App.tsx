@@ -8,13 +8,13 @@ import SignupVerify from '@authenticator/signupVerify';
 import SignupSuccess from '@authenticator/signupSuccess';
 import Device from '@authenticator/device/Device';
 import routes from '@authenticator/app/routes';
-import store from '@authenticator/app/store';
+import store, { history } from '@authenticator/app/store';
 
 export default class App extends Component {
   public render(): JSX.Element {
     return (
       <Provider store={store}>
-        <Router>
+        <Router history={history}>
           <Login path={routes.LOGIN} />
           <Signup path={routes.SIGNUP} />
           <SignupVerify path={routes.SIGNUP_VERIFY} />
