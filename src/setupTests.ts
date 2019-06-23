@@ -12,6 +12,7 @@ interface TestResponse {
   message: { (): string };
 }
 
+/* eslint-disable @typescript-eslint/no-namespace */
 declare global {
   /**
    * Enable custom assertions with all jest tests.
@@ -26,6 +27,7 @@ declare global {
     }
   }
 }
+/* eslint-enable @typescript-eslint/no-namespace */
 
 expect.extend({
   /**
@@ -44,13 +46,13 @@ expect.extend({
     if (received === expected) {
       return {
         pass: true,
-        message: () => `'${inputCase}' should pass`,
+        message: (): string => `'${inputCase}' should pass`,
       };
     }
 
     return {
       pass: false,
-      message: () => `'${inputCase}' should fail`,
+      message: (): string => `'${inputCase}' should fail`,
     };
   },
 });
