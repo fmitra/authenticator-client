@@ -34,10 +34,7 @@
       "@authenticator/*": ["src/*"]
     }
   },
-  "include": [
-    "src/**/*",
-    "types/**/*"
-  ],
+  "include": ["src/**/*"],
   "exclude": [
     "src/setupTests.ts",
     "src/*/**/__tests__/**/*"
