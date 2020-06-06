@@ -1,6 +1,5 @@
-import store from 'store2';
 import config from '@authenticator/config';
-
+import Token from '@authenticator/identity/Token';
 import { AppError } from '@authenticator/errors';
 
 interface RequestOpt {
@@ -68,8 +67,7 @@ export default class Requestor {
   }
 
   protected headers(): {[key: string]: string} {
-    const tokenName = config.token.name;
-    const jwt: string = store.get(tokenName);
+    const jwt: string = Token.token;
 
     const headers: {[key: string]: string} = {
       'Content-Type': 'application/json',

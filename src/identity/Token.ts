@@ -12,6 +12,17 @@ export interface JWT {
   state: string;
 }
 
+const defaultToken = {
+  exp: 0,
+  jti: '',
+  iss: '',
+  client_id: '',
+  user_id: '',
+  email: '',
+  phone_number: '',
+  state: '',
+}
+
 /**
  * A singleton class to manage a token stored in localStorage.
  */
@@ -19,16 +30,25 @@ class Token {
   private parsedToken: JWT;
 
   constructor() {
-    this.parsedToken = {
-      exp: 0,
-      jti: '',
-      iss: '',
-      client_id: '',
-      user_id: '',
-      email: '',
-      phone_number: '',
-      state: '',
-    };
+    this.parsedToken = defaultToken;
+  }
+
+  unpackToken(t: string): JWT {
+    const b64Token = t.split('.')[1];
+    return JSON.parse(atob(b64Token));
+  }
+
+  unpackedToken(): JWT {
+    const tokenNotSet = (
+      JSON.stringify(this.parsedToken) ===
+      JSON.stringify(defaultToken)
+    );
+
+    if (tokenNotSet && this.token) {
+      this.parsedToken = this.unpackToken(this.token);
+    }
+
+    return this.parsedToken;
   }
 
   /**
@@ -44,9 +64,7 @@ class Token {
    * received.
    */
   set(t: string): void {
-    const b64Token = t.split('.')[1];
-
-    this.parsedToken = JSON.parse(atob(b64Token));
+    this.parsedToken = this.unpackToken(t);
 
     const localToken = config.token.name;
     store.set(localToken, t);
@@ -58,35 +76,35 @@ class Token {
   }
 
   get expiresAt(): Date {
-    return new Date(this.parsedToken.exp * 1000);
+    return new Date(this.unpackedToken().exp * 1000);
   }
 
   get jti(): string {
-    return this.parsedToken.jti;
+    return this.unpackedToken().jti;
   }
 
   get issuer(): string {
-    return this.parsedToken.iss;
+    return this.unpackedToken().iss;
   }
 
   get userID(): string {
-    return this.parsedToken.user_id;
+    return this.unpackedToken().user_id;
   }
 
   get clientID(): string {
-    return this.parsedToken.client_id;
+    return this.unpackedToken().client_id;
   }
 
   get email(): string {
-    return this.parsedToken.email;
+    return this.unpackedToken().email;
   }
 
   get phoneNumber(): string {
-    return this.parsedToken.phone_number;
+    return this.unpackedToken().phone_number;
   }
 
   get state(): string {
-    return this.parsedToken.state;
+    return this.unpackedToken().state;
   }
 };
 

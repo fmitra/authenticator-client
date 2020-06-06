@@ -6,7 +6,7 @@ import Login from '@authenticator/login/Login';
 import Signup from '@authenticator/signup';
 import SignupVerify from '@authenticator/signupVerify';
 import SignupSuccess from '@authenticator/signupSuccess';
-import Device from '@authenticator/device/Device';
+import Device from '@authenticator/device';
 import routes from '@authenticator/app/routes';
 import store, { history } from '@authenticator/app/store';
 

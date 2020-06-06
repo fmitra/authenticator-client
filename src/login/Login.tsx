@@ -1,7 +1,7 @@
 import { h } from 'preact';
 
 interface Props {
-  path: string;
+  path?: string;
 }
 
 const Login = (props: Props): JSX.Element => {

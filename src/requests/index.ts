@@ -4,8 +4,15 @@ import SignupAPI, {
   SignupRequest,
   VerifyRequest,
 } from '@authenticator/requests/SignupAPI';
+import DeviceAPI, {
+  InitDeviceResponse,
+  CredentialResponse,
+}from '@authenticator/requests/DeviceAPI';
 
 export {
+  DeviceAPI,
+  InitDeviceResponse,
+  CredentialResponse,
   SignupAPI,
   SignupRequest,
   SignupResponse,
