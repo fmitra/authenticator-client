@@ -7,9 +7,27 @@ import SignupAPI, {
 import DeviceAPI, {
   InitDeviceResponse,
   CredentialResponse,
-}from '@authenticator/requests/DeviceAPI';
+} from '@authenticator/requests/DeviceAPI';
+import TOTPAPI, {
+  SecretResponse,
+} from '@authenticator/requests/TOTPAPI';
+import { TokenResponse } from '@authenticator/requests/token';
+import ContactAPI, {
+  DeliveryRequest,
+  DeactivateRequest,
+  SendRequest,
+  VerifyContactRequest,
+} from '@authenticator/requests/ContactAPI';
 
 export {
+  ContactAPI,
+  DeliveryRequest,
+  DeactivateRequest,
+  SendRequest,
+  VerifyContactRequest,
+  TokenResponse,
+  TOTPAPI,
+  SecretResponse,
   DeviceAPI,
   InitDeviceResponse,
   CredentialResponse,

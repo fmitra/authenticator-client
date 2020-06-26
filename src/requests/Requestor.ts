@@ -97,4 +97,18 @@ export default class Requestor {
 
     return this.makeRequest<T>(new Request(url, opts))
   }
+
+  protected del<T>(url: string, data?: any): Promise<APIResponse<T>> {
+    const opts: RequestOpt = {
+      method: 'DELETE',
+      headers: this.headers(),
+      credentials: 'include',
+    }
+
+    if (data) {
+      opts['body'] = JSON.stringify(data);
+    }
+
+    return this.makeRequest<T>(new Request(url, opts))
+  }
 }
