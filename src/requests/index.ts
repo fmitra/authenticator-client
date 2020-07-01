@@ -1,6 +1,5 @@
 import { APIResponse } from '@authenticator/requests/Requestor';
 import SignupAPI, {
-  SignupResponse,
   SignupRequest,
   VerifyRequest,
 } from '@authenticator/requests/SignupAPI';
@@ -10,6 +9,7 @@ import DeviceAPI, {
 } from '@authenticator/requests/DeviceAPI';
 import TOTPAPI, {
   SecretResponse,
+  TOTPRequest,
 } from '@authenticator/requests/TOTPAPI';
 import { TokenResponse } from '@authenticator/requests/token';
 import ContactAPI, {
@@ -26,6 +26,7 @@ export {
   SendRequest,
   VerifyContactRequest,
   TokenResponse,
+  TOTPRequest,
   TOTPAPI,
   SecretResponse,
   DeviceAPI,
@@ -33,7 +34,6 @@ export {
   CredentialResponse,
   SignupAPI,
   SignupRequest,
-  SignupResponse,
   VerifyRequest,
   APIResponse,
 };

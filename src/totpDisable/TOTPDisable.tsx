@@ -1,39 +1,43 @@
 import { h, Component } from 'preact';
 
 import { Input, Button } from '@authenticator/form';
-import { VerifyRequest } from '@authenticator/requests';
-import { NullAppError, FormErrors, Errors } from '@authenticator/errors';
+import { NullAppError, Errors, FormErrors } from '@authenticator/errors';
+import { TOTPRequest } from '@authenticator/requests';
+
+interface State {
+  errors: FormErrors;
+  code: string;
+}
 
 interface Props {
   path?: string;
   error: NullAppError;
-  verify: { (data: VerifyRequest): any };
+  disable: { (data: TOTPRequest): any };
   isRequesting: boolean;
+  isDisabled: boolean;
 }
 
-interface State {
-  code: string;
-  errors: FormErrors;
-}
-
-export default class SignupVerify extends Component<Props, State> {
+export default class TOTPDisable extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
     this.state = {
-      code: '',
       errors: new FormErrors(),
+      code: '',
     }
   }
 
   static defaultProps = {
     error: null,
-    verify: (data: VerifyRequest): void => {},
+    disable: (data: TOTPRequest): void => {},
     isRequesting: false,
-  };
+    isDisabled: false,
+  }
 
   componentWillReceiveProps(props: Props, state: State): void {
-    this.setState({ errors: this.state.errors.update(props.error, 'request') });
+    this.setState({
+      errors: this.state.errors.update(props.error, 'request'),
+    });
   }
 
   handleCode = (e: Event): void => {
@@ -42,24 +46,22 @@ export default class SignupVerify extends Component<Props, State> {
   }
 
   handleSubmit = (): void => {
-    this.props.verify({
-      code: this.state.code,
-    });
+    this.props.disable({ code: this.state.code });
   }
 
   render(): JSX.Element {
     return (
-      <div class='signup-verify'>
-        <form class='signup-verify-form'>
+      <div class='totp-disable'>
+        TOTP Disable
+        <form class='totp-disable-form'>
+          <Errors class='totp__errors' errors={this.state.errors} />
+
           <Input
-            class='signup-verify-input'
+            class='totp-disable__input'
             label='Code'
             type='string'
-            id='signup-verify-code'
+            id='totp-disable-code'
             onChange={this.handleCode} />
-
-          <Errors class='signup__errors' errors={this.state.errors} />
-
           <Button
             name='Submit'
             hasError={this.state.errors.notOk}

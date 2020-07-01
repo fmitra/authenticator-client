@@ -4,5 +4,7 @@ export default {
   SIGNUP: '/signup',
   SIGNUP_VERIFY: '/signup/verify',
   SIGNUP_SUCCESS: '/signup/success',
-  DEVICE: '/device'
+  DEVICE: '/device',
+  TOTP: '/totp',
+  TOTP_DISABLE: '/totp/disable',
 };

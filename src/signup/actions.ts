@@ -11,7 +11,7 @@ import {
 } from '@authenticator/signup/constants';
 import {
   SignupAPI,
-  SignupResponse,
+  TokenResponse,
   SignupRequest,
   APIResponse,
 } from '@authenticator/requests';
@@ -30,7 +30,7 @@ export type Registration = ThunkAction<void, { signup: State }, void, Action>;
  * to the UI.
  */
 export const register = (data: SignupRequest): Registration => async (dispatch): Promise<void> => {
-  let response: APIResponse<SignupResponse>;
+  let response: APIResponse<TokenResponse>;
 
   dispatch({ type: REQUEST });
 

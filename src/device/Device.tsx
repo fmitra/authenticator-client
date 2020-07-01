@@ -1,7 +1,11 @@
 import { h, Component } from 'preact';
 
 import { Button } from '@authenticator/form';
-import { NullAppError } from '@authenticator/errors';
+import { NullAppError, FormErrors, Errors } from '@authenticator/errors';
+
+interface State {
+  errors: FormErrors;
+}
 
 interface Props {
   path?: string;
@@ -10,15 +14,25 @@ interface Props {
   registerDevice: { (credentialsAPI: CredentialsContainer): any };
 }
 
-export default class Device extends Component<Props, {}> {
+export default class Device extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
+
+    this.state = {
+      errors: new FormErrors(),
+    }
   }
 
   static defaultProps = {
     error: null,
     isRequesting: false,
     registerDevice: (credentialsAPI: CredentialsContainer): void => {},
+  }
+
+  componentWillReceiveProps(props: Props, state: State): void {
+    this.setState({
+      errors: this.state.errors.update(props.error, 'request'),
+    });
   }
 
   handleSubmit = (): void => {
@@ -30,11 +44,12 @@ export default class Device extends Component<Props, {}> {
       <div>
         Device
 
-        {/* TODO Handle error states */}
+        <Errors class='device__errors' errors={this.state.errors} />
+
         <Button
-          name="Add Device"
-          hasError={false}
-          isDisabled={false}
+          name='Add Device'
+          hasError={this.state.errors.notOk}
+          isDisabled={this.props.isRequesting}
           onClick={this.handleSubmit} />
       </div>
     );

@@ -1,6 +1,6 @@
 import fetchMock from 'fetch-mock';
 
-import { SignupAPI, APIResponse, SignupResponse } from '@authenticator/requests';
+import { SignupAPI, APIResponse, TokenResponse } from '@authenticator/requests';
 import config from '@authenticator/config';
 
 jest.mock('store2', (): any => ({
@@ -18,7 +18,7 @@ describe('Requestor Test', (): void => {
       status: 500,
     });
 
-    let response: APIResponse<SignupResponse>;
+    let response: APIResponse<TokenResponse>;
     try {
       response = await SignupAPI.register({
         password: 'swordfish',
@@ -47,7 +47,7 @@ describe('Requestor Test', (): void => {
       },
     });
 
-    let response: APIResponse<SignupResponse>;
+    let response: APIResponse<TokenResponse>;
     try {
       response = await SignupAPI.register({
         password: 'swordfish',

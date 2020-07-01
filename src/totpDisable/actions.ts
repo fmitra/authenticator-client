@@ -1,33 +1,28 @@
 import { ThunkAction } from 'redux-thunk';
-import { push } from 'preact-router-redux';
 
-import routes from '@authenticator/app/routes';
-import { Action, State } from '@authenticator/signupVerify/reducer';
+import { Action, State } from '@authenticator/totpDisable/reducer';
 import Token from '@authenticator/identity/Token';
 import {
   REQUEST,
   REQUEST_ERROR,
   REQUEST_SUCCESS,
-} from '@authenticator/signupVerify/constants';
+} from '@authenticator/totpDisable/constants';
 import {
-  SignupAPI,
+  TOTPAPI,
   TokenResponse,
-  VerifyRequest,
   APIResponse,
+  TOTPRequest,
 } from '@authenticator/requests';
 
-export type Verification = ThunkAction<void, { signup: State }, void, Action>;
+export type TOTPManagement = ThunkAction<void, { totp: State }, void, Action>;
 
-/**
- * Completes verification of a recently registered user.
- */
-export const verify = (data: VerifyRequest): Verification => async (dispatch): Promise<void> => {
+export const disable = (data: TOTPRequest): TOTPManagement => async (dispatch): Promise<void> => {
   let response: APIResponse<TokenResponse>;
 
   dispatch({ type: REQUEST });
 
   try {
-    response = await SignupAPI.verify(data);
+    response = await TOTPAPI.disable(data);
   } catch(e) {
     dispatch({ type: REQUEST_ERROR, error: e.resultError });
     return;
@@ -52,5 +47,4 @@ export const verify = (data: VerifyRequest): Verification => async (dispatch): P
   }
 
   dispatch({ type: REQUEST_SUCCESS });
-  dispatch(push(routes.SIGNUP_SUCCESS));
 };

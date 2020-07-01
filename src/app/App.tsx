@@ -7,6 +7,8 @@ import Signup from '@authenticator/signup';
 import SignupVerify from '@authenticator/signupVerify';
 import SignupSuccess from '@authenticator/signupSuccess';
 import Device from '@authenticator/device';
+import TOTP from '@authenticator/totp';
+import TOTPDisable from '@authenticator/totpDisable';
 import routes from '@authenticator/app/routes';
 import store, { history } from '@authenticator/app/store';
 
@@ -20,6 +22,8 @@ export default class App extends Component {
           <SignupVerify path={routes.SIGNUP_VERIFY} />
           <SignupSuccess path={routes.SIGNUP_SUCCESS} />
           <Device path={routes.DEVICE} />
+          <TOTP path={routes.TOTP} />
+          <TOTPDisable path={routes.TOTP_DISABLE} />
         </Router>
       </Provider>
     );

@@ -2,3 +2,4 @@
 /.npm-debug.log
 /dist
 /src/config/local.ts
+.DS_Store

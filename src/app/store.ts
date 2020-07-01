@@ -10,10 +10,16 @@ import thunk from 'redux-thunk';
 
 import signup from '@authenticator/signup/reducer';
 import signupVerify from '@authenticator/signupVerify/reducer';
+import device from  '@authenticator/device/reducer';
+import totp from '@authenticator/totp/reducer';
+import totpDisable from '@authenticator/totpDisable/reducer';
 
 const browserHistory = createBrowserHistory();
 
 const reducers = combineReducers({
+  totp,
+  totpDisable,
+  device,
   signup,
   signupVerify,
   routing: routerReducer,

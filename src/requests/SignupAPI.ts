@@ -1,4 +1,5 @@
 import Requestor, { APIResponse } from '@authenticator/requests/Requestor';
+import { TokenResponse } from '@authenticator/requests/token';
 
 export interface VerifyRequest {
   code: string;
@@ -8,11 +9,6 @@ export interface SignupRequest {
   password: string;
   identity: string;
   type: string;
-}
-
-export interface SignupResponse {
-  token: string;
-  clientID: string;
 }
 
 /**
@@ -28,9 +24,9 @@ class SignupAPI extends Requestor {
    * A user identity (eg phone or email) is available
    * for registration until a user calls the verify endpoint.
    */
-  register(data: SignupRequest): Promise<APIResponse<SignupResponse>> {
+  register(data: SignupRequest): Promise<APIResponse<TokenResponse>> {
     const url = this.endpoint('signup');
-    return this.post<SignupResponse>(url, data);
+    return this.post<TokenResponse>(url, data);
   }
 
   /**
@@ -39,9 +35,9 @@ class SignupAPI extends Requestor {
    * After verification, a user is considered successfully registered
    * for our services.
    */
-  verify(data: VerifyRequest): Promise<APIResponse<SignupResponse>> {
+  verify(data: VerifyRequest): Promise<APIResponse<TokenResponse>> {
     const url = this.endpoint('signup/verify');
-    return this.post<SignupResponse>(url, data);
+    return this.post<TokenResponse>(url, data);
   }
 }
 
