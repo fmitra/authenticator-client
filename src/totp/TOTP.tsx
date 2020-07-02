@@ -64,25 +64,19 @@ export default class TOTP extends Component<Props, State> {
         <form class='totp-form'>
           <Errors class='totp__errors' errors={this.state.errors} />
 
-          {
-            !this.props.totp &&
-            <Button
-              name='Show QR Code'
-              hasError={this.state.errors.notOk}
-              isDisabled={this.props.isRequesting}
-              onClick={this.handleSecret} />
-          }
+          { !this.props.totp && <Button
+            name='Show QR Code'
+            hasError={this.state.errors.notOk}
+            isDisabled={this.props.isRequesting}
+            onClick={this.handleSecret} /> }
 
           { this.props.totp && this.props.totp }
 
-          {
-            this.props.totp &&
-            <FormFields
-              errors={this.state.errors}
-              isDisabled={this.props.isRequesting}
-              handleSubmit={this.handleSubmit}
-              handleCode={this.handleCode} />
-          }
+          { this.props.totp && <FormFields
+            errors={this.state.errors}
+            isDisabled={this.props.isRequesting}
+            handleSubmit={this.handleSubmit}
+            handleCode={this.handleCode} /> }
         </form>
       </div>
     );

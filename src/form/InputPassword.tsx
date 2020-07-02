@@ -6,6 +6,9 @@ import { NullAppError } from '@authenticator/errors';
 
 interface Props {
   onChange: { (evt: Event, error: NullAppError): void };
+  class: string;
+  label: string;
+  id: string;
 }
 
 const validatePassword = (inputValue: string | number): NullAppError => {
@@ -21,12 +24,12 @@ const validatePassword = (inputValue: string | number): NullAppError => {
 
 const InputPassword = (props: Props): JSX.Element => (
   <Input
-    class='signup-input'
-    label='Password'
+    class={props.class}
+    label={props.label}
     type='password'
     onChange={props.onChange}
     validator={validatePassword}
-    id='signup-password' />
+    id={props.id} />
 );
 
 export default InputPassword;

@@ -4,8 +4,8 @@ import { Input, Button } from '@authenticator/form';
 import { FormErrors } from '@authenticator/errors';
 
 interface Props {
-  handleCode: { (e: Event): void }
-  handleSubmit: { (): void }
+  handleCode: { (e: Event): void };
+  handleSubmit: { (): void };
   errors: FormErrors;
   isDisabled: boolean;
 }

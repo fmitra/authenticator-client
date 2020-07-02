@@ -13,10 +13,12 @@ import signupVerify from '@authenticator/signupVerify/reducer';
 import device from  '@authenticator/device/reducer';
 import totp from '@authenticator/totp/reducer';
 import totpDisable from '@authenticator/totpDisable/reducer';
+import contact from '@authenticator/contact/reducer';
 
 const browserHistory = createBrowserHistory();
 
 const reducers = combineReducers({
+  contact,
   totp,
   totpDisable,
   device,

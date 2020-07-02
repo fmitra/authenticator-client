@@ -7,9 +7,9 @@ interface Props {
   onClick: { (): void };
 }
 
-const IDToggle = (props: Props): JSX.Element => (
+const AddressToggle = (props: Props): JSX.Element => (
   <div onClick={props.onClick}>
-    Sign up with {
+    Register new {
       props.activeID === PHONE
         ? EMAIL
         : PHONE
@@ -17,4 +17,4 @@ const IDToggle = (props: Props): JSX.Element => (
   </div>
 );
 
-export default IDToggle;
+export default AddressToggle;

@@ -1,19 +1,18 @@
 import Requestor, { APIResponse } from '@authenticator/requests/Requestor';
 import { TokenResponse } from '@authenticator/requests/token';
-
-type DeliveryMethod = "phone" | "email"
+import { ContactMethod } from '@authenticator/identity/contact';
 
 export interface DeliveryRequest {
-  deliveryMethod: DeliveryMethod;
+  deliveryMethod: ContactMethod;
   address: string;
 }
 
 export interface DeactivateRequest {
-  deliveryMethod: DeliveryMethod;
+  deliveryMethod: ContactMethod;
 }
 
 export interface SendRequest {
-  deliveryMethod: DeliveryMethod;
+  deliveryMethod: ContactMethod;
 }
 
 export interface VerifyContactRequest {

@@ -5,6 +5,9 @@ import { isMaybeEmail } from '@authenticator/identity/validators';
 import { NullAppError } from '@authenticator/errors';
 
 interface Props {
+  class: string;
+  id: string;
+  label: string;
   onChange: { (evt: Event, error: NullAppError ): void };
 }
 
@@ -21,10 +24,10 @@ const validateEmail = (inputValue: string | number): NullAppError => {
 
 const InputEmail = (props: Props): JSX.Element => (
   <Input
-    class='signup-input'
-    label='Username'
+    class={props.class}
+    label={props.label}
     type='email'
-    id='signup-username-email'
+    id={props.id}
     onChange={props.onChange}
     validator={validateEmail} />
 );

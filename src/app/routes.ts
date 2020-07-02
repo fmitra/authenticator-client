@@ -7,4 +7,6 @@ export default {
   DEVICE: '/device',
   TOTP: '/totp',
   TOTP_DISABLE: '/totp/disable',
+  CONTACT: '/contact',
+  CONTACT_VERIFY: '/contact/verify',
 };

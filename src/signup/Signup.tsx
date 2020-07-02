@@ -1,16 +1,16 @@
 import { h, Component } from 'preact';
 
 import config from '@authenticator/config';
-import { Button } from '@authenticator/form';
 import { SignupRequest } from '@authenticator/requests';
 import { NullAppError, FormErrors, Errors } from '@authenticator/errors';
+import { IDToggle } from '@authenticator/signup/components';
 import {
-  IDToggle,
-  InputPassword,
-  InputEmail,
+  Button,
   InputPhone,
-} from '@authenticator/signup/components';
-import { INPUT_PHONE, INPUT_EMAIL } from '@authenticator/signup/constants';
+  InputEmail,
+  InputPassword,
+} from '@authenticator/form';
+import { PHONE, EMAIL, ContactMethod } from '@authenticator/identity/contact';
 
 export interface Props {
   path?: string;
@@ -20,7 +20,7 @@ export interface Props {
 }
 
 interface State {
-  identityType: string;
+  identityType: ContactMethod;
   username: string;
   password: string;
   errors: FormErrors;
@@ -30,14 +30,10 @@ export default class Signup extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    let identityType = '';
+    let identityType: ContactMethod = EMAIL;
 
-    if (config.validUserIdentity.phone) {
-      identityType = INPUT_PHONE;
-    }
-
-    if (config.validUserIdentity.email) {
-      identityType = INPUT_EMAIL;
+    if (!config.validUserIdentity.email && config.validUserIdentity.phone) {
+      identityType = PHONE;
     }
 
     this.state = {
@@ -61,9 +57,9 @@ export default class Signup extends Component<Props, State> {
   }
 
   handleToggleID = (): void => {
-    const newIDType = this.state.identityType === INPUT_PHONE
-      ? INPUT_EMAIL
-      : INPUT_PHONE;
+    const newIDType = this.state.identityType === PHONE
+      ? EMAIL
+      : PHONE;
 
     this.setState({ identityType: newIDType });
   }
@@ -97,15 +93,27 @@ export default class Signup extends Component<Props, State> {
       config.validUserIdentity.email &&
       config.validUserIdentity.phone
     );
-    const renderEmail = this.state.identityType === INPUT_EMAIL;
-    const renderPhone = this.state.identityType === INPUT_PHONE;
+    const renderEmail = this.state.identityType === EMAIL;
+    const renderPhone = this.state.identityType === PHONE;
 
     return (
       <div class='signup'>
         <form class='signup-form'>
-          <InputPassword onChange={this.handlePassword} />
-          { renderEmail && <InputEmail onChange={this.handleUsername} /> }
-          { renderPhone && <InputPhone onChange={this.handleUsername} /> }
+          <InputPassword
+            onChange={this.handlePassword}
+            class='signup-input'
+            label='Password'
+            id='signup-password' />
+          { renderEmail && <InputEmail
+            onChange={this.handleUsername}
+            class='signup-input'
+            label='Username'
+            id='signup-username-email' /> }
+          { renderPhone && <InputPhone
+            onChange={this.handleUsername}
+            class='signup-input'
+            label='Username'
+            id='signup-username-phone' /> }
           { renderIDToggle && <IDToggle
             onClick={this.handleToggleID}
             activeID={this.state.identityType} /> }
