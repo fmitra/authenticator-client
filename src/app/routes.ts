@@ -1,6 +1,7 @@
 export default {
   BASE: '/',
   LOGIN: '/login',
+  LOGIN_VERIFY: '/login/verify',
   SIGNUP: '/signup',
   SIGNUP_VERIFY: '/signup/verify',
   SIGNUP_SUCCESS: '/signup/success',

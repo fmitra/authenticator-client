@@ -1,7 +1,6 @@
 import fetchMock from 'fetch-mock';
 
 import { DeviceAPI, InitDeviceResponse } from '@authenticator/requests';
-import { toBase64 } from '@authenticator/requests/DeviceAPI';
 import config from '@authenticator/config';
 
 const mockInitDeviceResponse = {
@@ -103,10 +102,5 @@ describe('DeviceAPI Test', (): void => {
     const response = await DeviceAPI.verify(credentialMock);
     expect(response.ok).toBe(true);
     expect(response.resultSuccess).toEqual({});
-  });
-
-  test('it parses BufferSource to base64', (): void => {
-    const arrayBuffer = new ArrayBuffer(8);
-    expect(toBase64(arrayBuffer)).toEqual('AAAAAAAAAAA');
   });
 });

@@ -111,4 +111,14 @@ export default class Requestor {
 
     return this.makeRequest<T>(new Request(url, opts))
   }
+
+  protected get<T>(url: string): Promise<APIResponse<T>> {
+    const opts: RequestOpt = {
+      method: 'GET',
+      headers: this.headers(),
+      credentials: 'same-origin',
+    }
+
+    return this.makeRequest<T>(new Request(url, opts))
+  }
 }

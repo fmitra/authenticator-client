@@ -1,5 +1,6 @@
 import Requestor, { APIResponse } from '@authenticator/requests/Requestor';
 import { TokenResponse } from '@authenticator/requests/token';
+import { ContactMethod } from '@authenticator/identity/contact';
 
 export interface VerifyRequest {
   code: string;
@@ -8,7 +9,7 @@ export interface VerifyRequest {
 export interface SignupRequest {
   password: string;
   identity: string;
-  type: string;
+  type: ContactMethod;
 }
 
 /**
