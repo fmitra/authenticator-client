@@ -16,7 +16,7 @@ describe('Input Phone Test', (): void => {
       id='input-phone'
       label='Phone'
       onChange={onChangeMock}
-     />);
+    />);
     component.find('input').simulate('change', eventMock);
     expect(onChangeMock).toHaveBeenCalledWith(eventMock, null)
   });
@@ -33,7 +33,7 @@ describe('Input Phone Test', (): void => {
       id='input-phone'
       label='Phone'
       onChange={onChangeMock}
-     />);
+    />);
     component.find('input').simulate('change', eventMock);
     expect(onChangeMock).toHaveBeenCalledWith(eventMock, {
       code: 'invalid_phone',

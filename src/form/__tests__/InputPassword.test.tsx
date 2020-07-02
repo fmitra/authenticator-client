@@ -16,7 +16,7 @@ describe('Input Password Test', (): void => {
       id='input-password'
       label='Password'
       onChange={onChangeMock}
-     />);
+    />);
     component.find('input').simulate('change', eventMock);
     expect(onChangeMock).toHaveBeenCalledWith(eventMock, null)
   });
@@ -33,7 +33,7 @@ describe('Input Password Test', (): void => {
       id='input-password'
       label='Password'
       onChange={onChangeMock}
-     />);
+    />);
     component.find('input').simulate('change', eventMock);
     expect(onChangeMock).toHaveBeenCalledWith(eventMock, {
       code: 'invalid_password',
