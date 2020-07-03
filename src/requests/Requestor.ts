@@ -88,7 +88,7 @@ export default class Requestor {
     const opts: RequestOpt = {
       method: 'POST',
       headers: this.headers(),
-      credentials: 'same-origin',
+      credentials: 'include',
     }
 
     if (data) {
@@ -102,7 +102,7 @@ export default class Requestor {
     const opts: RequestOpt = {
       method: 'DELETE',
       headers: this.headers(),
-      credentials: 'same-origin',
+      credentials: 'include',
     }
 
     if (data) {
@@ -116,7 +116,7 @@ export default class Requestor {
     const opts: RequestOpt = {
       method: 'GET',
       headers: this.headers(),
-      credentials: 'same-origin',
+      credentials: 'include',
     }
 
     return this.makeRequest<T>(new Request(url, opts))

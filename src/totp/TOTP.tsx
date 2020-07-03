@@ -4,6 +4,7 @@ import { Button } from '@authenticator/form';
 import { NullAppError, Errors, FormErrors } from '@authenticator/errors';
 import { TOTPRequest } from '@authenticator/requests';
 import FormFields from '@authenticator/totp/components/FormFields';
+import { QR } from '@authenticator/ui';
 
 interface State {
   errors: FormErrors;
@@ -70,7 +71,7 @@ export default class TOTP extends Component<Props, State> {
             isDisabled={this.props.isRequesting}
             onClick={this.handleSecret} /> }
 
-          { this.props.totp && this.props.totp }
+          { this.props.totp && <QR value={this.props.totp} /> }
 
           { this.props.totp && <FormFields
             errors={this.state.errors}
