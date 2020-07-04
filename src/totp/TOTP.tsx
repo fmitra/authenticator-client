@@ -3,8 +3,7 @@ import { h, Component } from 'preact';
 import { Button } from '@authenticator/form';
 import { NullAppError, Errors, FormErrors } from '@authenticator/errors';
 import { TOTPRequest } from '@authenticator/requests';
-import FormFields from '@authenticator/totp/components/FormFields';
-import { QR } from '@authenticator/ui';
+import { QR, FormFields } from '@authenticator/totp/components';
 
 interface State {
   errors: FormErrors;
