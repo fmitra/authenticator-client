@@ -1,4 +1,5 @@
 export interface TokenResponse {
   token: string;
-  clientID: string;
+  clientID?: string;
+  refreshToken?: string;
 }

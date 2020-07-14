@@ -1,4 +1,4 @@
-export const PHONE = 'phone';
-export const EMAIL = 'email';
+export type ContactMethod = string;
 
-export type ContactMethod = 'phone' | 'email';
+export const PHONE: ContactMethod = 'phone';
+export const EMAIL: ContactMethod = 'email';

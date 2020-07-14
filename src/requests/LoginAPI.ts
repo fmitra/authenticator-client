@@ -3,12 +3,12 @@ import Requestor, { APIResponse } from '@authenticator/requests/Requestor';
 import { ContactMethod } from '@authenticator/identity/contact';
 import {
   toBase64,
-  CredentialResponse,
-  InitDeviceResponse,
-  VerifyDeviceRequest,
+  PubKeyCredentialResponse,
+  VerifyDeviceResponse,
+  VerifyAuthRequest,
 } from '@authenticator/requests/fido';
 
-export interface VerifyLoginCodeRequest {
+export interface VerifyCodeRequest {
   code: string;
 }
 
@@ -43,7 +43,7 @@ class LoginAPI extends Requestor {
    * A user must submit an OTP code delivered through email or SMS
    * to receive an authorized JWT token.
    */
-  verifyCode(data: VerifyLoginCodeRequest): Promise<APIResponse<TokenResponse>> {
+  verifyCode(data: VerifyCodeRequest): Promise<APIResponse<TokenResponse>> {
     const url = this.endpoint('login/verify-code');
     return this.post<TokenResponse>(url, data);
   }
@@ -55,12 +55,15 @@ class LoginAPI extends Requestor {
    * this enpdoint. Device challenges are signed through a FIDO compliant
    * device.
    */
-  verifyDevice(credential: CredentialResponse): Promise<APIResponse<TokenResponse>> {
+  verifyDevice(credential: PubKeyCredentialResponse): Promise<APIResponse<TokenResponse>> {
     const url = this.endpoint('login/verify-device');
-    const data: VerifyDeviceRequest = {
+    const data: VerifyAuthRequest = {
       id: credential.id,
       rawId: toBase64(credential.rawId),
       response: {
+        authenticatorData: toBase64(credential.response.authenticatorData),
+        signature: toBase64(credential.response.signature),
+        userHandle: toBase64(credential.response.userHandle),
         attestationObject: toBase64(credential.response.attestationObject),
         clientDataJSON: toBase64(credential.response.clientDataJSON),
       },
@@ -73,19 +76,28 @@ class LoginAPI extends Requestor {
   /**
    * Requests a device challenged to be signed by the user.
    */
-  async challenge(): Promise<APIResponse<InitDeviceResponse>> {
+  async challenge(): Promise<APIResponse<VerifyDeviceResponse>> {
     const url = this.endpoint('login/verify-device');
 
-    let response: APIResponse<InitDeviceResponse>;
+    let response: APIResponse<VerifyDeviceResponse>;
 
     try {
-      response = await this.get<InitDeviceResponse>(url);
+      response = await this.get<VerifyDeviceResponse>(url);
     } catch(e) {
       return Promise.reject(e);
     }
 
     if (!response.resultSuccess) {
       return Promise.resolve(response);
+    }
+
+    if (!response.resultSuccess.publicKey.allowCredentials) {
+      return Promise.reject(new Error('no credentials found'));
+    }
+
+    interface credential {
+      id: BufferSource;
+      type: string;
     }
 
     // JSON API returns the challenge and user ID as a string. In order
@@ -99,9 +111,11 @@ class LoginAPI extends Requestor {
       response.resultSuccess.publicKey.challenge as unknown as string
     ), (c: string): number => c.charCodeAt(0));
 
-    response.resultSuccess.publicKey.user.id = Uint8Array.from(atob(
-      response.resultSuccess.publicKey.user.id as unknown as string
-    ), (c: string): number => c.charCodeAt(0));
+    response.resultSuccess.publicKey.allowCredentials.forEach((cred: credential) => {
+      cred.id = Uint8Array.from(atob(
+        cred.id as unknown as string
+      ), (c: string): number => c.charCodeAt(0));
+    });
 
     return Promise.resolve(response);
   }

@@ -121,7 +121,7 @@ describe('Device Actions Credential Registration Test', (): void => {
     ]);
   });
 
-  test('dispatches error on on null credential creation respons', async (): Promise<void> => {
+  test('dispatches error on on null credential creation response', async (): Promise<void> => {
     const url = `${config.api.baseURL}/api/v1/device`;
     fetchMock.mock(url, {
       status: 200,

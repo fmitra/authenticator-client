@@ -1,6 +1,13 @@
 import store from 'store2';
 import config from '@authenticator/config';
 
+export type TFAOption = string;
+
+export const OTPPhone: TFAOption = 'otp_phone';
+export const OTPEmail: TFAOption = 'otp_email';
+export const TOTP: TFAOption = 'totp';
+export const Device: TFAOption = 'device';
+
 export interface JWT {
   exp: number;
   jti: string;
@@ -10,6 +17,8 @@ export interface JWT {
   email: string;
   phone_number: string;
   state: string;
+  tfa_options: TFAOption[];
+  default_tfa: TFAOption;
 }
 
 const defaultToken = {
@@ -21,6 +30,8 @@ const defaultToken = {
   email: '',
   phone_number: '',
   state: '',
+  tfa_options: [],
+  default_tfa: '',
 }
 
 /**
@@ -105,6 +116,14 @@ class Token {
 
   get state(): string {
     return this.unpackedToken().state;
+  }
+
+  get tfaOptions(): TFAOption[] {
+    return this.unpackedToken().tfa_options;
+  }
+
+  get defaultTFA(): TFAOption {
+    return this.unpackedToken().default_tfa;
   }
 };
 

@@ -1,6 +1,6 @@
 import { APIResponse } from '@authenticator/requests/Requestor';
 import LoginAPI, {
-  VerifyLoginCodeRequest,
+  VerifyCodeRequest,
   LoginRequest,
 } from '@authenticator/requests/LoginAPI';
 import SignupAPI, {
@@ -9,6 +9,7 @@ import SignupAPI, {
 } from '@authenticator/requests/SignupAPI';
 import {
   InitDeviceResponse,
+  VerifyDeviceResponse,
   CredentialResponse,
 } from '@authenticator/requests/fido';
 import DeviceAPI, {
@@ -27,7 +28,8 @@ import ContactAPI, {
 
 export {
   LoginAPI,
-  VerifyLoginCodeRequest,
+  VerifyDeviceResponse,
+  VerifyCodeRequest,
   LoginRequest,
   ContactAPI,
   DeliveryRequest,

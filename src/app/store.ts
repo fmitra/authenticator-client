@@ -8,6 +8,8 @@ import { createBrowserHistory } from 'history';
 
 import thunk from 'redux-thunk';
 
+import login from '@authenticator/login/reducer';
+import loginVerify from '@authenticator/loginVerify/reducer';
 import signup from '@authenticator/signup/reducer';
 import signupVerify from '@authenticator/signupVerify/reducer';
 import device from  '@authenticator/device/reducer';
@@ -24,6 +26,8 @@ const reducers = combineReducers({
   device,
   signup,
   signupVerify,
+  login,
+  loginVerify,
   routing: routerReducer,
 });
 

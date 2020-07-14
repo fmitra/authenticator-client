@@ -1,33 +1,19 @@
 import fetchMock from 'fetch-mock';
 
-import { LoginAPI, InitDeviceResponse } from '@authenticator/requests';
+import { LoginAPI, VerifyDeviceResponse } from '@authenticator/requests';
 import config from '@authenticator/config';
 
-const mockInitDeviceResponse = {
+const mockChallengeResponse = {
   publicKey: {
     challenge: 'b9aqYRIe/grw/Z4QfK1QvhYxrgsD3Cm743sFdrKdphI=',
-    rp: {
-      name: 'Authenticator',
-      id: 'authenticator.local'
-    },
-    user: {
-      name: 'ddddd@ddd.com',
-      displayName: 'ddddd@ddd.com',
-      id: 'MDFFQUREMjM4WFNaSkVUSDk4QUVEVkIyWVo='
-    },
-    pubKeyCredParams: [
+    timeout: 60000,
+    rpId: 'authenticator.local',
+    allowCredentials: [
       {
         type: 'public-key',
-        alg: -7
-      },
-    ],
-    authenticatorSelection: {
-      authenticatorAttachment: 'cross-platform',
-      requireResidentKey: false,
-      userVerification: 'preferred'
-    },
-    timeout: 60000,
-    attestation: 'direct'
+        id: 'MDFFQUREMjM4WFNaSkVUSDk4QUVEVkIyWVo=',
+      }
+    ]
   }
 };
 
@@ -44,6 +30,9 @@ describe('LoginAPI Test', (): void => {
       response: {
         attestationObject: new ArrayBuffer(0),
         clientDataJSON: new ArrayBuffer(0),
+        signature: new ArrayBuffer(0),
+        userHandle: new ArrayBuffer(0),
+        authenticatorData: new ArrayBuffer(0),
       },
       type: 'public-key',
     };
@@ -87,17 +76,19 @@ describe('LoginAPI Test', (): void => {
     const url = `${config.api.baseURL}/api/v1/login/verify-device`;
     fetchMock.mock(url, {
       status: 200,
-      body: mockInitDeviceResponse,
+      body: mockChallengeResponse,
     });
 
-    const responseMock: InitDeviceResponse = JSON.parse(
-      JSON.stringify(mockInitDeviceResponse)
-    ) as unknown as InitDeviceResponse;
+    const responseMock: VerifyDeviceResponse = JSON.parse(
+      JSON.stringify(mockChallengeResponse)
+    ) as unknown as VerifyDeviceResponse;
 
-    responseMock.publicKey.user.id = Uint8Array.from([
-      48, 49, 69, 65, 68, 68, 50, 51, 56, 88, 83, 90, 74,
-      69, 84, 72, 57, 56, 65, 69, 68, 86, 66, 50, 89, 90,
-    ]);
+    if (responseMock.publicKey.allowCredentials) {
+      responseMock.publicKey.allowCredentials[0].id = Uint8Array.from([
+        48, 49, 69, 65, 68, 68, 50, 51, 56, 88, 83, 90, 74,
+        69, 84, 72, 57, 56, 65, 69, 68, 86, 66, 50, 89, 90,
+      ]);
+    }
     responseMock.publicKey.challenge = Uint8Array.from([
       111, 214, 170, 97, 18, 30, 254, 10, 240, 253, 158,
       16, 124, 173, 80, 190, 22, 49, 174, 11, 3, 220, 41,

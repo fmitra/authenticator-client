@@ -30,7 +30,7 @@ export default class Login extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    let identityType: ContactMethod = EMAIL;
+    let identityType = EMAIL;
 
     if (!config.validUserIdentity.email && config.validUserIdentity.phone) {
       identityType = PHONE;

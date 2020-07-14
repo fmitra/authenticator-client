@@ -2,7 +2,8 @@ import { h, Component } from 'preact';
 import { Provider } from 'preact-redux';
 import Router from 'preact-router';
 
-import Login from '@authenticator/login/Login';
+import Login from '@authenticator/login';
+import LoginVerify from '@authenticator/loginVerify';
 import Signup from '@authenticator/signup';
 import SignupVerify from '@authenticator/signupVerify';
 import SignupSuccess from '@authenticator/signupSuccess';
@@ -20,6 +21,7 @@ export default class App extends Component {
       <Provider store={store}>
         <Router history={history}>
           <Login path={routes.LOGIN} />
+          <LoginVerify path={routes.LOGIN_VERIFY} />
           <Signup path={routes.SIGNUP} />
           <Contact path={routes.CONTACT} />
           <ContactVerify path={routes.CONTACT_VERIFY} />
