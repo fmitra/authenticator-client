@@ -1,5 +1,5 @@
-import store from 'store2';
 import config from '@authenticator/config';
+import storage, { StorageAPI } from '@authenticator/identity/storage';
 
 export type TFAOption = string;
 
@@ -39,9 +39,11 @@ const defaultToken = {
  */
 class Token {
   private parsedToken: JWT;
+  private storage: StorageAPI;
 
   constructor() {
     this.parsedToken = defaultToken;
+    this.storage = storage();
   }
 
   unpackToken(t: string): JWT {
@@ -78,12 +80,12 @@ class Token {
     this.parsedToken = this.unpackToken(t);
 
     const localToken = config.token.name;
-    store.set(localToken, t);
+    this.storage.setItem(localToken, t);
   }
 
   get token(): string {
     const localToken = config.token.name;
-    return store.get(localToken);
+    return this.storage.getItem(localToken) || '';
   }
 
   get expiresAt(): Date {

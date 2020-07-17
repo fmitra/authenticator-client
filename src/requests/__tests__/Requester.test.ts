@@ -1,11 +1,8 @@
 import fetchMock from 'fetch-mock';
 
 import { SignupAPI, APIResponse, TokenResponse } from '@authenticator/requests';
+import Token from '@authenticator/identity/Token';
 import config from '@authenticator/config';
-
-jest.mock('store2', (): any => ({
-  get: jest.fn().mockReturnValue('jwt-token')
-}));
 
 describe('Requestor Test', (): void => {
   afterEach((): void => {
@@ -65,6 +62,9 @@ describe('Requestor Test', (): void => {
   });
 
   test('sets authorization header if token is found', async (): Promise<void> => {
+    const mock = jest.spyOn(Token, 'token', 'get')
+    mock.mockImplementation(() => 'jwt-token');
+
     const url = `${config.api.baseURL}/api/v1/signup/verify`;
     fetchMock.mock(url, {
       status: 200,
@@ -88,5 +88,7 @@ describe('Requestor Test', (): void => {
       'content-type': ['application/json'],
       'authorization': ['Bearer jwt-token'],
     });
+
+    mock.mockRestore();
   });
 });

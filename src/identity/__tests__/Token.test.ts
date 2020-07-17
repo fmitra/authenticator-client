@@ -1,6 +1,4 @@
-import store from 'store2';
 import Token from '@authenticator/identity/Token';
-import config from '@authenticator/config';
 
 const mockToken = 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiO' +
   'jE1NTkzNjQ1ODEsImp0aSI6IjAxREM4TVNUMFlFSFZFSEpDSk5BVDc2WDFWIiw' +
@@ -13,15 +11,10 @@ const mockToken = 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiO' +
   'v7IGy_pi7PqI1IOn3j4wYD-aA7hHKS_lb143YCN0giUPjhWP893oZcu0RNHByP' +
   '05H2CpbdStFatLLVnA';
 
-jest.mock('store2', (): any => ({
-  get: jest.fn().mockReturnValue('jwt-token'),
-  set: jest.fn(),
-}));
-
 describe('Token Test', (): void => {
   test('sets a token to storage', (): void => {
     Token.set(mockToken);
-    expect(store.set).toHaveBeenCalledWith(config.token.name, mockToken);
+    expect(Token.token).toBe(mockToken);
   });
 
   test('parses an expiration date', (): void => {
@@ -36,7 +29,7 @@ describe('Token Test', (): void => {
 
     Token.set(mockToken);
     expect(Token.jti).toBe('01DC8MST0YEHVEHJCJNAT76X1V');
-    expect(Token.token).toBe('jwt-token');
+    expect(Token.token).toBe(mockToken);
     expect(Token.issuer).toBe('authenticator');
     expect(Token.userID).toBe('01DC8MSSYPX8BR88JRRVZFVZTT');
     expect(Token.clientID).toBe(clientID);
