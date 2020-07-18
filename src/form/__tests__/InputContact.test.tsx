@@ -1,10 +1,10 @@
 import { h } from 'preact';
 import { deep } from 'preact-render-spy';
 
-import InputUsername from '@authenticator/form/InputUsername';
+import InputContact from '@authenticator/form/InputContact';
 import { PHONE, EMAIL } from '@authenticator/identity/contact';
 
-describe('InputUsername Test', (): void => {
+describe('InputContact Test', (): void => {
   test('it validates an email address', (): void => {
     const eventMock = {
       currentTarget: {
@@ -12,7 +12,7 @@ describe('InputUsername Test', (): void => {
       },
     };
     const onChangeMock = jest.fn();
-    const component = deep(<InputUsername
+    const component = deep(<InputContact
       class='input-username'
       id='input-username'
       label='Username'
@@ -30,7 +30,7 @@ describe('InputUsername Test', (): void => {
       },
     };
     const onChangeMock = jest.fn();
-    const component = deep(<InputUsername
+    const component = deep(<InputContact
       class='input-username'
       id='input-username'
       label='Username'
@@ -48,7 +48,7 @@ describe('InputUsername Test', (): void => {
       },
     };
     const onChangeMock = jest.fn();
-    const component = deep(<InputUsername
+    const component = deep(<InputContact
       class='input-username'
       id='input-username'
       label='Username'
@@ -69,7 +69,7 @@ describe('InputUsername Test', (): void => {
       },
     };
     const onChangeMock = jest.fn();
-    const component = deep(<InputUsername
+    const component = deep(<InputContact
       class='input-username'
       id='input-username'
       label='Username'

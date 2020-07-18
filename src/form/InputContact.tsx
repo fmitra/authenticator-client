@@ -29,25 +29,35 @@ const validateEmail = (input: string): NullAppError => {
   };
 };
 
-const validatePhone = (input: string): NullAppError => {
-  if (isMaybePhone(input)) {
-    return null;
+const validatePhone = (input: string, language: string): NullAppError => {
+  if (!isMaybePhone(input)) {
+    return {
+      message: 'Please enter a valid phone',
+      code: 'invalid_phone',
+    };
   }
 
-  return {
-    message: 'Please enter a valid phone',
-    code: 'invalid_phone',
-  };
+  const phone = phoneWithRegion(input, language);
+  if (!phone.startsWith('+')) {
+    return {
+      message: 'Please include your country code with your phone number',
+      code: 'invalid_phone',
+    };
+  }
+
+  return null;
 };
 
-const validateContact = (input: string | number): NullAppError => {
-  const contactMethod = inferContactMethod(String(input));
+const validateContact = (language: string): { (input: string | number): NullAppError } => {
+  return (input: string | number): NullAppError => {
+    const contactMethod = inferContactMethod(String(input));
 
-  if (contactMethod == PHONE) {
-    return validatePhone(String(input));
+    if (contactMethod == PHONE) {
+      return validatePhone(String(input), language);
+    }
+
+    return validateEmail(String(input));
   }
-
-  return validateEmail(String(input));
 };
 
 export default class InputContact extends Component<Props, {}> {
@@ -65,13 +75,6 @@ export default class InputContact extends Component<Props, {}> {
 
     if (contactMethod === PHONE) {
       contact = phoneWithRegion(contact, language);
-      if (!contact.startsWith('+')) {
-        onChange(value, contactMethod, {
-          message: 'Please include your country code with your phone number',
-          code: 'invalid_phone',
-        });
-        return;
-      }
     }
 
     onChange(contact, contactMethod, error);
@@ -85,7 +88,7 @@ export default class InputContact extends Component<Props, {}> {
         type='text'
         id={this.props.id}
         onChange={this.handleContact}
-        validator={validateContact} />
+        validator={validateContact(this.props.language)} />
     );
   }
 };
