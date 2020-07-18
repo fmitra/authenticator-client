@@ -24,7 +24,7 @@ describe('Input Phone Test', (): void => {
   test('it invalidates a phone number', (): void => {
     const eventMock = {
       currentTarget: {
-        value: '123',
+        value: 'not-a-phone',
       },
     };
     const onChangeMock = jest.fn();

@@ -38,9 +38,14 @@ describe('validators Test', (): void => {
         result: true,
       },
       {
-        name: 'Invalid phone: 1555555555',
-        phone: '1555555555',
+        name: 'Invalid phone: 1e10',
+        phone: '1e10',
         result: false,
+      },
+      {
+        name: 'Valid phone: 1 (555) 555-5555',
+        phone: '1 (555) 555-5555',
+        result: true,
       },
       {
         name: 'Invalid phone: +1555ABC',

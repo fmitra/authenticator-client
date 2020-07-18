@@ -46,13 +46,13 @@ expect.extend({
     if (received === expected) {
       return {
         pass: true,
-        message: (): string => `'${inputCase}' should pass`,
+        message: (): string => `${inputCase}: passes`,
       };
     }
 
     return {
       pass: false,
-      message: (): string => `'${inputCase}' should fail`,
+      message: (): string => `:${inputCase}: '${received}' does not match '${expected}'`,
     };
   },
 });
