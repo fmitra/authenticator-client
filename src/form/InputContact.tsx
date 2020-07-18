@@ -15,7 +15,7 @@ interface Props {
   id: string;
   label: string;
   language: string;
-  onChange: { (username: string, method: ContactMethod, error: NullAppError): void };
+  onChange: { (address: string, method: ContactMethod, error: NullAppError): void };
 }
 
 const validateEmail = (input: string): NullAppError => {
@@ -40,7 +40,7 @@ const validatePhone = (input: string): NullAppError => {
   };
 };
 
-const validateUserName = (input: string | number): NullAppError => {
+const validateContact = (input: string | number): NullAppError => {
   const contactMethod = inferContactMethod(String(input));
 
   if (contactMethod == PHONE) {
@@ -50,8 +50,8 @@ const validateUserName = (input: string | number): NullAppError => {
   return validateEmail(String(input));
 };
 
-export default class InputUsername extends Component<Props, {}> {
-  handleUsername = (e: Event, error: NullAppError): void => {
+export default class InputContact extends Component<Props, {}> {
+  handleContact = (e: Event, error: NullAppError): void => {
     const { language, onChange } = this.props;
     const { value } = (e.currentTarget as HTMLFormElement);
     const contactMethod = inferContactMethod(value);
@@ -61,13 +61,20 @@ export default class InputUsername extends Component<Props, {}> {
       return;
     }
 
-    let username = value.trim();
+    let contact = value.trim();
 
     if (contactMethod === PHONE) {
-      username = phoneWithRegion(username, language);
+      contact = phoneWithRegion(contact, language);
+      if (!contact.startsWith('+')) {
+        onChange(value, contactMethod, {
+          message: 'Please include your country code with your phone number',
+          code: 'invalid_phone',
+        });
+        return;
+      }
     }
 
-    onChange(username, contactMethod, error);
+    onChange(contact, contactMethod, error);
   }
 
   render(): JSX.Element {
@@ -77,8 +84,8 @@ export default class InputUsername extends Component<Props, {}> {
         label={this.props.label}
         type='text'
         id={this.props.id}
-        onChange={this.handleUsername}
-        validator={validateUserName} />
+        onChange={this.handleContact}
+        validator={validateContact} />
     );
   }
 };

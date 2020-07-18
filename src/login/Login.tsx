@@ -1,16 +1,13 @@
 import { h, Component  } from 'preact';
 
-import config from '@authenticator/config';
 import { LoginRequest } from '@authenticator/requests';
 import { NullAppError, FormErrors, Errors } from '@authenticator/errors';
-import { IDToggle } from '@authenticator/signup/components';
 import {
   Button,
-  InputPhone,
-  InputEmail,
+  InputContact,
   InputPassword,
 } from '@authenticator/form';
-import { PHONE, EMAIL, ContactMethod } from '@authenticator/identity/contact';
+import { ContactMethod } from '@authenticator/identity/contact';
 
 interface Props {
   path?: string;
@@ -30,14 +27,8 @@ export default class Login extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    let identityType = EMAIL;
-
-    if (!config.validUserIdentity.email && config.validUserIdentity.phone) {
-      identityType = PHONE;
-    }
-
     this.state = {
-      identityType,
+      identityType: '',
       username: '',
       password: '',
       errors: new FormErrors(),
@@ -56,18 +47,10 @@ export default class Login extends Component<Props, State> {
     });
   }
 
-  handleToggleID = (): void => {
-    const newIDType = this.state.identityType === PHONE
-      ? EMAIL
-      : PHONE;
-
-    this.setState({ identityType: newIDType });
-  }
-
-  handleUsername = (evt: Event, error: NullAppError): void => {
-    const { value } = (evt.currentTarget as HTMLFormElement);
+  handleUsername = (username: string, method: ContactMethod, error: NullAppError): void => {
     this.setState({
-      username: value,
+      username: username,
+      identityType: method,
       errors: this.state.errors.update(error, 'username'),
     });
   }
@@ -89,34 +72,20 @@ export default class Login extends Component<Props, State> {
   }
 
   render(): JSX.Element {
-    const renderIDToggle = (
-      config.validUserIdentity.email &&
-      config.validUserIdentity.phone
-    );
-    const renderEmail = this.state.identityType === EMAIL;
-    const renderPhone = this.state.identityType === PHONE;
-
     return (
       <div class='login'>
         <form class='login-form'>
+          <InputContact
+            onChange={this.handleUsername}
+            language={window.navigator.language || ''}
+            class='login-input'
+            label='Username'
+            id='login-username' />
           <InputPassword
             onChange={this.handlePassword}
             class='login-input'
             label='Password'
             id='login-password' />
-          { renderEmail && <InputEmail
-            onChange={this.handleUsername}
-            class='login-input'
-            label='Username'
-            id='login-username-email' /> }
-          { renderPhone && <InputPhone
-            onChange={this.handleUsername}
-            class='login-input'
-            label='Username'
-            id='login-username-phone' /> }
-          { renderIDToggle && <IDToggle
-            onClick={this.handleToggleID}
-            activeID={this.state.identityType} /> }
 
           <Errors class='login__errors' errors={this.state.errors} />
 

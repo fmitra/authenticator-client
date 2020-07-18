@@ -1,11 +1,9 @@
 import { h, Component } from 'preact';
 
-import config from '@authenticator/config';
-import { Button, InputEmail, InputPhone } from '@authenticator/form';
+import { Button, InputContact } from '@authenticator/form';
 import { DeliveryRequest } from '@authenticator/requests';
 import { NullAppError, FormErrors, Errors } from '@authenticator/errors';
-import { AddressToggle } from '@authenticator/contact/components';
-import { PHONE, EMAIL, ContactMethod } from '@authenticator/identity/contact';
+import { ContactMethod } from '@authenticator/identity/contact';
 
 export interface Props {
   path?: string;
@@ -24,14 +22,8 @@ export default class Contact extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    let deliveryMethod: ContactMethod = EMAIL;
-
-    if (!config.validUserIdentity.email && config.validUserIdentity.phone) {
-      deliveryMethod = PHONE;
-    }
-
     this.state = {
-      deliveryMethod,
+      deliveryMethod: '',
       address: '',
       errors: new FormErrors(),
     };
@@ -49,18 +41,10 @@ export default class Contact extends Component<Props, State> {
     });
   }
 
-  handleToggleID = (): void => {
-    const newIDType = this.state.deliveryMethod === PHONE
-      ? EMAIL
-      : PHONE;
-
-    this.setState({ deliveryMethod: newIDType });
-  }
-
-  handleAddress = (evt: Event, error: NullAppError): void => {
-    const { value } = (evt.currentTarget as HTMLFormElement);
+  handleAddress = (address: string, method: ContactMethod, error: NullAppError): void => {
     this.setState({
-      address: value,
+      address: address,
+      deliveryMethod: method,
       errors: this.state.errors.update(error, 'address'),
     });
   }
@@ -73,30 +57,16 @@ export default class Contact extends Component<Props, State> {
   }
 
   render(): JSX.Element {
-    const renderAddressToggle = (
-      config.validUserIdentity.email &&
-      config.validUserIdentity.phone
-    );
-    const renderEmail = this.state.deliveryMethod === EMAIL;
-    const renderPhone = this.state.deliveryMethod === PHONE;
-
     return (
       <div class='contact'>
         Contact
         <form class='contact-form'>
-          { renderEmail && <InputEmail
+          <InputContact
             onChange={this.handleAddress}
+            language={window.navigator.language || ''}
             class='contact-input'
-            label='Email'
-            id='contact-address-email' /> }
-          { renderPhone && <InputPhone
-            onChange={this.handleAddress}
-            class='contact-input'
-            label='Phone'
-            id='contact-address-phone' /> }
-          { renderAddressToggle && <AddressToggle
-            onClick={this.handleToggleID}
-            activeID={this.state.deliveryMethod} /> }
+            label='Address'
+            id='signup-address' />
 
           <Errors class='contact__errors' errors={this.state.errors} />
 
@@ -109,5 +79,4 @@ export default class Contact extends Component<Props, State> {
       </div>
     );
   }
-
 };

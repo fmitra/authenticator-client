@@ -61,4 +61,25 @@ describe('InputUsername Test', (): void => {
       code: 'invalid_email',
     })
   });
+
+  test('it invalidates a phone number', (): void => {
+    const eventMock = {
+      currentTarget: {
+        value: '5555555555',
+      },
+    };
+    const onChangeMock = jest.fn();
+    const component = deep(<InputUsername
+      class='input-username'
+      id='input-username'
+      label='Username'
+      language=''
+      onChange={onChangeMock}
+    />);
+    component.find('input').simulate('change', eventMock);
+    expect(onChangeMock).toHaveBeenCalledWith('5555555555', PHONE, {
+      message: 'Please include your country code with your phone number',
+      code: 'invalid_phone',
+    })
+  });
 });
