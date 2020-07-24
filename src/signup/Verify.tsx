@@ -1,13 +1,12 @@
 import { h, Component } from 'preact';
 
 import { Input, Button } from '@authenticator/form';
-import { VerifyRequest } from '@authenticator/requests';
+import { VerifyCodeRequest } from '@authenticator/requests';
 import { NullAppError, FormErrors, Errors } from '@authenticator/errors';
 
 interface Props {
-  path?: string;
   error: NullAppError;
-  verify: { (data: VerifyRequest): any };
+  verify: { (data: VerifyCodeRequest): any };
   isRequesting: boolean;
 }
 
@@ -16,7 +15,7 @@ interface State {
   errors: FormErrors;
 }
 
-export default class SignupVerify extends Component<Props, State> {
+export default class Verify extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -28,7 +27,7 @@ export default class SignupVerify extends Component<Props, State> {
 
   static defaultProps = {
     error: null,
-    verify: (data: VerifyRequest): void => {},
+    verify: (data: VerifyCodeRequest): void => {},
     isRequesting: false,
   };
 

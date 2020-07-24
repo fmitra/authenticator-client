@@ -1,13 +1,17 @@
 import {
   REQUEST,
   REQUEST_ERROR,
-  REQUEST_SUCCESS
+  CREATE_ACCOUNT,
+  VERIFY_ACCOUNT,
+  VERIFIED,
 } from '@authenticator/signup/constants';
 import { AppError, NullAppError } from '@authenticator/errors';
 
 export interface State {
   error: NullAppError;
   isRequesting: boolean;
+  needAccountDetails: boolean;
+  needVerification: boolean;
 }
 
 export interface Action {
@@ -15,9 +19,11 @@ export interface Action {
   error?: AppError;
 }
 
-const defaultState: State = {
+export const defaultState: State = {
   error: null,
   isRequesting: false,
+  needAccountDetails: true,
+  needVerification: false,
 };
 
 export default (state: State = defaultState, action: Action): State => {
@@ -38,11 +44,33 @@ export default (state: State = defaultState, action: Action): State => {
       };
     }
 
-    case REQUEST_SUCCESS: {
+    case CREATE_ACCOUNT: {
       return {
         ...state,
         error: null,
         isRequesting: false,
+        needAccountDetails: true,
+        needVerification: false,
+      };
+    }
+
+    case VERIFY_ACCOUNT: {
+      return {
+        ...state,
+        error: null,
+        isRequesting: false,
+        needAccountDetails: false,
+        needVerification: true,
+      };
+    }
+
+    case VERIFIED: {
+      return {
+        ...state,
+        error: null,
+        isRequesting: false,
+        needAccountDetails: false,
+        needVerification: false,
       };
     }
 

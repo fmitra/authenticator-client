@@ -10,7 +10,6 @@ import {
 import { ContactMethod } from '@authenticator/identity/contact';
 
 export interface Props {
-  path?: string;
   error: NullAppError;
   register: { (data: SignupRequest): any };
   isRequesting: boolean;

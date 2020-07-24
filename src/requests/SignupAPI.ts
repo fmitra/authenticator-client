@@ -1,10 +1,6 @@
 import Requestor, { APIResponse } from '@authenticator/requests/Requestor';
-import { TokenResponse } from '@authenticator/requests/token';
+import { VerifyCodeRequest, TokenResponse } from '@authenticator/requests/token';
 import { ContactMethod } from '@authenticator/identity/contact';
-
-export interface VerifyRequest {
-  code: string;
-}
 
 export interface SignupRequest {
   password: string;
@@ -36,7 +32,7 @@ class SignupAPI extends Requestor {
    * After verification, a user is considered successfully registered
    * for our services.
    */
-  verify(data: VerifyRequest): Promise<APIResponse<TokenResponse>> {
+  verify(data: VerifyCodeRequest): Promise<APIResponse<TokenResponse>> {
     const url = this.endpoint('signup/verify');
     return this.post<TokenResponse>(url, data);
   }

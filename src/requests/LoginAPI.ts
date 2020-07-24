@@ -1,4 +1,4 @@
-import { TokenResponse } from '@authenticator/requests/token';
+import { VerifyCodeRequest, TokenResponse } from '@authenticator/requests/token';
 import Requestor, { APIResponse } from '@authenticator/requests/Requestor';
 import { ContactMethod } from '@authenticator/identity/contact';
 import {
@@ -7,10 +7,6 @@ import {
   VerifyDeviceResponse,
   VerifyAuthRequest,
 } from '@authenticator/requests/fido';
-
-export interface VerifyCodeRequest {
-  code: string;
-}
 
 export interface LoginRequest {
   password: string;

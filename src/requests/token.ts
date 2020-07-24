@@ -3,3 +3,7 @@ export interface TokenResponse {
   clientID?: string;
   refreshToken?: string;
 }
+
+export interface VerifyCodeRequest {
+  code: string;
+}

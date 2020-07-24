@@ -10,7 +10,6 @@ import {
 import { ContactMethod } from '@authenticator/identity/contact';
 
 interface Props {
-  path?: string;
   error: NullAppError;
   login: { (data: LoginRequest): any };
   isRequesting: boolean;

@@ -1,16 +1,15 @@
 import { APIResponse } from '@authenticator/requests/Requestor';
 import LoginAPI, {
-  VerifyCodeRequest,
   LoginRequest,
 } from '@authenticator/requests/LoginAPI';
 import SignupAPI, {
   SignupRequest,
-  VerifyRequest,
 } from '@authenticator/requests/SignupAPI';
 import {
   InitDeviceResponse,
   VerifyDeviceResponse,
   CredentialResponse,
+  PubKeyCredentialResponse,
 } from '@authenticator/requests/fido';
 import DeviceAPI, {
 } from '@authenticator/requests/DeviceAPI';
@@ -18,7 +17,10 @@ import TOTPAPI, {
   SecretResponse,
   TOTPRequest,
 } from '@authenticator/requests/TOTPAPI';
-import { TokenResponse } from '@authenticator/requests/token';
+import {
+  VerifyCodeRequest,
+  TokenResponse,
+} from '@authenticator/requests/token';
 import ContactAPI, {
   DeliveryRequest,
   DeactivateRequest,
@@ -29,6 +31,7 @@ import ContactAPI, {
 export {
   LoginAPI,
   VerifyDeviceResponse,
+  PubKeyCredentialResponse,
   VerifyCodeRequest,
   LoginRequest,
   ContactAPI,
@@ -45,7 +48,5 @@ export {
   CredentialResponse,
   SignupAPI,
   SignupRequest,
-  VerifyRequest,
   APIResponse,
 };
-

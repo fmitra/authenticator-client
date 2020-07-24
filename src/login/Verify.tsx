@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 
 import { VerifyCodeRequest } from '@authenticator/requests';
 import { NullAppError, FormErrors, Errors } from '@authenticator/errors';
-import { TFAOptions, TFADevice, TFACode } from '@authenticator/loginVerify/components';
+import { TFAOptions, TFADevice, TFACode } from '@authenticator/login/components';
 import Token, { Device } from '@authenticator/identity/Token';
 
 interface State {
@@ -10,7 +10,6 @@ interface State {
 }
 
 interface Props {
-  path?: string;
   error: NullAppError;
   isRequesting: boolean;
   verifyCode: { (data: VerifyCodeRequest): any };
