@@ -5,7 +5,6 @@ import { VerifyContactRequest } from '@authenticator/requests';
 import { NullAppError, FormErrors, Errors } from '@authenticator/errors';
 
 interface Props {
-  path?: string;
   error: NullAppError;
   verify: { (data: VerifyContactRequest): any };
   isRequesting: boolean;

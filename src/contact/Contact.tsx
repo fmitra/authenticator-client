@@ -6,7 +6,6 @@ import { NullAppError, FormErrors, Errors } from '@authenticator/errors';
 import { ContactMethod } from '@authenticator/identity/contact';
 
 export interface Props {
-  path?: string;
   error: NullAppError;
   checkAddress: { (data: DeliveryRequest): any };
   isRequesting: boolean;

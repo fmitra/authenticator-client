@@ -22,7 +22,7 @@ describe('login Reducer Test', (): void => {
       message: 'Whoops something bad happened',
       code: 'error_code',
     }
-    result.error = error
+    result.error = error;
     expect(reducer(currentState, { type: REQUEST_ERROR, error: error }))
       .toEqual(result);
   });
