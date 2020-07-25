@@ -48,6 +48,7 @@ export default class Device extends Component<Props, State> {
 
         <Button
           name='Add Device'
+          class='device-button'
           hasError={this.state.errors.notOk}
           isDisabled={this.props.isRequesting}
           onClick={this.handleSubmit} />

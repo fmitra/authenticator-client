@@ -10,6 +10,7 @@ import TOTPDisable from '@authenticator/totpDisable';
 import Contact from '@authenticator/contact';
 import routes from '@authenticator/app/routes';
 import store, { history } from '@authenticator/app/store';
+import '@styles';
 
 export default class App extends Component {
   public render(): JSX.Element {

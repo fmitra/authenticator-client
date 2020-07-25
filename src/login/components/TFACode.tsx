@@ -33,6 +33,7 @@ export default class TFACode extends Component<Props, State> {
         <Button
           name='Submit'
           hasError={this.props.errors.notOk}
+          class='tfa-button'
           isDisabled={this.props.isRequesting}
           onClick={() => this.props.handleSubmit({ code: this.state.code })} />
       </div>

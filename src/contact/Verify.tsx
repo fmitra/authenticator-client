@@ -61,6 +61,7 @@ export default class ContactVerify extends Component<Props, State> {
           <Errors class='contact__errors' errors={this.state.errors} />
 
           <Button
+            class='contact-button'
             name='Submit'
             hasError={this.state.errors.notOk}
             isDisabled={this.props.isRequesting}

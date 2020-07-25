@@ -90,6 +90,7 @@ export default class Login extends Component<Props, State> {
 
           <Button
             name='Login'
+            class='login-button'
             hasError={this.state.errors.notOk}
             isDisabled={this.props.isRequesting}
             onClick={this.handleSubmit} />

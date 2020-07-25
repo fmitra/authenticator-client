@@ -1,13 +1,9 @@
 import { h, Component } from 'preact';
 
 import { SignupRequest } from '@authenticator/requests';
-import { NullAppError, FormErrors, Errors } from '@authenticator/errors';
-import {
-  Button,
-  InputContact,
-  InputPassword,
-} from '@authenticator/form';
+import { NullAppError, FormErrors } from '@authenticator/errors';
 import { ContactMethod } from '@authenticator/identity/contact';
+import { UsernameStep, PasswordStep } from '@authenticator/signup/components';
 
 export interface Props {
   error: NullAppError;
@@ -19,6 +15,7 @@ interface State {
   identityType: ContactMethod;
   username: string;
   password: string;
+  isUsernameSet: boolean;
   errors: FormErrors;
 }
 
@@ -30,6 +27,7 @@ export default class Signup extends Component<Props, State> {
       identityType: '',
       username: '',
       password: '',
+      isUsernameSet: false,
       errors: new FormErrors(),
     };
   }
@@ -54,15 +52,14 @@ export default class Signup extends Component<Props, State> {
     });
   }
 
-  handlePassword = (evt: Event, error: NullAppError): void => {
-    const { value } = (evt.currentTarget as HTMLFormElement);
+  handlePassword = (password: string, error: NullAppError): void => {
     this.setState({
-      password: value,
+      password,
       errors: this.state.errors.update(error, 'password'),
     });
   }
 
-  handleSubmit = (): void => {
+  handleSignup = (): void => {
     this.props.register({
       type: this.state.identityType,
       password: this.state.password,
@@ -70,29 +67,27 @@ export default class Signup extends Component<Props, State> {
     });
   }
 
+  toggleUsername = (): void => {
+    this.setState({ isUsernameSet: !this.state.isUsernameSet });
+  }
+
   render(): JSX.Element {
     return (
       <div class='signup'>
         <form class='signup-form'>
-          <InputContact
+          { !this.state.isUsernameSet && <UsernameStep
             onChange={this.handleUsername}
-            language={window.navigator.language || ''}
-            class='signup-input'
-            label='Username'
-            id='signup-username' />
-          <InputPassword
+            isDisabled={this.props.isRequesting || !this.state.username}
+            error={this.state.errors.get('username')}
+            onSubmit={this.toggleUsername} /> }
+
+          { this.state.isUsernameSet && <PasswordStep
+            onSubmit={this.handleSignup}
+            isDisabled={this.props.isRequesting || !this.state.password}
+            goBack={this.toggleUsername}
+            error={this.state.errors.get('password')}
             onChange={this.handlePassword}
-            class='signup-input'
-            label='Password'
-            id='signup-password' />
-
-          <Errors class='signup__errors' errors={this.state.errors} />
-
-          <Button
-            name='Signup'
-            hasError={this.state.errors.notOk}
-            isDisabled={this.props.isRequesting}
-            onClick={this.handleSubmit} />
+            /> }
         </form>
       </div>
     );

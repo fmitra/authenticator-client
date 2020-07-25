@@ -71,6 +71,7 @@ export default class Contact extends Component<Props, State> {
 
           <Button
             name='Send Code'
+            class='contact-button'
             hasError={this.state.errors.notOk}
             isDisabled={this.props.isRequesting}
             onClick={this.handleSubmit} />

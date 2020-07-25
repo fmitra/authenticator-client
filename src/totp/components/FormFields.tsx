@@ -20,6 +20,7 @@ const FormFields = (props: Props): JSX.Element => (
       onChange={props.handleCode} />
     <Button
       name='Submit'
+      class='totp-button'
       isDisabled={props.isDisabled}
       hasError={props.errors.notOk}
       onClick={props.handleSubmit} />

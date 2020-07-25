@@ -48,12 +48,12 @@ export default class Verify extends Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <div class='signup-verify'>
-        <form class='signup-verify-form'>
+      <div class='signup'>
+        <form class='signup-form'>
           <Input
             class='signup-verify-input'
-            label='Code'
             type='string'
+            placeholder='Enter 6 digit verification code'
             id='signup-verify-code'
             onChange={this.handleCode} />
 
@@ -61,6 +61,7 @@ export default class Verify extends Component<Props, State> {
 
           <Button
             name='Submit'
+            class='signup-btn'
             hasError={this.state.errors.notOk}
             isDisabled={this.props.isRequesting}
             onClick={this.handleSubmit} />

@@ -13,7 +13,8 @@ import { NullAppError } from '@authenticator/errors';
 interface Props {
   class: string;
   id: string;
-  label: string;
+  label?: string;
+  placeholder?: string;
   language: string;
   onChange: { (address: string, method: ContactMethod, error: NullAppError): void };
 }
@@ -85,6 +86,7 @@ export default class InputContact extends Component<Props, {}> {
       <Input
         class={this.props.class}
         label={this.props.label}
+        placeholder={this.props.placeholder}
         type='text'
         id={this.props.id}
         onChange={this.handleContact}

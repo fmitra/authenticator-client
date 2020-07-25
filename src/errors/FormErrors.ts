@@ -15,6 +15,10 @@ export default class FormErrors {
     return Boolean(Object.keys(this.errors).length);
   }
 
+  get(key: string): NullAppError {
+    return this.errors[key] || null;
+  }
+
   update(error: NullAppError, key: string): FormErrors {
     if (error) {
       this.errors[key] = error;

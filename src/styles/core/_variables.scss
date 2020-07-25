@@ -1,0 +1,45 @@
+$color-theme-10: #3b8b76;
+$color-theme-50: #275B3D;
+
+$color-neutral-0: #ffffff;
+$color-neutral-10: #f8f8f8;
+$color-neutral-30: #c4c4c4;
+$color-neutral-90: #141414;
+
+$color-red-10: #e85252;
+$color-blue-10: #57a7ee;
+
+$size-x1: 4px;
+$size-x2: 8px;
+$size-x3: 12px;
+$size-x4: 16px;
+$size-x5: 20px;
+$size-x6: 24px;
+$size-x7: 28px;
+
+$form-x2: 1024px;
+$form-x1: 768px;
+
+@mixin font-standard() {
+  font-family: NunitoSans-Regular, helvetica, sans-serif;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+@mixin font-light() {
+  font-family: NunitoSans-Light, helvetica, sans-serif;
+  font-weight: 100;
+  letter-spacing: 1px;
+}
+
+@mixin font-medium() {
+  font-family: NunitoSans-SemiBold, helvetica, sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+@mixin font-bold() {
+  font-family: NunitoSans-Bold, helvetica, sans-serif;
+  font-weight: 800;
+  letter-spacing: 1px;
+}

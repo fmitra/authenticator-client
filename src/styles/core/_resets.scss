@@ -1,0 +1,35 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+* {
+  @include font-standard;
+  font-size: $size-x4;
+}
+
+body {
+  color: $color-neutral-90;
+  background-color: $color-neutral-10;
+  margin: 0 auto;
+  height: 100%;
+}
+
+html {
+  height: 100%;
+}
+
+#app {
+  height: 100%;
+}
+
+input[type=text],
+input[type=number],
+input[type=password] {
+  box-shadow: none;
+  background: none;
+
+  &:focus {
+    border: 1px solid $color-neutral-90;
+    outline: none;
+  }
+}

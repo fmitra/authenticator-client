@@ -63,6 +63,7 @@ export default class TOTPDisable extends Component<Props, State> {
             id='totp-disable-code'
             onChange={this.handleCode} />
           <Button
+            class='totp-button'
             name='Submit'
             hasError={this.state.errors.notOk}
             isDisabled={this.props.isRequesting}

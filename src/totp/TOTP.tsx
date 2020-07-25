@@ -66,6 +66,7 @@ export default class TOTP extends Component<Props, State> {
 
           { !this.props.totp && <Button
             name='Show QR Code'
+            class='totp-button'
             hasError={this.state.errors.notOk}
             isDisabled={this.props.isRequesting}
             onClick={this.handleSecret} /> }
