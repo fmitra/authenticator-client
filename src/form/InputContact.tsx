@@ -53,6 +53,13 @@ const validatePhone = (input: string, language: string): NullAppError => {
 
 const validateContact = (language: string): { (input: string | number): NullAppError } => {
   return (input: string | number): NullAppError => {
+    if (!String(input)) {
+      return {
+        message: 'This field cannot be empty',
+        code: 'empty',
+      }
+    }
+
     const contactMethod = inferContactMethod(String(input));
 
     if (contactMethod == PHONE) {

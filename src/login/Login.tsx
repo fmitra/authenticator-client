@@ -1,13 +1,14 @@
 import { h, Component  } from 'preact';
 
 import { LoginRequest } from '@authenticator/requests';
-import { NullAppError, FormErrors, Errors } from '@authenticator/errors';
+import { NullAppError, FormErrors } from '@authenticator/errors';
 import {
   Button,
   InputContact,
   InputPassword,
 } from '@authenticator/form';
 import { ContactMethod } from '@authenticator/identity/contact';
+import { LoginHeader } from '@authenticator/login/components';
 
 interface Props {
   error: NullAppError;
@@ -47,18 +48,25 @@ export default class Login extends Component<Props, State> {
   }
 
   handleUsername = (username: string, method: ContactMethod, error: NullAppError): void => {
+    this.state.errors.update(error, 'username');
+    this.state.errors.update(null, 'request');
+
     this.setState({
       username: username,
       identityType: method,
-      errors: this.state.errors.update(error, 'username'),
+      errors: this.state.errors,
     });
   }
 
   handlePassword = (evt: Event, error: NullAppError): void => {
     const { value } = (evt.currentTarget as HTMLFormElement);
+
+    this.state.errors.update(error, 'password');
+    this.state.errors.update(null, 'request');
+
     this.setState({
       password: value,
-      errors: this.state.errors.update(error, 'password'),
+      errors: this.state.errors,
     });
   }
 
@@ -71,32 +79,38 @@ export default class Login extends Component<Props, State> {
   }
 
   render(): JSX.Element {
+    const isFormFilled = this.state.username && this.state.password;
+
     return (
       <div class='login'>
+        <div class='login-splash'>
+        </div>
         <form class='login-form'>
+          <LoginHeader />
           <InputContact
             onChange={this.handleUsername}
             language={window.navigator.language || ''}
             class='login-input'
             value={this.state.username}
-            error={this.state.errors.get('username')}
-            label='Username'
+            error={
+              this.state.errors.get('username') ||
+              this.state.errors.get('request')
+            }
+            placeholder='Email address or mobile number'
             id='login-username' />
           <InputPassword
             onChange={this.handlePassword}
             class='login-input'
             error={this.state.errors.get('password')}
             value={this.state.password}
-            label='Password'
+            placeholder='Password'
             id='login-password' />
 
-          <Errors class='login__errors' errors={this.state.errors} />
-
           <Button
-            name='Login'
-            class='login-button'
+            name='Next'
+            class='login-btn'
             hasError={this.state.errors.notOk}
-            isDisabled={this.props.isRequesting}
+            isDisabled={this.props.isRequesting || !isFormFilled}
             onClick={this.handleSubmit} />
         </form>
       </div>
