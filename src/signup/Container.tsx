@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Dispatch } from 'redux';
 
 import { NullAppError } from '@authenticator/errors';
-import { verify, register, SignupThunk } from '@authenticator/signup/actions';
+import { restartFlow, verify, register, SignupThunk } from '@authenticator/signup/actions';
 import { State } from '@authenticator/signup/reducer';
 import { VerifyCodeRequest, SignupRequest } from '@authenticator/requests';
 import Signup from '@authenticator/signup/Signup';
@@ -14,8 +14,9 @@ import Success from '@authenticator/signup/Success';
 const mapDispatchToProps = (dispatch: Dispatch): {
   register: { (data: SignupRequest): SignupThunk };
   verify: { (data: VerifyCodeRequest): SignupThunk };
+  restartFlow: { (): SignupThunk };
 } => (
-  bindActionCreators({ register, verify }, dispatch)
+  bindActionCreators({ register, verify, restartFlow }, dispatch)
 );
 
 const mapStateToProps = (state: { signup: State }): State => ( state.signup );
@@ -25,6 +26,7 @@ interface Props {
   error: NullAppError;
   register: { (data: SignupRequest): any };
   verify: { (data: VerifyCodeRequest): any };
+  restartFlow: { (): any };
   isRequesting: boolean;
   needAccountDetails: boolean;
   needVerification: boolean;
@@ -46,6 +48,7 @@ class Container extends Component<Props, {}> {
         <Verify
           error={this.props.error}
           verify={this.props.verify}
+          restartFlow={this.props.restartFlow}
           isRequesting={this.props.isRequesting} />
       );
     }

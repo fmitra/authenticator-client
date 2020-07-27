@@ -7,6 +7,7 @@ interface Props {
   handleCode: { (e: Event): void };
   handleSubmit: { (): void };
   errors: FormErrors;
+  value: string;
   isDisabled: boolean;
 }
 
@@ -16,6 +17,7 @@ const FormFields = (props: Props): JSX.Element => (
       class='totp__input'
       label='Code'
       type='string'
+      value={props.value}
       id='totp-code'
       onChange={props.handleCode} />
     <Button

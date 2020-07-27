@@ -26,6 +26,7 @@ export default class TFACode extends Component<Props, State> {
         <Input
           class='tfa-code__input'
           id='tfa-code'
+          value={this.state.code}
           label='Code'
           type='string'
           onChange={this.handleCode} />

@@ -9,7 +9,9 @@ interface Props {
   class: string;
   label?: string;
   placeholder?: string;
+  value: string;
   validator?: { (v: string | number): NullAppError };
+  error: NullAppError;
   id: string;
 }
 
@@ -28,6 +30,8 @@ const InputPassword = (props: Props): JSX.Element => (
   <Input
     class={props.class}
     label={props.label}
+    value={props.value}
+    error={props.error}
     placeholder={props.placeholder}
     type='password'
     onChange={props.onChange}

@@ -78,11 +78,15 @@ export default class Login extends Component<Props, State> {
             onChange={this.handleUsername}
             language={window.navigator.language || ''}
             class='login-input'
+            value={this.state.username}
+            error={this.state.errors.get('username')}
             label='Username'
             id='login-username' />
           <InputPassword
             onChange={this.handlePassword}
             class='login-input'
+            error={this.state.errors.get('password')}
+            value={this.state.password}
             label='Password'
             id='login-password' />
 

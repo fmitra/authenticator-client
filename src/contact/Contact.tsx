@@ -61,8 +61,10 @@ export default class Contact extends Component<Props, State> {
         Contact
         <form class='contact-form'>
           <InputContact
+            error={this.state.errors.get('address')}
             onChange={this.handleAddress}
             language={window.navigator.language || ''}
+            value={this.state.address}
             class='contact-input'
             label='Address'
             id='signup-address' />

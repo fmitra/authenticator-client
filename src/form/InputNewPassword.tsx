@@ -10,28 +10,39 @@ interface Props {
   labelConfirm?: string;
   placeholderNew?: string;
   placeholderConfirm?: string;
-  onChange: { (password: string, error: NullAppError): void };
+  onConfirmPassword: { (password: string, error: NullAppError): void };
+  onNewPassword: { (error: NullAppError): void };
+  newPasswordError: NullAppError;
+  confirmPasswordError: NullAppError;
 }
 
 interface State {
-  password: string;
+  newPassword: string;
+  confirmedPassword: string;
 }
 
 export default class InputNewPassword extends Component<Props, State> {
   onEnterPassword = (evt: Event, error: NullAppError): void => {
     const { value } = (evt.currentTarget as HTMLFormElement);
-    this.setState({ password: value });
+    const { onNewPassword } = this.props;
+
+    this.setState({ newPassword: value });
+
+    onNewPassword(error);
   }
 
   onConfirmPassword = (evt: Event, error: NullAppError): void => {
     const { value } = (evt.currentTarget as HTMLFormElement);
-    const { onChange } = this.props;
+    const { onConfirmPassword } = this.props;
 
-    onChange(value, error);
+    this.setState({ confirmedPassword: value });
+
+    console.log('confirming password', error);
+    onConfirmPassword(value, error);
   }
 
   validateConfirmedPassword = (inputValue: string | number): NullAppError => {
-    const password = this.state.password;
+    const password = this.state.newPassword;
     if (password == String(inputValue)) {
       return null;
     }
@@ -48,13 +59,17 @@ export default class InputNewPassword extends Component<Props, State> {
         <InputPassword
           class='input-new-password__new'
           placeholder='Password'
+          value={this.state.newPassword}
           onChange={this.onEnterPassword}
+          error={this.props.newPasswordError}
           id='new-password' />
         <InputPassword
           class='input-new-password__confirm'
           placeholder='Confirm Password'
+          value={this.state.confirmedPassword}
           onChange={this.onConfirmPassword}
           validator={this.validateConfirmedPassword}
+          error={this.props.confirmPasswordError}
           id='confirmed-password' />
       </div>
     );

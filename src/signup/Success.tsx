@@ -6,7 +6,7 @@ const Success = (): JSX.Element => {
     <div class='signup'>
       <div class='signup-success'>
         <img src={iconSuccess} />
-        Account created
+        <span>Account created</span>
       </div>
     </div>
   );

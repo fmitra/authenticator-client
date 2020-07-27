@@ -6,15 +6,21 @@ import { InputNewPassword, Button } from '@authenticator/form';
 interface Props {
   onSubmit: { (): void }
   goBack: { (): void }
-  onChange: { (password: string, error: NullAppError): void }
+  onConfirmPassword: { (password: string, error: NullAppError): void }
+  onNewPassword: { (error: NullAppError): void }
   isDisabled: boolean;
-  error: NullAppError;
+  newPasswordError: NullAppError;
+  confirmPasswordError: NullAppError;
+  hasError: boolean;
 }
 
 const PasswordStep = (props: Props): JSX.Element => (
   <div class='signup-form__passwords'>
     <InputNewPassword
-      onChange={props.onChange}
+      onConfirmPassword={props.onConfirmPassword}
+      onNewPassword={props.onNewPassword}
+      newPasswordError={props.newPasswordError}
+      confirmPasswordError={props.confirmPasswordError}
       class='signup-form__passwords-input'
       id='signup-form-passwords' />
     <div class='signup-form__passwords-btns'>
@@ -27,7 +33,7 @@ const PasswordStep = (props: Props): JSX.Element => (
       <Button
         name='Sign up'
         class='signup-form__passwords-btns-primary'
-        hasError={Boolean(props.error)}
+        hasError={props.hasError}
         isDisabled={props.isDisabled}
         onClick={props.onSubmit} />
     </div>

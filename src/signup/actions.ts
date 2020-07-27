@@ -6,6 +6,7 @@ import {
   REQUEST,
   REQUEST_ERROR,
   VERIFY_ACCOUNT,
+  CREATE_ACCOUNT,
   VERIFIED,
 } from '@authenticator/signup/constants';
 import {
@@ -97,3 +98,7 @@ export const verify = (data: VerifyCodeRequest): SignupThunk => async (dispatch)
 
   dispatch({ type: VERIFIED });
 };
+
+export const restartFlow = (): SignupThunk => async (dispatch): Promise<void> => {
+  dispatch({ type: CREATE_ACCOUNT });
+}

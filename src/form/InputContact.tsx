@@ -14,6 +14,8 @@ interface Props {
   class: string;
   id: string;
   label?: string;
+  error: NullAppError;
+  value: string;
   placeholder?: string;
   language: string;
   onChange: { (address: string, method: ContactMethod, error: NullAppError): void };
@@ -86,6 +88,8 @@ export default class InputContact extends Component<Props, {}> {
       <Input
         class={this.props.class}
         label={this.props.label}
+        value={this.props.value}
+        error={this.props.error}
         placeholder={this.props.placeholder}
         type='text'
         id={this.props.id}

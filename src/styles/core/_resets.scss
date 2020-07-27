@@ -33,3 +33,16 @@ input[type=password] {
     outline: none;
   }
 }
+
+a {
+  text-decoration: underline;
+  color: $color-blue-10;
+
+  &:visited, &:active {
+    color: $color-blue-10;
+  }
+
+  &:hover {
+    color: lighten($color-blue-10, 10%);
+  }
+}

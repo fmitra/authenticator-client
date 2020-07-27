@@ -58,6 +58,7 @@ export default class TOTPDisable extends Component<Props, State> {
 
           <Input
             class='totp-disable__input'
+            value={this.state.code}
             label='Code'
             type='string'
             id='totp-disable-code'

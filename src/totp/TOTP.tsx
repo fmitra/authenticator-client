@@ -75,6 +75,7 @@ export default class TOTP extends Component<Props, State> {
 
           { this.props.totp && <FormFields
             errors={this.state.errors}
+            value={this.state.code}
             isDisabled={this.props.isRequesting}
             handleSubmit={this.handleSubmit}
             handleCode={this.handleCode} /> }

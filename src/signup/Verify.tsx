@@ -2,11 +2,13 @@ import { h, Component } from 'preact';
 
 import { Input, Button } from '@authenticator/form';
 import { VerifyCodeRequest } from '@authenticator/requests';
-import { NullAppError, FormErrors, Errors } from '@authenticator/errors';
+import { NullAppError, FormErrors } from '@authenticator/errors';
+import { Disclaimer, VerifyHeader } from '@authenticator/signup/components';
 
 interface Props {
   error: NullAppError;
   verify: { (data: VerifyCodeRequest): any };
+  restartFlow: { (): any };
   isRequesting: boolean;
 }
 
@@ -28,6 +30,7 @@ export default class Verify extends Component<Props, State> {
   static defaultProps = {
     error: null,
     verify: (data: VerifyCodeRequest): void => {},
+    restartFlow: (): void => {},
     isRequesting: false,
   };
 
@@ -46,18 +49,32 @@ export default class Verify extends Component<Props, State> {
     });
   }
 
+  validateCode = (inputValue: string | number): NullAppError => {
+    const minCodeLen = 6;
+    if (String(inputValue).length < minCodeLen) {
+      return {
+        message: `Code should be at least ${minCodeLen} characters long`,
+        code: 'invalid_code',
+      }
+    }
+
+    return null;
+  }
+
   render(): JSX.Element {
     return (
       <div class='signup'>
         <form class='signup-form'>
+          <VerifyHeader goBack={this.props.restartFlow} />
+
           <Input
             class='signup-verify-input'
             type='string'
+            value={this.state.code}
             placeholder='Enter 6 digit verification code'
+            validator={this.validateCode}
             id='signup-verify-code'
             onChange={this.handleCode} />
-
-          <Errors class='signup__errors' errors={this.state.errors} />
 
           <Button
             name='Submit'
@@ -65,6 +82,8 @@ export default class Verify extends Component<Props, State> {
             hasError={this.state.errors.notOk}
             isDisabled={this.props.isRequesting}
             onClick={this.handleSubmit} />
+
+          <Disclaimer />
         </form>
       </div>
     );

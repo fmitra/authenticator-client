@@ -18,6 +18,9 @@ export const isMaybeEmail = (value: string): boolean => {
 export const isMaybePhone = (value: string): boolean => {
   // Remove common non numeric phone number characters: (, ), +, -, ' '
   const cleaned = value.replace(/[\(\)\+\-\ ]/g, '');
+  if (!cleaned) {
+    return false;
+  }
 
   // Filter out all digits from the cleaned string. If any non
   // numeric characters are found, we will treat the user's input

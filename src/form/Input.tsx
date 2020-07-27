@@ -8,17 +8,15 @@ interface Props {
   label?: string;
   placeholder?: string;
   type: string;
+  value: string;
   class: string;
   validator?: { (v: string | number): NullAppError };
   onChange: { (ev: Event, err: NullAppError ): void };
+  error?: NullAppError;
   id: string;
 }
 
-interface State {
-  error: NullAppError;
-}
-
-export default class Input extends Component<Props, State> {
+export default class Input extends Component<Props, {}> {
   handleInput = (e: Event): void => {
     const { validator, onChange } = this.props;
     const { value } = (e.currentTarget as HTMLFormElement);
@@ -29,7 +27,6 @@ export default class Input extends Component<Props, State> {
     }
 
     const error = validator(value);
-    this.setState({ error });
 
     onChange(e, error);
   }
@@ -39,7 +36,7 @@ export default class Input extends Component<Props, State> {
       <div class={classes({
         'input': true,
         [this.props.class]: Boolean(this.props.class),
-        'input--error': Boolean(this.state.error),
+        'input--error': Boolean(this.props.error),
       })}>
 
         {
@@ -53,15 +50,16 @@ export default class Input extends Component<Props, State> {
           id={this.props.id}
           class='input__input'
           placeholder={this.props.placeholder || ''}
+          value={this.props.value}
           type={this.props.type}
           onChange={this.handleInput}
         />
 
         {
-          this.state.error &&
+          this.props.error &&
           <div class='input__error-message'>
             <img src={iconError} />
-            {this.state.error.message}
+            {this.props.error.message}
           </div>
         }
       </div>

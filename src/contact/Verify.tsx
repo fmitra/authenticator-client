@@ -55,6 +55,7 @@ export default class ContactVerify extends Component<Props, State> {
             class='contact-verify-input'
             label='Code'
             type='string'
+            value={this.state.code}
             id='contact-verify-code'
             onChange={this.handleCode} />
 

@@ -8,6 +8,10 @@ export const OTPEmail: TFAOption = 'otp_email';
 export const TOTP: TFAOption = 'totp';
 export const Device: TFAOption = 'device';
 
+interface Code {
+  address: string;
+}
+
 export interface JWT {
   exp: number;
   jti: string;
@@ -17,6 +21,7 @@ export interface JWT {
   email: string;
   phone_number: string;
   state: string;
+  code?: string;
   tfa_options: TFAOption[];
   default_tfa: TFAOption;
 }
@@ -126,6 +131,25 @@ class Token {
 
   get defaultTFA(): TFAOption {
     return this.unpackedToken().default_tfa;
+  }
+
+  get lastMessageAddress(): string {
+    let encoded: string;
+    let code: Code;
+
+    try {
+      encoded = atob(this.unpackedToken().code || '');
+    } catch (e) {
+      return '';
+    }
+
+    try {
+      code = JSON.parse(encoded);
+    } catch (e) {
+      return '';
+    }
+
+    return code.address;
   }
 };
 

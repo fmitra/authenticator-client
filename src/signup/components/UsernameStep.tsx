@@ -7,6 +7,8 @@ interface Props {
   onSubmit: { (): void };
   onChange: { (address: string, method: ContactMethod, error: NullAppError): void };
   isDisabled: boolean;
+  value: string;
+  hasError: boolean;
   error: NullAppError;
 }
 
@@ -15,13 +17,15 @@ const UsernameStep = (props: Props): JSX.Element => (
     <InputContact
       onChange={props.onChange}
       language={window.navigator.language || ''}
+      value={props.value}
+      error={props.error}
       class='signup-input'
       placeholder='Email address or mobile number'
       id='signup-username' />
     <Button
       name='Next'
       class='signup-btn'
-      hasError={Boolean(props.error)}
+      hasError={props.hasError}
       isDisabled={props.isDisabled}
       onClick={props.onSubmit} />
   </div>

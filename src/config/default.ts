@@ -12,6 +12,10 @@ interface AppConfig {
     email: boolean;
     phone: boolean;
   };
+  links: {
+    termsOfService: string;
+    privacyPolicy: string;
+  };
 }
 
 const config: AppConfig = {
@@ -28,6 +32,10 @@ const config: AppConfig = {
     email: true,
     phone: true,
   },
+  links: {
+    termsOfService: '#',
+    privacyPolicy: '#',
+  }
 };
 
 export default config;

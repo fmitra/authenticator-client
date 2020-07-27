@@ -8,16 +8,31 @@
 
 .signup-form {
   width: 100%;
-  max-width: $form-x1;
+  max-width: $screen-x2;
   background-color: $color-neutral-0;
-  padding: $size-x5;
+  padding: $size-x1 * 30;
+
+  @media (max-width: $screen-x2) {
+    padding: $size-x1 * 15;
+  }
+
+  @media (max-width: $screen-x1) {
+    padding: $size-x7;
+  }
 }
 
 .signup-success {
   width: 100%;
-  max-width: $form-x1;
+  max-width: $screen-x2;
   background-color: $color-neutral-0;
-  padding: $size-x5;
+  padding: $size-x10;
+  font-size: $size-x6;
+  text-align: center;
+  > img {
+    margin: 0 auto $size-x7 auto;
+    width: 50px;
+    height: 50px;
+  }
 }
 
 .signup-btn {
@@ -41,4 +56,91 @@
 
 .signup-form__passwords-btns-primary {
   flex-grow: 1;
+}
+
+.signup-disclaimer {
+  color: $color-neutral-30;
+  font-size: $size-x3;
+  text-align: center;
+  margin: $size-x7 auto;
+
+  a {
+    font-size: $size-x3;
+  }
+
+  a, a:visited, a:active {
+    color: $color-neutral-30;
+  }
+
+  a:hover {
+    color: lighten($color-neutral-30, 10%);
+  }
+}
+
+.signup-login {
+  width: 100%;
+  text-align: center;
+  span {
+    display: block;
+    clear: both;
+  }
+}
+
+.signup-login__divider {
+  border-bottom: 1px solid $color-neutral-90;
+  margin-bottom: $size-x8;
+  position: relative;
+  > span {
+    position: absolute;
+    height: 30px;
+    width: 80px;
+    line-height: 30px;
+    top: -15px;
+    left: 50%;
+    margin-left: -40px;
+    text-align: center;
+    background-color: $color-neutral-0;
+  }
+}
+
+.signup-header {
+  text-align: center;
+}
+
+.signup-header__title {
+  font-size: 28px;
+  margin-bottom: $size-x5;
+  > span {
+    font-size: 28px;
+    display: block;
+    clear: both;
+  }
+}
+
+.signup-header__subtitle {
+  margin-bottom: $size-x6;
+  > span {
+    display: block;
+    clear: both;
+  }
+}
+
+.signup-header__username {
+  color: $color-neutral-0;
+  background-color: $color-neutral-30;
+  text-align: left;
+  cursor: pointer;
+  @extend .input__input;
+}
+
+.signup-header__address {
+  color: $color-theme-50;
+  > span {
+    display: inline;
+  }
+}
+
+.signup-header__back {
+  cursor: pointer;
+  text-decoration: none;
 }
