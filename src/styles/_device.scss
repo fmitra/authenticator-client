@@ -1,0 +1,37 @@
+.device {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.device-form {
+  width: 100%;
+  max-width: $screen-x2;
+  background-color: $color-neutral-0;
+  padding: $size-x1 * 30;
+
+  @media (max-width: $screen-x2) {
+    padding: $size-x1 * 15;
+  }
+
+  @media (max-width: $screen-x1) {
+    padding: $size-x7;
+  }
+}
+
+.device__icon {
+  > img {
+    width: 55px;
+  }
+  margin-bottom: $size-x4;
+}
+
+.device-loader {
+  margin-top: $size-x4;
+}
+
+.device__errors {
+  margin-top: $size-x5;
+}

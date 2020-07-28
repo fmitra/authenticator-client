@@ -1,3 +1,4 @@
+import { TokenResponse } from '@authenticator/requests/token';
 import Requestor, { APIResponse } from '@authenticator/requests/Requestor';
 import {
   toBase64,
@@ -59,7 +60,7 @@ class DeviceAPI extends Requestor {
    * with a User's account for use as a FIDO compliant
    * 2FA device.
    */
-  verify(credential: CredentialResponse): Promise<APIResponse<{}>> {
+  verify(credential: CredentialResponse): Promise<APIResponse<TokenResponse>> {
     const url = this.endpoint('device/verify');
 
     const data: VerifyDeviceRequest = {
@@ -72,7 +73,7 @@ class DeviceAPI extends Requestor {
       type: credential.type,
     }
 
-    return this.post<{}>(url, data);
+    return this.post<TokenResponse>(url, data);
   }
 }
 

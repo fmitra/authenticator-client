@@ -1,0 +1,11 @@
+.error__message {
+  display: flex;
+  align-items: center;
+  font-size: $size-x4;
+  color: $color-red-10;
+  > img {
+    height: 20px;
+    width: 20px;
+    margin-right: $size-x2;
+  }
+}
