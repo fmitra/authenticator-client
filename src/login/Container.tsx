@@ -8,6 +8,7 @@ import {
   login,
   verifyCode,
   verifyDevice,
+  restartFlow,
   LoginThunk,
 } from '@authenticator/login/actions';
 import { State } from '@authenticator/signup/reducer';
@@ -20,8 +21,9 @@ const mapDispatchToProps = (dispatch: Dispatch): {
   login: { (data: LoginRequest): LoginThunk };
   verifyCode: { (data: VerifyCodeRequest): LoginThunk };
   verifyDevice: { (credentialsAPI: CredentialsContainer): LoginThunk };
+  restartFlow: { (): LoginThunk };
 } => (
-  bindActionCreators({ verifyCode, verifyDevice, login }, dispatch)
+  bindActionCreators({ verifyCode, verifyDevice, login, restartFlow }, dispatch)
 );
 
 const mapStateToProps = (state: { login: State }): State => ( state.login );
@@ -32,6 +34,7 @@ interface Props {
   login: { (data: LoginRequest): any };
   verifyCode: { (data: VerifyCodeRequest): any };
   verifyDevice: { (credentialsAPI: CredentialsContainer): any };
+  restartFlow: { (): any };
   isRequesting: boolean;
   needAccountDetails: boolean;
   needVerification: boolean;

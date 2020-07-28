@@ -6,6 +6,7 @@ import {
   REQUEST,
   REQUEST_ERROR,
   VERIFY_ACCOUNT,
+  SUBMIT_IDENTITY,
   VERIFIED,
 } from '@authenticator/login/constants';
 import {
@@ -183,3 +184,7 @@ export const verifyDevice = (credentialsAPI: CredentialsContainer): LoginThunk =
 
   dispatch({ type: VERIFIED });
 };
+
+export const restartFlow = (): LoginThunk => async (dispatch): Promise<void> => {
+  dispatch({ type: SUBMIT_IDENTITY });
+}

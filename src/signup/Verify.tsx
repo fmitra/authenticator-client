@@ -1,9 +1,10 @@
 import { h, Component } from 'preact';
 
-import { Input, Button } from '@authenticator/form';
+import { InputCode, Button } from '@authenticator/form';
 import { VerifyCodeRequest } from '@authenticator/requests';
 import { NullAppError, FormErrors } from '@authenticator/errors';
-import { Disclaimer, VerifyHeader } from '@authenticator/signup/components';
+import { Disclaimer } from '@authenticator/signup/components';
+import { CodeHeader } from '@authenticator/ui/components';
 
 interface Props {
   error: NullAppError;
@@ -38,9 +39,14 @@ export default class Verify extends Component<Props, State> {
     this.setState({ errors: this.state.errors.update(props.error, 'request') });
   }
 
-  handleCode = (e: Event): void => {
-    const { value } = (e.currentTarget as HTMLFormElement);
-    this.setState({ code: value });
+  handleCode = (code: string, error: NullAppError): void => {
+    this.state.errors.update(error, 'code');
+    this.state.errors.update(null, 'request');
+
+    this.setState({
+      code: code,
+      errors: this.state.errors,
+    });
   }
 
   handleSubmit = (): void => {
@@ -49,30 +55,16 @@ export default class Verify extends Component<Props, State> {
     });
   }
 
-  validateCode = (inputValue: string | number): NullAppError => {
-    const minCodeLen = 6;
-    if (String(inputValue).length < minCodeLen) {
-      return {
-        message: `Code should be at least ${minCodeLen} characters long`,
-        code: 'invalid_code',
-      }
-    }
-
-    return null;
-  }
-
   render(): JSX.Element {
     return (
       <div class='signup'>
         <form class='signup-form'>
-          <VerifyHeader goBack={this.props.restartFlow} />
+          <CodeHeader goBack={this.props.restartFlow} />
 
-          <Input
+          <InputCode
             class='signup-verify-input'
-            type='string'
             value={this.state.code}
-            placeholder='Enter 6 digit verification code'
-            validator={this.validateCode}
+            error={this.state.errors.get('code')}
             id='signup-verify-code'
             onChange={this.handleCode} />
 

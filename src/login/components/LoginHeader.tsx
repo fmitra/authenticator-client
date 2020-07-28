@@ -8,7 +8,7 @@ const LoginHeader = (): JSX.Element => (
       </div>
     </div>
     <div class='login-header__subtitle'>
-      <span>Login to start using our app today</span>
+      <span>It's so good it doesn't even need a headline.</span>
     </div>
   </div>
 );

@@ -1,43 +1,33 @@
-import { h, Component  } from 'preact';
+import { h } from 'preact';
 
-import { Button, Input } from '@authenticator/form';
-import { VerifyCodeRequest } from '@authenticator/requests';
-import { FormErrors } from '@authenticator/errors';
-
-interface State {
-  code: string;
-}
+import { Button, InputCode } from '@authenticator/form';
+import { NullAppError } from '@authenticator/errors';
 
 interface Props {
-  errors: FormErrors;
-  isRequesting: boolean;
-  handleSubmit: { (data: VerifyCodeRequest): any };
+  value: string;
+  isDisabled: boolean;
+  hasError: boolean;
+  error: NullAppError;
+  handleCode: { (code: string, error: NullAppError): void };
+  handleSubmit: { (): void };
 }
 
-export default class TFACode extends Component<Props, State> {
-  handleCode = (e: Event): void => {
-    const { value } = (e.currentTarget as HTMLFormElement);
-    this.setState({ code: value });
-  }
+const TFACode = (props: Props): JSX.Element => (
+  <div class='tfa-code'>
+    <InputCode
+      class='tfa-code__input'
+      id='tfa-code'
+      value={props.value}
+      error={props.error}
+      onChange={props.handleCode} />
 
-  render(): JSX.Element {
-    return (
-      <div class='tfa-code'>
-        <Input
-          class='tfa-code__input'
-          id='tfa-code'
-          value={this.state.code}
-          label='Code'
-          type='string'
-          onChange={this.handleCode} />
+    <Button
+      name='Submit'
+      hasError={props.hasError}
+      class='tfa-button'
+      isDisabled={props.isDisabled}
+      onClick={props.handleSubmit} />
+  </div>
+);
 
-        <Button
-          name='Submit'
-          hasError={this.props.errors.notOk}
-          class='tfa-button'
-          isDisabled={this.props.isRequesting}
-          onClick={() => this.props.handleSubmit({ code: this.state.code })} />
-      </div>
-    );
-  }
-};
+export default TFACode;

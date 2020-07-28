@@ -1,0 +1,33 @@
+.code-header {
+  text-align: center;
+}
+
+.code-header__title {
+  font-size: 28px;
+  margin-bottom: $size-x5;
+  > span {
+    font-size: 28px;
+    display: block;
+    clear: both;
+  }
+}
+
+.code-header__subtitle {
+  margin-bottom: $size-x6;
+  > span {
+    display: block;
+    clear: both;
+  }
+}
+
+.code-header__address {
+  color: $color-theme-50;
+  > span {
+    display: inline;
+  }
+}
+
+.code-header__back {
+  cursor: pointer;
+  text-decoration: none;
+}

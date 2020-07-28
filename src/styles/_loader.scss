@@ -1,0 +1,70 @@
+@-webkit-keyframes move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 50px 50px;
+  }
+}
+
+@-moz-keyframes move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 50px 50px;
+  }
+}
+
+.loader {
+  width: 100%;
+  height: 7px;
+  bottom: -7px;
+  left: 0;
+  position: absolute;
+  @include opacity(.5);
+  > span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    // Set the primary background color
+    background-color: $theme-sea;
+    position: relative;
+    overflow: hidden;
+  }
+  > span:after, .animate > span > span {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-image: -webkit-gradient(linear, 0 0, 100% 100%,
+      color-stop(.25, rgba(255, 255, 255, .15)),
+      color-stop(.25, transparent), color-stop(.5, transparent),
+      color-stop(.5, rgba(255, 255, 255, .15)),
+      color-stop(.75, rgba(255, 255, 255, .15)),
+      color-stop(.75, transparent), to(transparent)
+    );
+    background-image: -moz-linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, .15) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, .15) 50%,
+      rgba(255, 255, 255, .15) 75%,
+      transparent 75%,
+      transparent
+    );
+    z-index: 1;
+    -webkit-background-size: 50px 50px;
+    -moz-background-size: 50px 50px;
+    background-size: 50px 50px;
+    -webkit-animation: move 2s linear infinite;
+    -moz-animation: move 2s linear infinite;
+    overflow: hidden;
+  }
+  .animate > span:after {
+    display: none;
+  }
+}
