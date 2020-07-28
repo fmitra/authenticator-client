@@ -9,7 +9,7 @@ const ErrorMessage = (props: { error: string; key: string }): JSX.Element => (
 
 const Errors = (props: { errors: FormErrors; class: string }): JSX.Element => (
   <div class={classes({
-    'error': true,
+    error: true,
     [props.class]: Boolean(props.class),
   })}>
     {

@@ -1,17 +1,6 @@
 import { h } from 'preact';
-import config from '@authenticator/config';
 
-const TOS = (): JSX.Element => (
-  <a href={config.links.termsOfService} target='_blank' rel='noopener noreferrer'>
-    Terms of Service
-  </a>
-);
-
-const PrivacyPolicy = (): JSX.Element => (
-  <a href={config.links.privacyPolicy} target='_blank' rel='noopener noreferrer'>
-    Privacy Policy
-  </a>
-);
+import { TOS, PrivacyPolicy } from '@authenticator/ui/components/Disclaimer';
 
 const Disclaimer = (): JSX.Element => (
   <div class="signup-disclaimer">

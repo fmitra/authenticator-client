@@ -1,0 +1,19 @@
+.disclaimer {
+  width: 100%;
+  text-align: center;
+  color: $color-neutral-30;
+  font-size: $size-x3;
+  margin-top: $size-x3 * 5;
+
+  a {
+    font-size: $size-x3;
+  }
+
+  a, a:visited, a:active {
+    color: $color-neutral-30;
+  }
+
+  a:hover {
+    color: lighten($color-neutral-30, 10%);
+  }
+}

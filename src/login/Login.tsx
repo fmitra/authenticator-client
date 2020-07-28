@@ -8,7 +8,8 @@ import {
   InputPassword,
 } from '@authenticator/form';
 import { ContactMethod } from '@authenticator/identity/contact';
-import { LoginHeader } from '@authenticator/login/components';
+import { SignupInstead, LoginHeader } from '@authenticator/login/components';
+import { Disclaimer } from '@authenticator/ui/components';
 
 interface Props {
   error: NullAppError;
@@ -112,6 +113,9 @@ export default class Login extends Component<Props, State> {
             hasError={this.state.errors.notOk}
             isDisabled={this.props.isRequesting || !isFormFilled}
             onClick={this.handleSubmit} />
+
+          <SignupInstead />
+          <Disclaimer class='login-disclaimer' />
         </form>
       </div>
     );

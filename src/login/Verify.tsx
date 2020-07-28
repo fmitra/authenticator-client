@@ -3,7 +3,7 @@ import { h, Component } from 'preact';
 import { SendRequest, VerifyCodeRequest } from '@authenticator/requests';
 import { NullAppError, FormErrors } from '@authenticator/errors';
 import { TFAOptions, TFADevice, TFACode } from '@authenticator/login/components';
-import { CodeHeader } from '@authenticator/ui/components';
+import { Disclaimer, CodeHeader } from '@authenticator/ui/components';
 import { PHONE, EMAIL } from '@authenticator/identity/contact';
 import Token, {
   TFAOption,
@@ -101,6 +101,7 @@ export default class LoginVerify extends Component<Props, State> {
               handleSubmit={this.handleSubmit}  /> }
 
           <TFAOptions setTFAOption={this.setTFAOption} options={Token.tfaOptions} />
+          <Disclaimer />
         </div>
       </div>
     )
