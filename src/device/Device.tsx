@@ -42,7 +42,6 @@ export default class Device extends Component<Props, State> {
   }
 
   render(): JSX.Element {
-    console.log(this.state.errors);
     return (
       <div class='device'>
         <div class='device-form'>
