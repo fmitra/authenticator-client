@@ -1,6 +1,7 @@
 import {
   REQUEST,
   REQUEST_ERROR,
+  REQUEST_SUCCESS,
   VERIFY_ACCOUNT,
   VERIFIED,
   SUBMIT_IDENTITY,
@@ -42,6 +43,14 @@ export default (state: State = defaultState, action: Action): State => {
         error: action.error ? action.error : null,
         isRequesting: false,
       };
+    }
+
+    case REQUEST_SUCCESS: {
+      return {
+        ...state,
+        error: null,
+        isRequesting: false,
+      }
     }
 
     case VERIFY_ACCOUNT: {

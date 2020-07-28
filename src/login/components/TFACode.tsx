@@ -13,9 +13,9 @@ interface Props {
 }
 
 const TFACode = (props: Props): JSX.Element => (
-  <div class='tfa-code'>
+  <div class='login-tfa-code'>
     <InputCode
-      class='tfa-code__input'
+      class='login-input'
       id='tfa-code'
       value={props.value}
       error={props.error}
@@ -24,7 +24,7 @@ const TFACode = (props: Props): JSX.Element => (
     <Button
       name='Submit'
       hasError={props.hasError}
-      class='tfa-button'
+      class='login-btn'
       isDisabled={props.isDisabled}
       onClick={props.handleSubmit} />
   </div>

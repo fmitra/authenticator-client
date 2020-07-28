@@ -5,15 +5,18 @@ import Token from '@authenticator/identity/Token';
 import {
   REQUEST,
   REQUEST_ERROR,
+  REQUEST_SUCCESS,
   VERIFY_ACCOUNT,
   SUBMIT_IDENTITY,
   VERIFIED,
 } from '@authenticator/login/constants';
 import {
+  ContactAPI,
   LoginAPI,
   TokenResponse,
   VerifyDeviceResponse,
   VerifyCodeRequest,
+  SendRequest,
   LoginRequest,
   APIResponse,
   PubKeyCredentialResponse,
@@ -188,3 +191,36 @@ export const verifyDevice = (credentialsAPI: CredentialsContainer): LoginThunk =
 export const restartFlow = (): LoginThunk => async (dispatch): Promise<void> => {
   dispatch({ type: SUBMIT_IDENTITY });
 }
+
+export const resendCode = (data: SendRequest): LoginThunk => async (dispatch): Promise<void> => {
+  let response: APIResponse<TokenResponse>;
+
+  dispatch({ type: REQUEST });
+
+  try {
+    response = await ContactAPI.send(data);
+  } catch(e) {
+    dispatch({ type: REQUEST_ERROR, error: e.resultError });
+    return;
+  }
+
+  if (!response.resultSuccess) {
+    dispatch({ type: REQUEST_ERROR, error: {
+      code: 'empty_response',
+      message: 'No response received',
+    } });
+    return;
+  }
+
+  try {
+    Token.set(response.resultSuccess.token);
+  } catch(e) {
+    dispatch({ type: REQUEST_ERROR, error: {
+      code: 'invalid_token',
+      message: 'Token is not correctly formatted',
+    } });
+    return;
+  }
+
+  dispatch({ type: REQUEST_SUCCESS });
+};

@@ -8,11 +8,12 @@ import {
   login,
   verifyCode,
   verifyDevice,
+  resendCode,
   restartFlow,
   LoginThunk,
 } from '@authenticator/login/actions';
 import { State } from '@authenticator/signup/reducer';
-import { VerifyCodeRequest, LoginRequest } from '@authenticator/requests';
+import { VerifyCodeRequest, SendRequest, LoginRequest } from '@authenticator/requests';
 import Login from '@authenticator/login/Login';
 import Verify from '@authenticator/login/Verify';
 import Success from '@authenticator/login/Success';
@@ -20,10 +21,11 @@ import Success from '@authenticator/login/Success';
 const mapDispatchToProps = (dispatch: Dispatch): {
   login: { (data: LoginRequest): LoginThunk };
   verifyCode: { (data: VerifyCodeRequest): LoginThunk };
+  resendCode: { (data: SendRequest): LoginThunk };
   verifyDevice: { (credentialsAPI: CredentialsContainer): LoginThunk };
   restartFlow: { (): LoginThunk };
 } => (
-  bindActionCreators({ verifyCode, verifyDevice, login, restartFlow }, dispatch)
+  bindActionCreators({ verifyCode, resendCode, verifyDevice, login, restartFlow }, dispatch)
 );
 
 const mapStateToProps = (state: { login: State }): State => ( state.login );
@@ -34,6 +36,7 @@ interface Props {
   login: { (data: LoginRequest): any };
   verifyCode: { (data: VerifyCodeRequest): any };
   verifyDevice: { (credentialsAPI: CredentialsContainer): any };
+  resendCode: { (data: SendRequest): any };
   restartFlow: { (): any };
   isRequesting: boolean;
   needAccountDetails: boolean;
@@ -56,7 +59,9 @@ class Container extends Component<Props, {}> {
         <Verify
           error={this.props.error}
           verifyCode={this.props.verifyCode}
+          restartFlow={this.props.restartFlow}
           verifyDevice={this.props.verifyDevice}
+          resendCode={this.props.resendCode}
           isRequesting={this.props.isRequesting} />
       );
     }

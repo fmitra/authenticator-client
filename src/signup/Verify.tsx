@@ -5,6 +5,7 @@ import { VerifyCodeRequest } from '@authenticator/requests';
 import { NullAppError, FormErrors } from '@authenticator/errors';
 import { Disclaimer } from '@authenticator/signup/components';
 import { CodeHeader } from '@authenticator/ui/components';
+import Token from '@authenticator/identity/Token';
 
 interface Props {
   error: NullAppError;
@@ -59,7 +60,7 @@ export default class Verify extends Component<Props, State> {
     return (
       <div class='signup'>
         <form class='signup-form'>
-          <CodeHeader goBack={this.props.restartFlow} />
+          <CodeHeader lastMessageAddress={Token.lastMessageAddress} goBack={this.props.restartFlow} />
 
           <InputCode
             class='signup-verify-input'

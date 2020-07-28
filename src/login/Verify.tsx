@@ -1,14 +1,21 @@
 import { h, Component } from 'preact';
 
-import { VerifyCodeRequest } from '@authenticator/requests';
+import { SendRequest, VerifyCodeRequest } from '@authenticator/requests';
 import { NullAppError, FormErrors } from '@authenticator/errors';
 import { TFAOptions, TFADevice, TFACode } from '@authenticator/login/components';
 import { CodeHeader } from '@authenticator/ui/components';
-import Token, { Device } from '@authenticator/identity/Token';
+import { PHONE, EMAIL } from '@authenticator/identity/contact';
+import Token, {
+  TFAOption,
+  Device,
+  OTPEmail,
+  OTPPhone,
+} from '@authenticator/identity/Token';
 
 interface State {
   errors: FormErrors;
   code: string;
+  isDeviceView: boolean;
 }
 
 interface Props {
@@ -16,6 +23,7 @@ interface Props {
   isRequesting: boolean;
   verifyCode: { (data: VerifyCodeRequest): any };
   verifyDevice: { (credentialsAPI: CredentialsContainer): any };
+  resendCode: { (data: SendRequest): any };
   restartFlow: { (): any };
 }
 
@@ -26,6 +34,7 @@ export default class LoginVerify extends Component<Props, State> {
     this.state = {
       code: '',
       errors: new FormErrors(),
+      isDeviceView: Token.defaultTFA === Device,
     }
   }
 
@@ -34,6 +43,7 @@ export default class LoginVerify extends Component<Props, State> {
     isRequesting: false,
     verifyDevice: (credentialsAPI: CredentialsContainer): void => {},
     verifyCode: (data: VerifyCodeRequest): void => {},
+    resendCode: (data: SendRequest): void => {},
     restartFlow: (): void => {},
   }
 
@@ -51,15 +61,36 @@ export default class LoginVerify extends Component<Props, State> {
     this.props.verifyCode({ code: this.state.code });
   }
 
-  render(): JSX.Element {
-    const isDefaultDevice = Token.defaultTFA === Device;
+  setTFAOption = (option: TFAOption): void => {
+    this.state.errors.update(null, 'request');
 
+    if (option === Device) {
+      this.setState({
+        isDeviceView: true,
+        errors: this.state.errors,
+      });
+      return;
+    }
+
+    this.setState({
+      isDeviceView: false,
+      errors: this.state.errors,
+    });
+
+    if (option === OTPPhone) {
+      this.props.resendCode({ deliveryMethod: PHONE });
+    } else if (option === OTPEmail) {
+      this.props.resendCode({ deliveryMethod: EMAIL });
+    }
+  }
+
+  render(): JSX.Element {
     return (
       <div class='login'>
         <div class='login-verify'>
-          <CodeHeader goBack={this.props.restartFlow} />
+          <CodeHeader lastMessageAddress={Token.lastMessageAddress} goBack={this.props.restartFlow} />
 
-          { isDefaultDevice ?
+          { this.state.isDeviceView ?
             <TFADevice verifyDevice={this.props.verifyDevice} /> :
             <TFACode
               value={this.state.code}
@@ -69,8 +100,7 @@ export default class LoginVerify extends Component<Props, State> {
               hasError={this.state.errors.notOk}
               handleSubmit={this.handleSubmit}  /> }
 
-          {/* TODO Toggle between device and code */}
-          <TFAOptions options={Token.tfaOptions} />
+          <TFAOptions setTFAOption={this.setTFAOption} options={Token.tfaOptions} />
         </div>
       </div>
     )

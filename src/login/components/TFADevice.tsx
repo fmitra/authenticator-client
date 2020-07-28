@@ -10,9 +10,9 @@ const TFADevice = (props: Props): JSX.Element => {
   props.verifyDevice(window.navigator.credentials);
 
   return (
-    <div class='tfa-device'>
+    <div class='login-tfa-device'>
       <Loader />
-      Please Insert your device
+      <span>Please Insert your device</span>
     </div>
   );
 };

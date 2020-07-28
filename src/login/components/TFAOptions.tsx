@@ -1,19 +1,66 @@
-import { h } from 'preact';
+import { h, Component } from 'preact';
 
-import { TFAOption } from '@authenticator/identity/Token';
+import {
+  TFAOption,
+  OTPPhone,
+  OTPEmail,
+  TOTP,
+  Device,
+} from '@authenticator/identity/Token';
 
 interface Props {
   options: TFAOption[];
+  setTFAOption: { (option: TFAOption): void };
 }
 
-const TFAOptions = (props: Props): JSX.Element => (
-  <div class='tfa-options'>
-    { props.options.map(x => (
-      <div class='tfa-options__option'>
-        {x}
-      </div>
-    )) }
-  </div>
-);
+interface State {
+  isOptionsVisible: boolean;
+}
 
-export default TFAOptions;
+const tfaOptionMap: {[key: string]: string} = {
+  [OTPPhone]: 'Receive a verification code through SMS',
+  [OTPEmail]: 'Receive a verification code through Email',
+  [TOTP]: 'Generate your own verification code',
+  [Device]: 'Authenticate with your device',
+}
+
+export default class TFAOptions extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      isOptionsVisible: false,
+    }
+  }
+
+  toggleOptions = (): void => {
+    this.setState({ isOptionsVisible: !this.state.isOptionsVisible });
+  }
+
+  handleTFASelect = (option: TFAOption): void => {
+    this.toggleOptions();
+    this.props.setTFAOption(option);
+  }
+
+  render(): JSX.Element {
+    const options = this.props.options.map(x => (
+      <div class='login-tfa-options__option' onClick={() => this.handleTFASelect(x)}>
+        <span>{tfaOptionMap[x]}</span>
+      </div>
+    ));
+
+    return (
+      <div class='login-tfa-options'>
+        <div class='login-tfa-options__toggle'
+          onClick={this.toggleOptions}>
+          {
+            this.state.isOptionsVisible ?
+            <span>Select an option below:</span> :
+            <span class='login-tfa-options__toggle-link'>See other options for logging in</span>
+          }
+        </div>
+        {this.state.isOptionsVisible && options}
+      </div>
+    );
+  }
+}

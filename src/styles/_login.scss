@@ -21,7 +21,7 @@
   }
 }
 
-.signup-success {
+.login-success {
   width: 100%;
   max-width: $screen-x2;
   background-color: $color-neutral-0;
@@ -29,6 +29,8 @@
   font-size: $size-x6;
   text-align: center;
   > img {
+    clear: both;
+    display: block;
     margin: 0 auto $size-x7 auto;
     width: 50px;
     height: 50px;
@@ -88,5 +90,35 @@
   > span {
     display: block;
     clear: both;
+  }
+}
+
+.login-tfa-options__toggle {
+  margin-bottom: $size-x4;
+  cursor: pointer;
+}
+
+.login-tfa-options__toggle-link {
+  color: $color-theme-50;
+}
+
+.login-tfa-options__option {
+  padding: $size-x3;
+  margin-bottom: $size-x2;
+  border-radius: $size-x1;
+  background-color: $color-neutral-10;
+  cursor: pointer;
+}
+
+.login-tfa-options {
+  margin-top: $size-x8;
+}
+
+.login-tfa-device {
+  text-align: center;
+  > span {
+    display: block;
+    margin-top: $size-x9;
+    color: $color-neutral-90;
   }
 }
