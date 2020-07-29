@@ -10,7 +10,6 @@ interface State {
 }
 
 interface Props {
-  path?: string;
   error: NullAppError;
   isRequesting: boolean;
   registerDevice: { (credentialsAPI: CredentialsContainer): any };

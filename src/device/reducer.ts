@@ -8,6 +8,7 @@ import { AppError, NullAppError } from '@authenticator/errors';
 export interface State {
   error: NullAppError;
   isRequesting: boolean;
+  isEnabled: boolean;
 }
 
 export interface Action {
@@ -18,6 +19,7 @@ export interface Action {
 const defaultState: State = {
   error: null,
   isRequesting: false,
+  isEnabled: false,
 };
 
 export default (state: State = defaultState, action: Action): State => {
@@ -26,6 +28,7 @@ export default (state: State = defaultState, action: Action): State => {
       return {
         ...state,
         error: null,
+        isEnabled: false,
         isRequesting: true,
       };
     }
@@ -34,6 +37,7 @@ export default (state: State = defaultState, action: Action): State => {
       return {
         ...state,
         error: action.error ? action.error : null,
+        isEnabled: false,
         isRequesting: false,
       };
     }
@@ -42,6 +46,7 @@ export default (state: State = defaultState, action: Action): State => {
       return {
         ...state,
         error: null,
+        isEnabled: true,
         isRequesting: false,
       };
     }
