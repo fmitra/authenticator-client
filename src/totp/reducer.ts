@@ -22,8 +22,8 @@ export interface Action {
 const defaultState: State = {
   error: null,
   totp: '',
-  isEnabled: false,
   isRequesting: false,
+  isEnabled: false,
 };
 
 export default (state: State = defaultState, action: Action): State => {
@@ -32,9 +32,8 @@ export default (state: State = defaultState, action: Action): State => {
       return {
         ...state,
         error: null,
-        totp: '',
-        isEnabled: false,
         isRequesting: true,
+        isEnabled: false,
       };
     }
 
@@ -42,9 +41,8 @@ export default (state: State = defaultState, action: Action): State => {
       return {
         ...state,
         error: action.error ? action.error : null,
-        totp: '',
-        isEnabled: false,
         isRequesting: false,
+        isEnabled: false,
       };
     }
 
@@ -53,18 +51,17 @@ export default (state: State = defaultState, action: Action): State => {
         ...state,
         totp: action.totp ? action.totp : '',
         error: null,
-        isEnabled: false,
         isRequesting: false,
+        isEnabled: false,
       };
     }
 
     case TOTP_IS_ENABLED: {
       return {
         ...state,
-        totp: '',
         error: null,
-        isEnabled: true,
         isRequesting: false,
+        isEnabled: true,
       }
     }
 

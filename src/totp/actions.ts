@@ -16,9 +16,9 @@ import {
   TOTPRequest,
 } from '@authenticator/requests';
 
-export type TOTPManagement = ThunkAction<void, { totp: State }, void, Action>;
+export type TOTPThunk = ThunkAction<void, { totp: State }, void, Action>;
 
-export const secret = (): TOTPManagement => async (dispatch): Promise<void> => {
+export const secret = (): TOTPThunk => async (dispatch): Promise<void> => {
   let response: APIResponse<SecretResponse>;
 
   dispatch({ type: REQUEST });
@@ -41,7 +41,7 @@ export const secret = (): TOTPManagement => async (dispatch): Promise<void> => {
   dispatch({ type: SECRET_CREATED, totp: response.resultSuccess.totp });
 };
 
-export const enable = (data: TOTPRequest): TOTPManagement => async (dispatch): Promise<void> => {
+export const enable = (data: TOTPRequest): TOTPThunk => async (dispatch): Promise<void> => {
   let response: APIResponse<TokenResponse>;
 
   dispatch({ type: REQUEST });

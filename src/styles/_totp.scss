@@ -1,4 +1,4 @@
-.contact {
+.totp {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6,7 +6,7 @@
   height: 100%;
 }
 
-.contact-form {
+.totp-form {
   width: 100%;
   text-align: center;
   max-width: $screen-x2;
@@ -22,13 +22,17 @@
   }
 }
 
-.contact-btn {
+.totp-btn {
   .button__button {
     width: 100%;
   }
 }
 
-.contact-header__title {
+.totp__errors {
+  margin-top: $size-x9;
+}
+
+.totp-header__title {
   font-size: 28px;
   margin-bottom: $size-x5;
   > span {
@@ -38,10 +42,26 @@
   }
 }
 
-.contact-header__subtitle {
+.totp-header__subtitle {
   margin-bottom: $size-x2;
   > span {
     display: block;
     clear: both;
+  }
+}
+
+.totp-success {
+  width: 100%;
+  max-width: $screen-x2;
+  background-color: $color-neutral-0;
+  padding: $size-x10;
+  font-size: $size-x6;
+  text-align: center;
+  > img {
+    clear: both;
+    display: block;
+    margin: 0 auto $size-x7 auto;
+    width: 50px;
+    height: 50px;
   }
 }

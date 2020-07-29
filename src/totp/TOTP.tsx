@@ -3,7 +3,7 @@ import { h, Component } from 'preact';
 import { Button } from '@authenticator/form';
 import { NullAppError, Errors, FormErrors } from '@authenticator/errors';
 import { TOTPRequest } from '@authenticator/requests';
-import { QR, FormFields } from '@authenticator/totp/components';
+import { TOTPHeader, QR, FormFields } from '@authenticator/totp/components';
 
 interface State {
   errors: FormErrors;
@@ -11,13 +11,11 @@ interface State {
 }
 
 interface Props {
-  path?: string;
   error: NullAppError;
   totp: string;
   secret: { (): any };
   enable: { (data: TOTPRequest): any };
   isRequesting: boolean;
-  isEnabled: boolean;
 }
 
 export default class TOTP extends Component<Props, State> {
@@ -34,7 +32,6 @@ export default class TOTP extends Component<Props, State> {
     error: null,
     secret: (): void => {},
     enable: (data: TOTPRequest): void => {},
-    isEnabled: false,
     isRequesting: false,
   }
 
@@ -44,9 +41,14 @@ export default class TOTP extends Component<Props, State> {
     });
   }
 
-  handleCode = (e: Event): void => {
-    const { value } = (e.currentTarget as HTMLFormElement);
-    this.setState({ code: value });
+  handleCode = (code: string, error: NullAppError): void => {
+    this.state.errors.update(null, 'request');
+    this.state.errors.update(error, 'code');
+
+    this.setState({
+      code: code,
+      errors: this.state.errors,
+    });
   }
 
   handleSubmit = (): void => {
@@ -60,22 +62,31 @@ export default class TOTP extends Component<Props, State> {
   render(): JSX.Element {
     return (
       <div class='totp'>
-        TOTP
         <form class='totp-form'>
-          <Errors class='totp__errors' errors={this.state.errors} />
+          <TOTPHeader />
 
           { !this.props.totp && <Button
             name='Show QR Code'
-            class='totp-button'
+            class='totp-btn'
             hasError={this.state.errors.notOk}
             isDisabled={this.props.isRequesting}
             onClick={this.handleSecret} /> }
+
+          {
+            !this.props.totp &&
+            this.state.errors.get('request') &&
+            <Errors class='totp__errors' errors={this.state.errors} />
+          }
 
           { this.props.totp && <QR value={this.props.totp} /> }
 
           { this.props.totp && <FormFields
             errors={this.state.errors}
             value={this.state.code}
+            error={
+              this.state.errors.get('code') ||
+              this.state.errors.get('request')
+            }
             isDisabled={this.props.isRequesting}
             handleSubmit={this.handleSubmit}
             handleCode={this.handleCode} /> }
