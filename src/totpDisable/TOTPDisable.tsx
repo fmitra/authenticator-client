@@ -1,8 +1,10 @@
 import { h, Component } from 'preact';
 
-import { Input, Button } from '@authenticator/form';
-import { NullAppError, Errors, FormErrors } from '@authenticator/errors';
+import { InputCode, Button } from '@authenticator/form';
+import { NullAppError, FormErrors } from '@authenticator/errors';
 import { TOTPRequest } from '@authenticator/requests';
+import { TOTPHeader } from '@authenticator/totpDisable/components';
+import { Disclaimer } from '@authenticator/ui/components';
 
 interface State {
   errors: FormErrors;
@@ -10,11 +12,9 @@ interface State {
 }
 
 interface Props {
-  path?: string;
   error: NullAppError;
   disable: { (data: TOTPRequest): any };
   isRequesting: boolean;
-  isDisabled: boolean;
 }
 
 export default class TOTPDisable extends Component<Props, State> {
@@ -40,9 +40,14 @@ export default class TOTPDisable extends Component<Props, State> {
     });
   }
 
-  handleCode = (e: Event): void => {
-    const { value } = (e.currentTarget as HTMLFormElement);
-    this.setState({ code: value });
+  handleCode = (code: string, error: NullAppError): void => {
+    this.state.errors.update(null, 'request');
+    this.state.errors.update(error, 'code');
+
+    this.setState({
+      code: code,
+      errors: this.state.errors,
+    });
   }
 
   handleSubmit = (): void => {
@@ -51,24 +56,26 @@ export default class TOTPDisable extends Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <div class='totp-disable'>
-        TOTP Disable
-        <form class='totp-disable-form'>
-          <Errors class='totp__errors' errors={this.state.errors} />
-
-          <Input
-            class='totp-disable__input'
+      <div class='totp'>
+        <form class='totp-form'>
+          <TOTPHeader />
+          <InputCode
+            class='totp__input'
             value={this.state.code}
-            label='Code'
-            type='string'
             id='totp-disable-code'
+            error={
+              this.state.errors.get('code') ||
+              this.state.errors.get('request')
+            }
             onChange={this.handleCode} />
           <Button
-            class='totp-button'
+            class='totp-btn'
             name='Submit'
             hasError={this.state.errors.notOk}
             isDisabled={this.props.isRequesting}
             onClick={this.handleSubmit} />
+
+          <Disclaimer />
         </form>
       </div>
     );

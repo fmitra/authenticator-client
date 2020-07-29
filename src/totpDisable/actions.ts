@@ -14,9 +14,9 @@ import {
   TOTPRequest,
 } from '@authenticator/requests';
 
-export type TOTPManagement = ThunkAction<void, { totp: State }, void, Action>;
+export type TOTPThunk = ThunkAction<void, { totp: State }, void, Action>;
 
-export const disable = (data: TOTPRequest): TOTPManagement => async (dispatch): Promise<void> => {
+export const disable = (data: TOTPRequest): TOTPThunk => async (dispatch): Promise<void> => {
   let response: APIResponse<TokenResponse>;
 
   dispatch({ type: REQUEST });

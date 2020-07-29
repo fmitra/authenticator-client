@@ -4,6 +4,7 @@ import { Button } from '@authenticator/form';
 import { NullAppError, Errors, FormErrors } from '@authenticator/errors';
 import { TOTPRequest } from '@authenticator/requests';
 import { TOTPHeader, QR, FormFields } from '@authenticator/totp/components';
+import { Disclaimer } from '@authenticator/ui/components';
 
 interface State {
   errors: FormErrors;
@@ -90,6 +91,8 @@ export default class TOTP extends Component<Props, State> {
             isDisabled={this.props.isRequesting}
             handleSubmit={this.handleSubmit}
             handleCode={this.handleCode} /> }
+
+          <Disclaimer />
         </form>
       </div>
     );

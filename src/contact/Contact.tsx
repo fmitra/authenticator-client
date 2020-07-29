@@ -82,6 +82,7 @@ export default class Contact extends Component<Props, State> {
             hasError={this.state.errors.notOk}
             isDisabled={this.props.isRequesting}
             onClick={this.handleSubmit} />
+
           <Disclaimer />
         </form>
       </div>
