@@ -41,7 +41,7 @@ export default class InputCode extends Component<Props, {}> {
         value={this.props.value}
         error={this.props.error}
         placeholder={this.props.placeholder || 'Enter 6 digit verification code'}
-        type='text'
+        type='number'
         id={this.props.id}
         onChange={this.handleCode}
         validator={validateCode} />

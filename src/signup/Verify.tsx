@@ -60,12 +60,17 @@ export default class Verify extends Component<Props, State> {
     return (
       <div class='signup'>
         <form class='signup-form'>
-          <CodeHeader lastMessageAddress={Token.lastMessageAddress} goBack={this.props.restartFlow} />
+          <CodeHeader
+            lastMessageAddress={Token.lastMessageAddress}
+            goBack={this.props.restartFlow} />
 
           <InputCode
             class='signup-verify-input'
             value={this.state.code}
-            error={this.state.errors.get('code')}
+            error={
+              this.state.errors.get('code') ||
+              this.state.errors.get('request')
+            }
             id='signup-verify-code'
             onChange={this.handleCode} />
 

@@ -97,7 +97,6 @@ export default class Login extends Component<Props, State> {
               this.state.errors.get('username') ||
               this.state.errors.get('request')
             }
-            placeholder='Email address or mobile number'
             id='login-username' />
           <InputPassword
             onChange={this.handlePassword}

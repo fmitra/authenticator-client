@@ -1,12 +1,15 @@
 import { h, Component } from 'preact';
 
-import { Input, Button } from '@authenticator/form';
+import { InputCode, Button } from '@authenticator/form';
 import { VerifyContactRequest } from '@authenticator/requests';
-import { NullAppError, FormErrors, Errors } from '@authenticator/errors';
+import { NullAppError, FormErrors } from '@authenticator/errors';
+import { Disclaimer, CodeHeader } from '@authenticator/ui/components';
+import Token from '@authenticator/identity/Token';
 
 interface Props {
   error: NullAppError;
   verify: { (data: VerifyContactRequest): any };
+  restartFlow: { (): any };
   isRequesting: boolean;
 }
 
@@ -28,6 +31,7 @@ export default class ContactVerify extends Component<Props, State> {
   static defaultProps = {
     error: null,
     verify: (data: VerifyContactRequest): void => {},
+    restartFlow: (): void => {},
     isRequesting: false,
   };
 
@@ -35,9 +39,14 @@ export default class ContactVerify extends Component<Props, State> {
     this.setState({ errors: this.state.errors.update(props.error, 'request') });
   }
 
-  handleCode = (e: Event): void => {
-    const { value } = (e.currentTarget as HTMLFormElement);
-    this.setState({ code: value });
+  handleCode = (code: string, error: NullAppError): void => {
+    this.state.errors.update(error, 'code');
+    this.state.errors.update(null, 'request');
+
+    this.setState({
+      code: code,
+      errors: this.state.errors,
+    });
   }
 
   handleSubmit = (): void => {
@@ -49,24 +58,30 @@ export default class ContactVerify extends Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <div class='contact-verify'>
-        <form class='contact-verify-form'>
-          <Input
+      <div class='contact'>
+        <form class='contact-form'>
+          <CodeHeader
+            lastMessageAddress={Token.lastMessageAddress}
+            goBack={this.props.restartFlow} />
+
+          <InputCode
             class='contact-verify-input'
-            label='Code'
-            type='string'
             value={this.state.code}
+            error={
+              this.state.errors.get('code') ||
+              this.state.errors.get('request')
+            }
             id='contact-verify-code'
             onChange={this.handleCode} />
 
-          <Errors class='contact__errors' errors={this.state.errors} />
-
           <Button
-            class='contact-button'
+            class='contact-btn'
             name='Submit'
             hasError={this.state.errors.notOk}
             isDisabled={this.props.isRequesting}
             onClick={this.handleSubmit} />
+
+          <Disclaimer />
         </form>
       </div>
     );

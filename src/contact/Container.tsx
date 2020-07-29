@@ -5,7 +5,12 @@ import { connect } from 'preact-redux';
 import { bindActionCreators } from 'redux';
 
 import { NullAppError } from '@authenticator/errors';
-import { checkAddress, verify, ContactThunk} from '@authenticator/contact/actions';
+import {
+  restartFlow,
+  checkAddress,
+  verify,
+  ContactThunk,
+} from '@authenticator/contact/actions';
 import { State } from '@authenticator/contact/reducer';
 import { VerifyContactRequest, DeliveryRequest } from '@authenticator/requests';
 import Contact from '@authenticator/contact/Contact';
@@ -15,8 +20,9 @@ import Success from '@authenticator/contact/Success';
 const mapDispatchToProps = (dispatch: Dispatch): {
   checkAddress: { (data: DeliveryRequest): ContactThunk };
   verify: { (data: VerifyContactRequest): ContactThunk };
+  restartFlow: { (): ContactThunk };
 } => (
-  bindActionCreators({ checkAddress, verify }, dispatch)
+  bindActionCreators({ restartFlow, checkAddress, verify }, dispatch)
 );
 
 const mapStateToProps = (state: { contact: State }): State => ( state.contact );
@@ -26,6 +32,7 @@ export interface Props {
   error: NullAppError;
   checkAddress: { (data: DeliveryRequest): any };
   verify: { (data: VerifyContactRequest): any };
+  restartFlow: { (): any };
   isRequesting: boolean;
   needAccountDetails: boolean;
   needVerification: boolean;
@@ -47,6 +54,7 @@ class Container extends Component<Props, {}> {
         <Verify
           error={this.props.error}
           isRequesting={this.props.isRequesting}
+          restartFlow={this.props.restartFlow}
           verify={this.props.verify} />
       );
     }

@@ -20,7 +20,6 @@ const UsernameStep = (props: Props): JSX.Element => (
       value={props.value}
       error={props.error}
       class='signup-input'
-      placeholder='Email address or mobile number'
       id='signup-username' />
     <Button
       name='Next'

@@ -1,8 +1,10 @@
 import { h, Component } from 'preact';
 
+import { Disclaimer } from '@authenticator/ui/components';
 import { Button, InputContact } from '@authenticator/form';
+import { ContactHeader } from '@authenticator/contact/components';
 import { DeliveryRequest } from '@authenticator/requests';
-import { NullAppError, FormErrors, Errors } from '@authenticator/errors';
+import { NullAppError, FormErrors } from '@authenticator/errors';
 import { ContactMethod } from '@authenticator/identity/contact';
 
 export interface Props {
@@ -41,10 +43,13 @@ export default class Contact extends Component<Props, State> {
   }
 
   handleAddress = (address: string, method: ContactMethod, error: NullAppError): void => {
+    this.state.errors.update(error, 'address');
+    this.state.errors.update(null, 'request');
+
     this.setState({
       address: address,
       deliveryMethod: method,
-      errors: this.state.errors.update(error, 'address'),
+      errors: this.state.errors,
     });
   }
 
@@ -58,25 +63,26 @@ export default class Contact extends Component<Props, State> {
   render(): JSX.Element {
     return (
       <div class='contact'>
-        Contact
         <form class='contact-form'>
+          <ContactHeader />
           <InputContact
-            error={this.state.errors.get('address')}
+            error={
+              this.state.errors.get('address') ||
+              this.state.errors.get('request')
+            }
             onChange={this.handleAddress}
             language={window.navigator.language || ''}
             value={this.state.address}
             class='contact-input'
-            label='Address'
-            id='signup-address' />
-
-          <Errors class='contact__errors' errors={this.state.errors} />
+            id='contact-address' />
 
           <Button
             name='Send Code'
-            class='contact-button'
+            class='contact-btn'
             hasError={this.state.errors.notOk}
             isDisabled={this.props.isRequesting}
             onClick={this.handleSubmit} />
+          <Disclaimer />
         </form>
       </div>
     );

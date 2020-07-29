@@ -97,7 +97,7 @@ export default class InputContact extends Component<Props, {}> {
         label={this.props.label}
         value={this.props.value}
         error={this.props.error}
-        placeholder={this.props.placeholder}
+        placeholder={this.props.placeholder || 'Email address or mobile number'}
         type='text'
         id={this.props.id}
         onChange={this.handleContact}

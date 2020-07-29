@@ -16,7 +16,7 @@ const TFADevice = (props: Props): JSX.Element => {
         <img src={iconFingerprint} />
       </div>
       <div class='login-tfa-device__intro'>
-        Connect your FIDO device and click to button below to 
+        Connect your FIDO device and click the button below to 
         complete your login.
       </div>
       {

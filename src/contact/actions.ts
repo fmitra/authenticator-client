@@ -6,6 +6,7 @@ import {
   REQUEST,
   REQUEST_ERROR,
   VERIFY_CONTACT,
+  SUBMIT_CONTACT,
   VERIFIED,
 } from '@authenticator/contact/constants';
 import {
@@ -89,3 +90,7 @@ export const verify = (data: VerifyContactRequest): ContactThunk => async (dispa
 
   dispatch({ type: VERIFIED });
 };
+
+export const restartFlow = (): ContactThunk => async (dispatch): Promise<void> => {
+  dispatch({ type: SUBMIT_CONTACT });
+}
