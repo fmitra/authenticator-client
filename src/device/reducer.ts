@@ -16,7 +16,7 @@ export interface Action {
   error?: AppError;
 }
 
-const defaultState: State = {
+export const defaultState: State = {
   error: null,
   isRequesting: false,
   isEnabled: false,

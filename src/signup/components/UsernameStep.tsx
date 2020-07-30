@@ -5,7 +5,8 @@ import { ContactMethod } from '@authenticator/identity/contact';
 
 interface Props {
   onSubmit: { (): void };
-  onChange: { (address: string, method: ContactMethod, error: NullAppError): void };
+  onInput: { (address: string, method: ContactMethod): void };
+  onChange: { (e: Event, error: NullAppError): void };
   isDisabled: boolean;
   value: string;
   hasError: boolean;
@@ -15,6 +16,7 @@ interface Props {
 const UsernameStep = (props: Props): JSX.Element => (
   <div class='signup-form__username'>
     <InputContact
+      onInput={props.onInput}
       onChange={props.onChange}
       language={window.navigator.language || ''}
       value={props.value}

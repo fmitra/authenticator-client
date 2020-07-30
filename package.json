@@ -68,7 +68,8 @@
       "src/**/*.{ts,js,tsx,jsx}"
     ],
     "moduleNameMapper": {
-      "^@authenticator/(.*)": "<rootDir>/src/$1"
+      "^@authenticator/(.*)": "<rootDir>/src/$1",
+      "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/__mocks__/assetMock.ts"
     },
     "moduleFileExtensions": [
       "ts",

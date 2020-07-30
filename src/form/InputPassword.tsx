@@ -5,7 +5,8 @@ import { Input } from '@authenticator/form';
 import { NullAppError } from '@authenticator/errors';
 
 interface Props {
-  onChange: { (evt: Event, error: NullAppError): void };
+  onChange: { (evt: Event, err: NullAppError ): void };
+  onInput: { (password: string): void };
   class: string;
   label?: string;
   placeholder?: string;
@@ -26,6 +27,11 @@ const validatePassword = (inputValue: string | number): NullAppError => {
   };
 };
 
+const handleInput = (evt: Event, onInput: {(password: string): void}): void => {
+  const { value } = (evt.currentTarget as HTMLFormElement);
+  onInput(value);
+};
+
 const InputPassword = (props: Props): JSX.Element => (
   <Input
     class={props.class}
@@ -35,6 +41,7 @@ const InputPassword = (props: Props): JSX.Element => (
     placeholder={props.placeholder}
     type='password'
     onChange={props.onChange}
+    onInput={(evt: Event) => handleInput(evt, props.onInput)}
     validator={props.validator || validatePassword}
     id={props.id} />
 );

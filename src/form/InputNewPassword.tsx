@@ -10,8 +10,10 @@ interface Props {
   labelConfirm?: string;
   placeholderNew?: string;
   placeholderConfirm?: string;
-  onConfirmPassword: { (password: string, error: NullAppError): void };
-  onNewPassword: { (error: NullAppError): void };
+  onConfirmPasswordInput: { (password: string): void };
+  onNewPasswordInput: { (): void };
+  onNewPasswordChange: { (error: NullAppError): void };
+  onConfirmPasswordChange: { (error: NullAppError): void };
   newPasswordError: NullAppError;
   confirmPasswordError: NullAppError;
 }
@@ -22,23 +24,27 @@ interface State {
 }
 
 export default class InputNewPassword extends Component<Props, State> {
-  onEnterPassword = (evt: Event, error: NullAppError): void => {
-    const { value } = (evt.currentTarget as HTMLFormElement);
-    const { onNewPassword } = this.props;
-
-    this.setState({ newPassword: value });
-
-    onNewPassword(error);
+  handleNewPasswordChange = (evt: Event, error: NullAppError): void => {
+    const { onNewPasswordChange } = this.props;
+    onNewPasswordChange(error);
   }
 
-  onConfirmPassword = (evt: Event, error: NullAppError): void => {
-    const { value } = (evt.currentTarget as HTMLFormElement);
-    const { onConfirmPassword } = this.props;
+  handleNewPasswordInput = (password: string): void => {
+    const { onNewPasswordInput } = this.props;
+    this.setState({ newPassword: password });
+    onNewPasswordInput();
+  }
 
-    this.setState({ confirmedPassword: value });
+  handleConfirmPasswordChange = (evt: Event, error: NullAppError): void => {
+    const { onConfirmPasswordChange } = this.props;
+    onConfirmPasswordChange(error);
+  }
 
-    console.log('confirming password', error);
-    onConfirmPassword(value, error);
+  handleConfirmPasswordInput = (password: string): void => {
+    const { onConfirmPasswordInput } = this.props;
+
+    this.setState({ confirmedPassword: password });
+    onConfirmPasswordInput(password);
   }
 
   validateConfirmedPassword = (inputValue: string | number): NullAppError => {
@@ -60,14 +66,16 @@ export default class InputNewPassword extends Component<Props, State> {
           class='input-new-password__new'
           placeholder='Password'
           value={this.state.newPassword}
-          onChange={this.onEnterPassword}
+          onChange={this.handleNewPasswordChange}
+          onInput={this.handleNewPasswordInput}
           error={this.props.newPasswordError}
           id='new-password' />
         <InputPassword
           class='input-new-password__confirm'
           placeholder='Confirm Password'
           value={this.state.confirmedPassword}
-          onChange={this.onConfirmPassword}
+          onChange={this.handleConfirmPasswordChange}
+          onInput={this.handleConfirmPasswordInput}
           validator={this.validateConfirmedPassword}
           error={this.props.confirmPasswordError}
           id='confirmed-password' />

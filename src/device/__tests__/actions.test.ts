@@ -9,6 +9,7 @@ import {
   REQUEST_ERROR,
   REQUEST_SUCCESS,
 } from '@authenticator/device/constants';
+import { mockToken } from '@authenticator/identity/mock';
 
 const mockInitDeviceResponse = {
   publicKey: {
@@ -190,7 +191,9 @@ describe('Device Actions Credential Registration Test', (): void => {
     });
     fetchMock.mock(verifyURL, {
       status: 201,
-      body: {},
+      body: {
+        token: mockToken,
+      },
     });
 
     credentialsMock.create = (options: any): Promise<any> => {

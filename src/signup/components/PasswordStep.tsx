@@ -6,8 +6,10 @@ import { InputNewPassword, Button } from '@authenticator/form';
 interface Props {
   onSubmit: { (): void }
   goBack: { (): void }
-  onConfirmPassword: { (password: string, error: NullAppError): void }
-  onNewPassword: { (error: NullAppError): void }
+  onConfirmPasswordInput: { (password: string): void }
+  onNewPasswordInput: { (): void }
+  onNewPasswordChange: { (error: NullAppError): void }
+  onConfirmPasswordChange: { (error: NullAppError): void }
   isDisabled: boolean;
   newPasswordError: NullAppError;
   confirmPasswordError: NullAppError;
@@ -17,8 +19,10 @@ interface Props {
 const PasswordStep = (props: Props): JSX.Element => (
   <div class='signup-form__passwords'>
     <InputNewPassword
-      onConfirmPassword={props.onConfirmPassword}
-      onNewPassword={props.onNewPassword}
+      onNewPasswordInput={props.onNewPasswordInput}
+      onConfirmPasswordInput={props.onConfirmPasswordInput}
+      onNewPasswordChange={props.onNewPasswordChange}
+      onConfirmPasswordChange={props.onConfirmPasswordChange}
       newPasswordError={props.newPasswordError}
       confirmPasswordError={props.confirmPasswordError}
       class='signup-form__passwords-input'

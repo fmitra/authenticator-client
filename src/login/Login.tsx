@@ -48,27 +48,26 @@ export default class Login extends Component<Props, State> {
     });
   }
 
-  handleUsername = (username: string, method: ContactMethod, error: NullAppError): void => {
-    this.state.errors.update(error, 'username');
-    this.state.errors.update(null, 'request');
-
+  handleUsername = (username: string, method: ContactMethod): void => {
+    this.setErrors('username', null, false);
     this.setState({
       username: username,
       identityType: method,
-      errors: this.state.errors,
     });
   }
 
-  handlePassword = (evt: Event, error: NullAppError): void => {
-    const { value } = (evt.currentTarget as HTMLFormElement);
+  handlePassword = (password: string): void => {
+    this.setErrors('password', null, false);
+    this.setState({ password: password });
+  }
 
-    this.state.errors.update(error, 'password');
-    this.state.errors.update(null, 'request');
-
-    this.setState({
-      password: value,
-      errors: this.state.errors,
-    });
+  setErrors = (key: string, error: NullAppError, withState: boolean = true): void => {
+    this.state.errors
+      .update(error, key)
+      .update(null, 'request');
+    if (withState) {
+      this.setState({ errors: this.state.errors });
+    }
   }
 
   handleSubmit = (): void => {
@@ -84,12 +83,14 @@ export default class Login extends Component<Props, State> {
 
     return (
       <div class='login'>
-        <div class='login-splash'>
-        </div>
+        <div class='login-splash'></div>
         <form class='login-form'>
           <LoginHeader />
           <InputContact
-            onChange={this.handleUsername}
+            onInput={this.handleUsername}
+            onChange={(e: Event, error: NullAppError) => {
+              this.setErrors('username', error);
+            }}
             language={window.navigator.language || ''}
             class='login-input'
             value={this.state.username}
@@ -99,7 +100,10 @@ export default class Login extends Component<Props, State> {
             }
             id='login-username' />
           <InputPassword
-            onChange={this.handlePassword}
+            onInput={this.handlePassword}
+            onChange={(evt: Event, error: NullAppError): void => {
+              this.setErrors('password', error);
+            }}
             class='login-input'
             error={this.state.errors.get('password')}
             value={this.state.password}

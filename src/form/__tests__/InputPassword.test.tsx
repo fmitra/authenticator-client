@@ -13,6 +13,8 @@ describe('Input Password Test', (): void => {
     const onChangeMock = jest.fn();
     const component = deep(<InputPassword
       class='input-password'
+      value=''
+      error={null}
       id='input-password'
       label='Password'
       onChange={onChangeMock}
@@ -31,6 +33,8 @@ describe('Input Password Test', (): void => {
     const component = deep(<InputPassword
       class='input-password'
       id='input-password'
+      value=''
+      error={null}
       label='Password'
       onChange={onChangeMock}
     />);

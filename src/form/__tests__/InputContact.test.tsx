@@ -12,15 +12,22 @@ describe('InputContact Test', (): void => {
       },
     };
     const onChangeMock = jest.fn();
+    const onInputMock = jest.fn();
     const component = deep(<InputContact
       class='input-username'
       id='input-username'
+      value=''
+      error={null}
       label='Username'
       language='en-US'
       onChange={onChangeMock}
+      onInput={onInputMock}
     />);
+    component.find('input').simulate('input', eventMock);
+    expect(onInputMock).toHaveBeenCalledWith('jane@example.com', EMAIL)
+
     component.find('input').simulate('change', eventMock);
-    expect(onChangeMock).toHaveBeenCalledWith('jane@example.com', EMAIL, null)
+    expect(onChangeMock).toHaveBeenCalledWith(eventMock, null)
   });
 
   test('it validates a phone number', (): void => {
@@ -30,15 +37,22 @@ describe('InputContact Test', (): void => {
       },
     };
     const onChangeMock = jest.fn();
+    const onInputMock = jest.fn();
     const component = deep(<InputContact
       class='input-username'
       id='input-username'
+      value=''
+      error={null}
       label='Username'
       language='en-US'
       onChange={onChangeMock}
+      onInput={onInputMock}
     />);
     component.find('input').simulate('change', eventMock);
-    expect(onChangeMock).toHaveBeenCalledWith('+15555555555', PHONE, null)
+    expect(onChangeMock).toHaveBeenCalledWith(eventMock, null)
+
+    component.find('input').simulate('input', eventMock);
+    expect(onInputMock).toHaveBeenCalledWith('+15555555555', PHONE)
   });
 
   test('it invalidates an email address', (): void => {
@@ -48,15 +62,22 @@ describe('InputContact Test', (): void => {
       },
     };
     const onChangeMock = jest.fn();
+    const onInputMock = jest.fn();
     const component = deep(<InputContact
       class='input-username'
       id='input-username'
       label='Username'
+      value=''
+      error={null}
       language='en-US'
       onChange={onChangeMock}
+      onInput={onInputMock}
     />);
+    component.find('input').simulate('input', eventMock);
+    expect(onInputMock).toHaveBeenCalledWith('jane@example', EMAIL);
+
     component.find('input').simulate('change', eventMock);
-    expect(onChangeMock).toHaveBeenCalledWith('jane@example', EMAIL, {
+    expect(onChangeMock).toHaveBeenCalledWith(eventMock, {
       message: 'Please enter a valid email address',
       code: 'invalid_email',
     })
@@ -69,15 +90,22 @@ describe('InputContact Test', (): void => {
       },
     };
     const onChangeMock = jest.fn();
+    const onInputMock = jest.fn();
     const component = deep(<InputContact
       class='input-username'
       id='input-username'
       label='Username'
+      value=''
+      error={null}
       language=''
       onChange={onChangeMock}
+      onInput={onInputMock}
     />);
+    component.find('input').simulate('input', eventMock);
+    expect(onInputMock).toHaveBeenCalledWith('5555555555', PHONE)
+
     component.find('input').simulate('change', eventMock);
-    expect(onChangeMock).toHaveBeenCalledWith('5555555555', PHONE, {
+    expect(onChangeMock).toHaveBeenCalledWith(eventMock, {
       message: 'Please include your country code with your phone number',
       code: 'invalid_phone',
     })

@@ -11,24 +11,34 @@ interface Props {
   value: string;
   class: string;
   validator?: { (v: string | number): NullAppError };
-  onChange: { (ev: Event, err: NullAppError ): void };
+  onChange: { (evt: Event, err: NullAppError ): void };
+  onInput?: { (evt: Event): void };
   error?: NullAppError;
   id: string;
 }
 
 export default class Input extends Component<Props, {}> {
-  handleInput = (e: Event): void => {
+  handleChange = (evt: Event): void => {
     const { validator, onChange } = this.props;
-    const { value } = (e.currentTarget as HTMLFormElement);
+    const { value } = (evt.currentTarget as HTMLFormElement);
 
     if (!validator) {
-      onChange(e, null);
+      onChange(evt, null);
       return;
     }
 
     const error = validator(value);
 
-    onChange(e, error);
+    onChange(evt, error);
+  }
+
+  handleInput = (evt: Event): void => {
+    const { onInput } = this.props;
+
+    if (onInput) {
+      onInput(evt);
+      return;
+    }
   }
 
   render(): JSX.Element {
@@ -52,7 +62,8 @@ export default class Input extends Component<Props, {}> {
           placeholder={this.props.placeholder || ''}
           value={this.props.value}
           type={this.props.type}
-          onChange={this.handleInput}
+          onChange={this.handleChange}
+          onInput={this.handleInput}
         />
 
         {

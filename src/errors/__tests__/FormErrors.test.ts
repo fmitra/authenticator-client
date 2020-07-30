@@ -61,4 +61,39 @@ describe('FormErrors Test', (): void => {
     formErrors.update(error, 'username');
     expect(formErrors.notOk).toBe(true);
   });
+
+  test('`clear` removes all errors', (): void => {
+    const formErrors = new FormErrors({
+      password: {
+        message: 'Must be 8 characters',
+        code: 'incorrect_length',
+      },
+      username: {
+        message: 'Username already taken',
+        code: 'already_exists',
+      },
+    });
+    expect(formErrors.get('password')).toEqual({
+      message: 'Must be 8 characters',
+      code: 'incorrect_length',
+    });
+
+    formErrors.clear()
+    expect(formErrors.get('password')).toBe(null);
+    expect(formErrors.get('username')).toBe(null);
+    expect(formErrors.ok).toBe(true);
+  });
+
+  test('`any` returns first available error', (): void => {
+    const formErrors = new FormErrors({
+      password: {
+        message: 'Must be 8 characters',
+        code: 'incorrect_length',
+      },
+    });
+    expect(formErrors.any()).toEqual({
+      message: 'Must be 8 characters',
+      code: 'incorrect_length',
+    });
+  });
 });

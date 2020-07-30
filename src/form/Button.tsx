@@ -2,7 +2,7 @@ import { h } from 'preact';
 import { classes } from '@authenticator/ui';
 
 interface Props {
-  class: string;
+  class?: string;
   name: string;
   hasError: boolean;
   isDisabled: boolean;
@@ -12,7 +12,7 @@ interface Props {
 const Button = (props: Props): JSX.Element => (
   <div class={classes({
     'button': true,
-    [props.class]: Boolean(props.class),
+    [props.class || '']: Boolean(props.class),
   })}>
     <button
       class='button__button'

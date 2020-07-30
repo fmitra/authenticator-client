@@ -42,14 +42,10 @@ export default class Contact extends Component<Props, State> {
     });
   }
 
-  handleAddress = (address: string, method: ContactMethod, error: NullAppError): void => {
-    this.state.errors.update(error, 'address');
-    this.state.errors.update(null, 'request');
-
+  handleAddress = (address: string, method: ContactMethod): void => {
     this.setState({
       address: address,
       deliveryMethod: method,
-      errors: this.state.errors,
     });
   }
 
@@ -70,7 +66,12 @@ export default class Contact extends Component<Props, State> {
               this.state.errors.get('address') ||
               this.state.errors.get('request')
             }
-            onChange={this.handleAddress}
+            onInput={this.handleAddress}
+            onChange={(e: Event, error: NullAppError) => {
+              this.state.errors.update(error, 'address');
+              this.state.errors.update(null, 'request');
+              this.setState({ errors: this.state.errors });
+            }}
             language={window.navigator.language || ''}
             value={this.state.address}
             class='contact-input'

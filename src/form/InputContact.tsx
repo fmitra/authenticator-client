@@ -18,7 +18,8 @@ interface Props {
   value: string;
   placeholder?: string;
   language: string;
-  onChange: { (address: string, method: ContactMethod, error: NullAppError): void };
+  onInput: { (address: string, method: ContactMethod): void };
+  onChange: { (e: Event, error: NullAppError): void };
 }
 
 const validateEmail = (input: string): NullAppError => {
@@ -71,15 +72,10 @@ const validateContact = (language: string): { (input: string | number): NullAppE
 };
 
 export default class InputContact extends Component<Props, {}> {
-  handleContact = (e: Event, error: NullAppError): void => {
-    const { language, onChange } = this.props;
+  handleInput = (e: Event): void => {
+    const { language, onInput } = this.props;
     const { value } = (e.currentTarget as HTMLFormElement);
     const contactMethod = inferContactMethod(value);
-
-    if (error) {
-      onChange(value, contactMethod, error);
-      return;
-    }
 
     let contact = value.trim();
 
@@ -87,7 +83,7 @@ export default class InputContact extends Component<Props, {}> {
       contact = phoneWithRegion(contact, language);
     }
 
-    onChange(contact, contactMethod, error);
+    onInput(contact, contactMethod);
   }
 
   render(): JSX.Element {
@@ -100,7 +96,8 @@ export default class InputContact extends Component<Props, {}> {
         placeholder={this.props.placeholder || 'Email address or mobile number'}
         type='text'
         id={this.props.id}
-        onChange={this.handleContact}
+        onChange={this.props.onChange}
+        onInput={this.handleInput}
         validator={validateContact(this.props.language)} />
     );
   }

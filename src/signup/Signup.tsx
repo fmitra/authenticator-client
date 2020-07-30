@@ -50,10 +50,8 @@ export default class Signup extends Component<Props, State> {
     });
   }
 
-  handleUsername = (username: string, method: ContactMethod, error: NullAppError): void => {
-    this.state.errors.update(error, 'username');
-    this.state.errors.update(null, 'request');
-
+  handleUsername = (username: string, method: ContactMethod): void => {
+    this.setErrors('username', null, false);
     this.setState({
       username: username,
       identityType: method,
@@ -61,21 +59,19 @@ export default class Signup extends Component<Props, State> {
     });
   }
 
-  handleNewPassword = (error: NullAppError): void => {
-    this.state.errors.update(error, 'newPassword');
-    this.state.errors.update(null, 'request');
-
-    this.setState({ errors: this.state.errors });
-  }
-
-  handleConfirmedPassword = (password: string, error: NullAppError): void => {
-    this.state.errors.update(error, 'confirmedPassword'),
-    this.state.errors.update(null, 'request'),
-
+  handleConfirmedPassword = (password: string): void => {
+    this.setErrors('confirmedPassword', null, false);
     this.setState({
       password,
       errors: this.state.errors,
     });
+  }
+
+  handleNewPassword = (): void => {
+    if (this.state.errors.get('newPassword')) {
+      this.state.errors.update(null, 'newPassword');
+      this.setState({ errors: this.state.errors });
+    }
   }
 
   handleSignup = (): void => {
@@ -84,6 +80,15 @@ export default class Signup extends Component<Props, State> {
       password: this.state.password,
       identity: this.state.username,
     });
+  }
+
+  setErrors = (key: string, error: NullAppError, withState: boolean = true): void => {
+    this.state.errors
+      .update(error, key)
+      .update(null, 'request');
+    if (withState) {
+      this.setState({ errors: this.state.errors });
+    }
   }
 
   toggleUsername = (): void => {
@@ -100,7 +105,10 @@ export default class Signup extends Component<Props, State> {
             username={this.state.username} />
 
           { !this.state.isUsernameSet && <UsernameStep
-            onChange={this.handleUsername}
+            onInput={this.handleUsername}
+            onChange={(e: Event, error: NullAppError): void => {
+              this.setErrors('username', error)
+            }}
             value={this.state.username}
             isDisabled={this.props.isRequesting || !this.state.username}
             hasError={this.state.errors.notOk}
@@ -118,9 +126,14 @@ export default class Signup extends Component<Props, State> {
               // Render any server errors next to the confirm password input
               this.state.errors.get('request')
             }
-            onConfirmPassword={this.handleConfirmedPassword}
-            onNewPassword={this.handleNewPassword}
-            /> }
+            onNewPasswordInput={this.handleNewPassword}
+            onConfirmPasswordInput={this.handleConfirmedPassword}
+            onConfirmPasswordChange={(error: NullAppError): void => {
+              this.setErrors('confirmedPassword', error);
+            }}
+            onNewPasswordChange={(error: NullAppError): void => {
+              this.setErrors('newPassword', error);
+            }} /> }
 
           <Disclaimer />
 
