@@ -40,10 +40,8 @@ export default class Verify extends Component<Props, State> {
     this.setState({ errors: this.state.errors.update(props.error, 'request') });
   }
 
-  handleCode = (code: string, error: NullAppError): void => {
-    this.state.errors.update(error, 'code');
-    this.state.errors.update(null, 'request');
-
+  handleCode = (code: string): void => {
+    this.setErrors('code', null, false);
     this.setState({
       code: code,
       errors: this.state.errors,
@@ -54,6 +52,15 @@ export default class Verify extends Component<Props, State> {
     this.props.verify({
       code: this.state.code,
     });
+  }
+
+  setErrors = (key: string, error: NullAppError, withState: boolean = true): void => {
+    this.state.errors
+      .update(error, key)
+      .update(null, 'request');
+    if (withState) {
+      this.setState({ errors: this.state.errors });
+    }
   }
 
   render(): JSX.Element {
@@ -67,18 +74,18 @@ export default class Verify extends Component<Props, State> {
           <InputCode
             class='signup-verify-input'
             value={this.state.code}
-            error={
-              this.state.errors.get('code') ||
-              this.state.errors.get('request')
-            }
+            error={this.state.errors.any()}
             id='signup-verify-code'
-            onChange={this.handleCode} />
+            onChange={(evt: Event, error: NullAppError): void => {
+              this.setErrors('code', error);
+            }}
+            onInput={this.handleCode} />
 
           <Button
             name='Submit'
             class='signup-btn'
             hasError={this.state.errors.notOk}
-            isDisabled={this.props.isRequesting}
+            isDisabled={this.props.isRequesting || !this.state.code}
             onClick={this.handleSubmit} />
 
           <Disclaimer />

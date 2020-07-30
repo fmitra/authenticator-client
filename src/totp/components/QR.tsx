@@ -3,6 +3,7 @@ import Qrious from 'qrious';
 
 interface Props {
   value: string;
+  class: string;
 }
 
 const QR = (props: Props): JSX.Element => {
@@ -10,7 +11,7 @@ const QR = (props: Props): JSX.Element => {
     value: props.value,
     size: 500,
   });
-  return <img src={qr.toDataURL('image/jpeg')} />;
+  return <img class={props.class} src={qr.toDataURL('image/jpeg')} />;
 };
 
 

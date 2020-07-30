@@ -8,7 +8,8 @@ interface Props {
   isDisabled: boolean;
   hasError: boolean;
   error: NullAppError;
-  handleCode: { (code: string, error: NullAppError): void };
+  handleCode: { (code: string): void };
+  handleChange: { (evt: Event, error: NullAppError): void };
   handleSubmit: { (): void };
 }
 
@@ -19,7 +20,8 @@ const TFACode = (props: Props): JSX.Element => (
       id='tfa-code'
       value={props.value}
       error={props.error}
-      onChange={props.handleCode} />
+      onChange={props.handleChange}
+      onInput={props.handleCode} />
 
     <Button
       name='Submit'

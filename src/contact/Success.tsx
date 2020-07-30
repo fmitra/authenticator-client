@@ -1,9 +1,13 @@
 import { h } from 'preact';
+import iconSuccess from 'assets/icons/icon-success.svg';
 
 const Success = (): JSX.Element => {
   return (
-    <div>
-      Success
+    <div class='contact'>
+      <div class='contact-success'>
+        <img src={iconSuccess} />
+        <span>Success</span>
+      </div>
     </div>
   );
 };

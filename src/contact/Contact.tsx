@@ -43,9 +43,11 @@ export default class Contact extends Component<Props, State> {
   }
 
   handleAddress = (address: string, method: ContactMethod): void => {
+    this.setErrors('address', null, false);
     this.setState({
       address: address,
       deliveryMethod: method,
+      errors: this.state.errors,
     });
   }
 
@@ -56,21 +58,25 @@ export default class Contact extends Component<Props, State> {
     });
   }
 
+  setErrors = (key: string, error: NullAppError, withState: boolean = true): void => {
+    this.state.errors
+      .update(error, key)
+      .update(null, 'request');
+    if (withState) {
+      this.setState({ errors: this.state.errors });
+    }
+  }
+
   render(): JSX.Element {
     return (
       <div class='contact'>
         <form class='contact-form'>
           <ContactHeader />
           <InputContact
-            error={
-              this.state.errors.get('address') ||
-              this.state.errors.get('request')
-            }
+            error={this.state.errors.any()}
             onInput={this.handleAddress}
             onChange={(e: Event, error: NullAppError) => {
-              this.state.errors.update(error, 'address');
-              this.state.errors.update(null, 'request');
-              this.setState({ errors: this.state.errors });
+              this.setErrors('address', error);
             }}
             language={window.navigator.language || ''}
             value={this.state.address}
@@ -81,7 +87,7 @@ export default class Contact extends Component<Props, State> {
             name='Send Code'
             class='contact-btn'
             hasError={this.state.errors.notOk}
-            isDisabled={this.props.isRequesting}
+            isDisabled={this.props.isRequesting || !this.state.address}
             onClick={this.handleSubmit} />
 
           <Disclaimer />

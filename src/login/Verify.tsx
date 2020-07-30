@@ -58,10 +58,8 @@ export default class LoginVerify extends Component<Props, State> {
     });
   }
 
-  handleCode = (code: string, error: NullAppError): void => {
-    this.state.errors.update(null, 'request');
-    this.state.errors.update(error, 'code');
-
+  handleCode = (code: string): void => {
+    this.setErrors('code', null, false);
     this.setState({
       code,
       errors: this.state.errors,
@@ -73,8 +71,7 @@ export default class LoginVerify extends Component<Props, State> {
   }
 
   setTFAOption = (option: TFAOption): void => {
-    this.state.errors.update(null, 'request');
-    this.state.errors.update(null, 'code');
+    this.setErrors('code', null, false);
 
     if (option === Device) {
       this.setState({
@@ -93,6 +90,15 @@ export default class LoginVerify extends Component<Props, State> {
       this.props.resendCode({ deliveryMethod: PHONE });
     } else if (option === OTPEmail) {
       this.props.resendCode({ deliveryMethod: EMAIL });
+    }
+  }
+
+  setErrors = (key: string, error: NullAppError, withState: boolean = true): void => {
+    this.state.errors
+      .update(error, key)
+      .update(null, 'request');
+    if (withState) {
+      this.setState({ errors: this.state.errors });
     }
   }
 
@@ -117,6 +123,9 @@ export default class LoginVerify extends Component<Props, State> {
                 this.state.errors.get('request')
               }
               handleCode={this.handleCode}
+              handleChange={(evt: Event, error: NullAppError): void => {
+                this.setErrors('code', error);
+              }}
               isDisabled={this.props.isRequesting || !this.state.code}
               hasError={this.state.errors.notOk}
               handleSubmit={this.handleSubmit}  /> }

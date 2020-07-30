@@ -42,10 +42,8 @@ export default class TOTP extends Component<Props, State> {
     });
   }
 
-  handleCode = (code: string, error: NullAppError): void => {
-    this.state.errors.update(null, 'request');
-    this.state.errors.update(error, 'code');
-
+  handleCode = (code: string): void => {
+    this.setErrors('code', null, false);
     this.setState({
       code: code,
       errors: this.state.errors,
@@ -58,6 +56,15 @@ export default class TOTP extends Component<Props, State> {
 
   handleSecret = (): void => {
     this.props.secret();
+  }
+
+  setErrors = (key: string, error: NullAppError, withState: boolean = true): void => {
+    this.state.errors
+      .update(error, key)
+      .update(null, 'request');
+    if (withState) {
+      this.setState({ errors: this.state.errors });
+    }
   }
 
   render(): JSX.Element {
@@ -79,7 +86,7 @@ export default class TOTP extends Component<Props, State> {
             <Errors class='totp__errors' errors={this.state.errors} />
           }
 
-          { this.props.totp && <QR value={this.props.totp} /> }
+          { this.props.totp && <QR class='totp__qr' value={this.props.totp} /> }
 
           { this.props.totp && <FormFields
             errors={this.state.errors}
@@ -88,8 +95,11 @@ export default class TOTP extends Component<Props, State> {
               this.state.errors.get('code') ||
               this.state.errors.get('request')
             }
-            isDisabled={this.props.isRequesting}
+            isDisabled={this.props.isRequesting || !this.state.code}
             handleSubmit={this.handleSubmit}
+            handleChange={(evt: Event, error: NullAppError): void => {
+              this.setErrors('code', error);
+            }}
             handleCode={this.handleCode} /> }
 
           <Disclaimer />

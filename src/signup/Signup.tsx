@@ -107,7 +107,7 @@ export default class Signup extends Component<Props, State> {
           { !this.state.isUsernameSet && <UsernameStep
             onInput={this.handleUsername}
             onChange={(e: Event, error: NullAppError): void => {
-              this.setErrors('username', error)
+              this.setErrors('username', error);
             }}
             value={this.state.username}
             isDisabled={this.props.isRequesting || !this.state.username}

@@ -4,7 +4,8 @@ import { InputCode, Button } from '@authenticator/form';
 import { NullAppError, FormErrors } from '@authenticator/errors';
 
 interface Props {
-  handleCode: { (code: string, error: NullAppError): void };
+  handleCode: { (code: string): void };
+  handleChange: { (evt: Event, error: NullAppError): void };
   handleSubmit: { (): void };
   errors: FormErrors;
   error: NullAppError;
@@ -19,7 +20,8 @@ const FormFields = (props: Props): JSX.Element => (
       class='totp__input'
       value={props.value}
       id='totp-code'
-      onChange={props.handleCode} />
+      onChange={props.handleChange}
+      onInput={props.handleCode} />
     <Button
       name='Submit'
       class='totp-btn'

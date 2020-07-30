@@ -40,10 +40,8 @@ export default class TOTPDisable extends Component<Props, State> {
     });
   }
 
-  handleCode = (code: string, error: NullAppError): void => {
-    this.state.errors.update(null, 'request');
-    this.state.errors.update(error, 'code');
-
+  handleCode = (code: string): void => {
+    this.setErrors('code', null, false);
     this.setState({
       code: code,
       errors: this.state.errors,
@@ -52,6 +50,15 @@ export default class TOTPDisable extends Component<Props, State> {
 
   handleSubmit = (): void => {
     this.props.disable({ code: this.state.code });
+  }
+
+  setErrors = (key: string, error: NullAppError, withState: boolean = true): void => {
+    this.state.errors
+      .update(error, key)
+      .update(null, 'request');
+    if (withState) {
+      this.setState({ errors: this.state.errors });
+    }
   }
 
   render(): JSX.Element {
@@ -63,16 +70,16 @@ export default class TOTPDisable extends Component<Props, State> {
             class='totp__input'
             value={this.state.code}
             id='totp-disable-code'
-            error={
-              this.state.errors.get('code') ||
-              this.state.errors.get('request')
-            }
-            onChange={this.handleCode} />
+            error={this.state.errors.any()}
+            onChange={(evt: Event, error: NullAppError): void => {
+              this.setErrors('code', error);
+            }}
+            onInput={this.handleCode} />
           <Button
             class='totp-btn'
             name='Submit'
             hasError={this.state.errors.notOk}
-            isDisabled={this.props.isRequesting}
+            isDisabled={this.props.isRequesting || !this.state.code}
             onClick={this.handleSubmit} />
 
           <Disclaimer />

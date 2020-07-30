@@ -53,12 +53,16 @@ export default class Login extends Component<Props, State> {
     this.setState({
       username: username,
       identityType: method,
+      errors: this.state.errors,
     });
   }
 
   handlePassword = (password: string): void => {
     this.setErrors('password', null, false);
-    this.setState({ password: password });
+    this.setState({
+      password: password,
+      errors: this.state.errors,
+    });
   }
 
   setErrors = (key: string, error: NullAppError, withState: boolean = true): void => {

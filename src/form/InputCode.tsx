@@ -10,27 +10,28 @@ interface Props {
   error: NullAppError;
   value: string;
   placeholder?: string;
-  onChange: { (code: string, error: NullAppError): void };
+  onChange: { (evt: Event, error: NullAppError): void };
+  onInput: { (code: string): void };
 }
 
-const validateCode = (input: string | number): NullAppError => {
-  const minCodeLen = 6;
-  if (String(input).length < minCodeLen) {
-    return {
-      message: `Code should be at least ${minCodeLen} characters long`,
-      code: 'invalid_code',
-    }
+export default class InputCode extends Component<Props, {}> {
+  handleCode = (e: Event): void => {
+    const { value } = (e.currentTarget as HTMLFormElement);
+    const { onInput } = this.props;
+
+    onInput(value.trim());
   }
 
-  return null;
-};
+  validateCode = (input: string | number): NullAppError => {
+    const minCodeLen = 6;
+    if (String(input).length < minCodeLen) {
+      return {
+        message: `Code should be at least ${minCodeLen} characters long`,
+        code: 'invalid_code',
+      }
+    }
 
-export default class InputCode extends Component<Props, {}> {
-  handleCode = (e: Event, error: NullAppError): void => {
-    const { value } = (e.currentTarget as HTMLFormElement);
-    const { onChange } = this.props;
-
-    onChange(value.trim(), error);
+    return null;
   }
 
   render(): JSX.Element {
@@ -43,8 +44,9 @@ export default class InputCode extends Component<Props, {}> {
         placeholder={this.props.placeholder || 'Enter 6 digit verification code'}
         type='number'
         id={this.props.id}
-        onChange={this.handleCode}
-        validator={validateCode} />
+        onChange={this.props.onChange}
+        onInput={this.handleCode}
+        validator={this.validateCode} />
     );
   }
 };

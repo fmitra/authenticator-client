@@ -37,7 +37,6 @@ export default class Input extends Component<Props, {}> {
 
     if (onInput) {
       onInput(evt);
-      return;
     }
   }
 
