@@ -1,15 +1,12 @@
 import { h } from 'preact';
-import iconSuccess from 'assets/icons/icon-success.svg';
+import { Success } from '@authenticator/ui/components';
 
-const Success = (): JSX.Element => {
+const LoginSuccess = (): JSX.Element => {
   return (
-    <div class='login'>
-      <div class='login-success'>
-        <img src={iconSuccess} />
-        <span>Success</span>
-      </div>
-    </div>
+    <Success>
+      <span>You're logged in!</span>
+    </Success>
   );
 };
 
-export default Success;
+export default LoginSuccess;

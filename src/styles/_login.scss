@@ -21,22 +21,6 @@
   }
 }
 
-.login-success {
-  width: 100%;
-  max-width: $screen-x2;
-  background-color: $color-neutral-0;
-  padding: $size-x10;
-  font-size: $size-x6;
-  text-align: center;
-  > img {
-    clear: both;
-    display: block;
-    margin: 0 auto $size-x7 auto;
-    width: 50px;
-    height: 50px;
-  }
-}
-
 .login-splash {
   width: 45%;
   height: 100%;

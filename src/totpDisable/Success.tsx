@@ -1,15 +1,12 @@
 import { h } from 'preact';
-import iconSuccess from 'assets/icons/icon-success.svg';
+import { Success } from '@authenticator/ui/components';
 
-const Success = (): JSX.Element => {
+const TOTPSuccess = (): JSX.Element => {
   return (
-    <div class='container'>
-      <div class='totp-success'>
-        <img src={iconSuccess} />
-        <span>Success</span>
-      </div>
-    </div>
+    <Success>
+      <span>You've disabled TOTP</span>
+    </Success>
   );
 };
 
-export default Success;
+export default TOTPSuccess;

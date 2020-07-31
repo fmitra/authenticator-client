@@ -1,13 +1,18 @@
+// Base
 @import "core/fonts";
 @import "core/variables";
 @import "core/resets";
 @import "core/blocks";
 
+// General Components
 @import "form";
 @import "error";
 @import "code-header";
+@import "success";
 @import "disclaimer";
 @import "loader";
+
+// Views
 @import "signup";
 @import "login";
 @import "device";
