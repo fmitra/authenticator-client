@@ -17,14 +17,13 @@ const FormFields = (props: Props): JSX.Element => (
   <div class='totp__fields'>
     <InputCode
       error={props.error}
-      class='totp__input'
       value={props.value}
       id='totp-code'
       onChange={props.handleChange}
       onInput={props.handleCode} />
     <Button
       name='Submit'
-      class='totp-btn'
+      class='button--wide'
       isDisabled={props.isDisabled}
       hasError={props.errors.notOk}
       onClick={props.handleSubmit} />

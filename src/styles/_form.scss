@@ -64,3 +64,9 @@
     color: $color-theme-50;
   }
 }
+
+.button--wide {
+  .button__button {
+    width: 100%;
+  }
+}

@@ -17,7 +17,7 @@ interface Props {
 }
 
 const PasswordStep = (props: Props): JSX.Element => (
-  <div class='signup-form__passwords'>
+  <div class='signup-passwords'>
     <InputNewPassword
       onNewPasswordInput={props.onNewPasswordInput}
       onConfirmPasswordInput={props.onConfirmPasswordInput}
@@ -25,18 +25,17 @@ const PasswordStep = (props: Props): JSX.Element => (
       onConfirmPasswordChange={props.onConfirmPasswordChange}
       newPasswordError={props.newPasswordError}
       confirmPasswordError={props.confirmPasswordError}
-      class='signup-form__passwords-input'
       id='signup-form-passwords' />
-    <div class='signup-form__passwords-btns'>
+    <div class='signup-passwords__btns'>
       <Button
         name='Previous'
-        class='signup-form__passwords-btns-secondary'
+        class='signup-passwords__btns-secondary'
         hasError={false}
         isDisabled={false}
         onClick={props.goBack} />
       <Button
         name='Sign up'
-        class='signup-form__passwords-btns-primary'
+        class='signup-passwords__btns-primary'
         hasError={props.hasError}
         isDisabled={props.isDisabled}
         onClick={props.onSubmit} />

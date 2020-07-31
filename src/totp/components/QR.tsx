@@ -11,7 +11,11 @@ const QR = (props: Props): JSX.Element => {
     value: props.value,
     size: 500,
   });
-  return <img class={props.class} src={qr.toDataURL('image/jpeg')} />;
+  return (
+    <div class={props.class}>
+      <img src={qr.toDataURL('image/jpeg')} />
+    </div>
+  );
 };
 
 

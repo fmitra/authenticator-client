@@ -5,7 +5,7 @@ import { NullAppError } from '@authenticator/errors';
 
 interface Props {
   id: string;
-  class: string;
+  class?: string;
   labelNew?: string;
   labelConfirm?: string;
   placeholderNew?: string;

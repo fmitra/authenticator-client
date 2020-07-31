@@ -9,7 +9,7 @@ interface Props {
   placeholder?: string;
   type: string;
   value: string;
-  class: string;
+  class?: string;
   validator?: { (v: string | number): NullAppError };
   onChange: { (evt: Event, err: NullAppError ): void };
   onInput?: { (evt: Event): void };
@@ -44,7 +44,7 @@ export default class Input extends Component<Props, {}> {
     return (
       <div class={classes({
         'input': true,
-        [this.props.class]: Boolean(this.props.class),
+        [this.props.class || '']: Boolean(this.props.class),
         'input--error': Boolean(this.props.error),
       })}>
 

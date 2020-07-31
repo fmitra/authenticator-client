@@ -3,7 +3,7 @@ import iconSuccess from 'assets/icons/icon-success.svg';
 
 const Success = (): JSX.Element => {
   return (
-    <div class='contact'>
+    <div class='container'>
       <div class='contact-success'>
         <img src={iconSuccess} />
         <span>Success</span>

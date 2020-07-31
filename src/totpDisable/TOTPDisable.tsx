@@ -4,7 +4,7 @@ import { InputCode, Button } from '@authenticator/form';
 import { NullAppError, FormErrors } from '@authenticator/errors';
 import { TOTPRequest } from '@authenticator/requests';
 import { TOTPHeader } from '@authenticator/totpDisable/components';
-import { Disclaimer } from '@authenticator/ui/components';
+import { AppLayout, Disclaimer } from '@authenticator/ui/components';
 
 interface State {
   errors: FormErrors;
@@ -63,28 +63,24 @@ export default class TOTPDisable extends Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <div class='totp'>
-        <form class='totp-form'>
-          <TOTPHeader />
-          <InputCode
-            class='totp__input'
-            value={this.state.code}
-            id='totp-disable-code'
-            error={this.state.errors.any()}
-            onChange={(evt: Event, error: NullAppError): void => {
-              this.setErrors('code', error);
-            }}
-            onInput={this.handleCode} />
-          <Button
-            class='totp-btn'
-            name='Submit'
-            hasError={this.state.errors.notOk}
-            isDisabled={this.props.isRequesting || !this.state.code}
-            onClick={this.handleSubmit} />
-
-          <Disclaimer />
-        </form>
-      </div>
+      <AppLayout class='totp'>
+        <TOTPHeader />
+        <InputCode
+          value={this.state.code}
+          id='totp-disable-code'
+          error={this.state.errors.any()}
+          onChange={(evt: Event, error: NullAppError): void => {
+            this.setErrors('code', error);
+          }}
+          onInput={this.handleCode} />
+        <Button
+          class='button--wide'
+          name='Submit'
+          hasError={this.state.errors.notOk}
+          isDisabled={this.props.isRequesting || !this.state.code}
+          onClick={this.handleSubmit} />
+        <Disclaimer />
+      </AppLayout>
     );
   }
 };

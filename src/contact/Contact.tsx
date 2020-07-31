@@ -1,6 +1,6 @@
 import { h, Component } from 'preact';
 
-import { Disclaimer } from '@authenticator/ui/components';
+import { AppLayout, Disclaimer } from '@authenticator/ui/components';
 import { Button, InputContact } from '@authenticator/form';
 import { ContactHeader } from '@authenticator/contact/components';
 import { DeliveryRequest } from '@authenticator/requests';
@@ -69,30 +69,27 @@ export default class Contact extends Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <div class='contact'>
-        <form class='contact-form'>
-          <ContactHeader />
-          <InputContact
-            error={this.state.errors.any()}
-            onInput={this.handleAddress}
-            onChange={(e: Event, error: NullAppError) => {
-              this.setErrors('address', error);
-            }}
-            language={window.navigator.language || ''}
-            value={this.state.address}
-            class='contact-input'
-            id='contact-address' />
+      <AppLayout class='contact'>
+        <ContactHeader />
+        <InputContact
+          error={this.state.errors.any()}
+          onInput={this.handleAddress}
+          onChange={(e: Event, error: NullAppError) => {
+            this.setErrors('address', error);
+          }}
+          language={window.navigator.language || ''}
+          value={this.state.address}
+          id='contact-address' />
 
-          <Button
-            name='Send Code'
-            class='contact-btn'
-            hasError={this.state.errors.notOk}
-            isDisabled={this.props.isRequesting || !this.state.address}
-            onClick={this.handleSubmit} />
+        <Button
+          name='Send Code'
+          class='button--wide'
+          hasError={this.state.errors.notOk}
+          isDisabled={this.props.isRequesting || !this.state.address}
+          onClick={this.handleSubmit} />
 
-          <Disclaimer />
-        </form>
-      </div>
+        <Disclaimer />
+      </AppLayout>
     );
   }
 };

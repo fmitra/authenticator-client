@@ -7,7 +7,7 @@ import { NullAppError } from '@authenticator/errors';
 interface Props {
   onChange: { (evt: Event, err: NullAppError ): void };
   onInput: { (password: string): void };
-  class: string;
+  class?: string;
   label?: string;
   placeholder?: string;
   value: string;

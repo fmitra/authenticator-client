@@ -4,7 +4,7 @@ import { Input } from '@authenticator/form';
 import { NullAppError } from '@authenticator/errors';
 
 interface Props {
-  class: string;
+  class?: string;
   id: string;
   label?: string;
   error: NullAppError;

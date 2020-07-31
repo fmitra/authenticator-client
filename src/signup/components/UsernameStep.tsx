@@ -14,18 +14,17 @@ interface Props {
 }
 
 const UsernameStep = (props: Props): JSX.Element => (
-  <div class='signup-form__username'>
+  <div class='signup-username'>
     <InputContact
       onInput={props.onInput}
       onChange={props.onChange}
       language={window.navigator.language || ''}
       value={props.value}
       error={props.error}
-      class='signup-input'
       id='signup-username' />
     <Button
       name='Next'
-      class='signup-btn'
+      class='button--wide'
       hasError={props.hasError}
       isDisabled={props.isDisabled}
       onClick={props.onSubmit} />

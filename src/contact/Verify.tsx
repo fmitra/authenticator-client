@@ -3,7 +3,7 @@ import { h, Component } from 'preact';
 import { InputCode, Button } from '@authenticator/form';
 import { VerifyContactRequest } from '@authenticator/requests';
 import { NullAppError, FormErrors } from '@authenticator/errors';
-import { Disclaimer, CodeHeader } from '@authenticator/ui/components';
+import { AppLayout, Disclaimer, CodeHeader } from '@authenticator/ui/components';
 import Token from '@authenticator/identity/Token';
 
 interface Props {
@@ -65,32 +65,29 @@ export default class ContactVerify extends Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <div class='contact'>
-        <form class='contact-form'>
-          <CodeHeader
-            lastMessageAddress={Token.lastMessageAddress}
-            goBack={this.props.restartFlow} />
+      <AppLayout class='contact'>
+        <CodeHeader
+          lastMessageAddress={Token.lastMessageAddress}
+          goBack={this.props.restartFlow} />
 
-          <InputCode
-            class='contact-verify-input'
-            value={this.state.code}
-            error={this.state.errors.any()}
-            id='contact-verify-code'
-            onChange={(evt: Event, error: NullAppError): void => {
-              this.setErrors('code', error);
-            }}
-            onInput={this.handleCode} />
+        <InputCode
+          value={this.state.code}
+          error={this.state.errors.any()}
+          id='contact-verify-code'
+          onChange={(evt: Event, error: NullAppError): void => {
+            this.setErrors('code', error);
+          }}
+          onInput={this.handleCode} />
 
-          <Button
-            class='contact-btn'
-            name='Submit'
-            hasError={this.state.errors.notOk}
-            isDisabled={this.props.isRequesting || !this.state.code}
-            onClick={this.handleSubmit} />
+        <Button
+          class='button--wide'
+          name='Submit'
+          hasError={this.state.errors.notOk}
+          isDisabled={this.props.isRequesting || !this.state.code}
+          onClick={this.handleSubmit} />
 
-          <Disclaimer />
-        </form>
-      </div>
+        <Disclaimer />
+      </AppLayout>
     );
   }
 };
