@@ -11,11 +11,11 @@ interface Props {
 
 const TFADevice = (props: Props): JSX.Element => {
   return (
-    <div class='login-tfa-device'>
-      <div class='device__icon'>
+    <div class='login-device'>
+      <div class='login-device__icon'>
         <img src={iconFingerprint} />
       </div>
-      <div class='login-tfa-device__intro'>
+      <div class='login-device__intro'>
         Connect your FIDO device and click the button below to 
         complete your login.
       </div>
@@ -23,11 +23,10 @@ const TFADevice = (props: Props): JSX.Element => {
         !props.isRequesting ?
         <Button
           name='Ready'
-          class='login-tfa-device-button'
           hasError={false}
           isDisabled={props.isRequesting}
           onClick={() => props.verifyDevice(window.navigator.credentials)} /> :
-        <Loader class='login-tfa-loader' />
+        <Loader class='loader--login' />
       }
     </div>
   );

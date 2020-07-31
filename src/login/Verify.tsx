@@ -8,7 +8,7 @@ import {
   TFADevice,
   TFACode,
 } from '@authenticator/login/components';
-import { Disclaimer, CodeHeader } from '@authenticator/ui/components';
+import { AppLayout, Disclaimer, CodeHeader } from '@authenticator/ui/components';
 import { PHONE, EMAIL } from '@authenticator/identity/contact';
 import Token, {
   TFAOption,
@@ -104,40 +104,38 @@ export default class LoginVerify extends Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <div class='login'>
-        <div class='login-verify'>
-          { !this.state.isDeviceView ?
-            <CodeHeader
-              lastMessageAddress={Token.lastMessageAddress}
-              goBack={this.props.restartFlow} /> :
-            <DeviceHeader /> }
+      <AppLayout class='login'>
+        { !this.state.isDeviceView ?
+          <CodeHeader
+            lastMessageAddress={Token.lastMessageAddress}
+            goBack={this.props.restartFlow} /> :
+          <DeviceHeader /> }
 
-          { this.state.isDeviceView ?
-            <TFADevice
-              verifyDevice={this.props.verifyDevice}
-              isRequesting={this.props.isRequesting} /> :
-            <TFACode
-              value={this.state.code}
-              error={
-                this.state.errors.get('code') ||
-                this.state.errors.get('request')
-              }
-              handleCode={this.handleCode}
-              handleChange={(evt: Event, error: NullAppError): void => {
-                this.setErrors('code', error);
-              }}
-              isDisabled={this.props.isRequesting || !this.state.code}
-              hasError={this.state.errors.notOk}
-              handleSubmit={this.handleSubmit}  /> }
+        { this.state.isDeviceView ?
+          <TFADevice
+            verifyDevice={this.props.verifyDevice}
+            isRequesting={this.props.isRequesting} /> :
+          <TFACode
+            value={this.state.code}
+            error={
+              this.state.errors.get('code') ||
+              this.state.errors.get('request')
+            }
+            handleCode={this.handleCode}
+            handleChange={(evt: Event, error: NullAppError): void => {
+              this.setErrors('code', error);
+            }}
+            isDisabled={this.props.isRequesting || !this.state.code}
+            hasError={this.state.errors.notOk}
+            handleSubmit={this.handleSubmit}  /> }
 
-          {this.state.errors.notOk && this.state.isDeviceView && <Errors
-            class='login-verify__errors'
-            errors={this.state.errors} />}
+        {this.state.errors.notOk && this.state.isDeviceView && <Errors
+          class='login-errors'
+          errors={this.state.errors} />}
 
-          <TFAOptions setTFAOption={this.setTFAOption} options={Token.tfaOptions} />
-          <Disclaimer />
-        </div>
-      </div>
+        <TFAOptions setTFAOption={this.setTFAOption} options={Token.tfaOptions} />
+        <Disclaimer />
+      </AppLayout>
     )
   }
 };

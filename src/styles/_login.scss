@@ -1,26 +1,3 @@
-.login {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-}
-
-.login-verify {
-  width: 100%;
-  max-width: $screen-x2;
-  background-color: $color-neutral-0;
-  padding: $size-x1 * 30;
-
-  @media (max-width: $screen-x2) {
-    padding: $size-x1 * 15;
-  }
-
-  @media (max-width: $screen-x1) {
-    padding: $size-x7;
-  }
-}
-
 .login-splash {
   width: 45%;
   height: 100%;
@@ -51,60 +28,23 @@
   }
 }
 
-.login-btn {
-  width: 100%;
-
-  .button__button {
-    width: 100%;
-  }
-}
-
-.login-header__title {
-  font-size: 28px;
-  margin-bottom: $size-x5;
-  > span {
+.login-header {
+  &__title {
     font-size: 28px;
-    display: block;
-    clear: both;
+    margin-bottom: $size-x5;
+    > span {
+      font-size: 28px;
+      display: block;
+      clear: both;
+    }
   }
-}
 
-.login-header__subtitle {
-  margin-bottom: $size-x2;
-  > span {
-    display: block;
-    clear: both;
-  }
-}
-
-.login-tfa-options__toggle {
-  margin-bottom: $size-x4;
-  cursor: pointer;
-  text-align: center;
-}
-
-.login-tfa-options__toggle-link {
-  color: $color-theme-50;
-}
-
-.login-tfa-options__option {
-  padding: $size-x3;
-  margin-bottom: $size-x2;
-  border-radius: $size-x1;
-  background-color: $color-neutral-10;
-  cursor: pointer;
-}
-
-.login-tfa-options {
-  margin-top: $size-x8;
-}
-
-.login-tfa-device {
-  text-align: center;
-  > span {
-    display: block;
-    margin-top: $size-x9;
-    color: $color-neutral-90;
+  &__subtitle {
+    margin-bottom: $size-x2;
+    > span {
+      display: block;
+      clear: both;
+    }
   }
 }
 
@@ -119,10 +59,41 @@
   margin-top: 0;
 }
 
-.login-tfa-loader {
-  margin-top: $size-x7;
+.login-errors {
+  margin-top: $size-x9;
 }
 
-.login-verify__errors {
-  margin-top: $size-x9;
+.login-device {
+  text-align: center;
+  > span {
+    display: block;
+    margin-top: $size-x9;
+    color: $color-neutral-90;
+  }
+}
+
+.login-options {
+  margin-top: $size-x8;
+
+  &__toggle {
+    margin-bottom: $size-x4;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  &__toggle-link {
+    color: $color-theme-50;
+  }
+
+  &__option {
+    padding: $size-x3;
+    margin-bottom: $size-x2;
+    border-radius: $size-x1;
+    background-color: $color-neutral-10;
+    cursor: pointer;
+  }
+}
+
+.loader--login {
+  margin-top: $size-x7;
 }

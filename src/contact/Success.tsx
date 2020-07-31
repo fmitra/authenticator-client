@@ -1,11 +1,13 @@
 import { h } from 'preact';
-import { Success } from '@authenticator/ui/components';
+import { AppLayout, Success } from '@authenticator/ui/components';
 
 const ContactSuccess = (): JSX.Element => {
   return (
-    <Success>
-      <span>You've updated your contact details</span>
-    </Success>
+    <AppLayout withoutWrapper={true}>
+      <Success>
+        <span>You've updated your contact details</span>
+      </Success>
+    </AppLayout>
   );
 };
 

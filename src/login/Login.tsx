@@ -9,7 +9,7 @@ import {
 } from '@authenticator/form';
 import { ContactMethod } from '@authenticator/identity/contact';
 import { SignupInstead, LoginHeader } from '@authenticator/login/components';
-import { Disclaimer } from '@authenticator/ui/components';
+import { AppLayout, Disclaimer } from '@authenticator/ui/components';
 
 interface Props {
   error: NullAppError;
@@ -86,9 +86,9 @@ export default class Login extends Component<Props, State> {
     const isFormFilled = this.state.username && this.state.password;
 
     return (
-      <div class='login'>
+      <AppLayout class='login' withoutWrapper={true}>
         <div class='login-splash'></div>
-        <form class='login-form'>
+        <div class='login-form'>
           <LoginHeader />
           <InputContact
             onInput={this.handleUsername}
@@ -96,7 +96,6 @@ export default class Login extends Component<Props, State> {
               this.setErrors('username', error);
             }}
             language={window.navigator.language || ''}
-            class='login-input'
             value={this.state.username}
             error={
               this.state.errors.get('username') ||
@@ -108,7 +107,6 @@ export default class Login extends Component<Props, State> {
             onChange={(evt: Event, error: NullAppError): void => {
               this.setErrors('password', error);
             }}
-            class='login-input'
             error={this.state.errors.get('password')}
             value={this.state.password}
             placeholder='Password'
@@ -116,15 +114,15 @@ export default class Login extends Component<Props, State> {
 
           <Button
             name='Next'
-            class='login-btn'
+            class='button--wide'
             hasError={this.state.errors.notOk}
             isDisabled={this.props.isRequesting || !isFormFilled}
             onClick={this.handleSubmit} />
 
           <SignupInstead />
           <Disclaimer class='login-disclaimer' />
-        </form>
-      </div>
+        </div>
+      </AppLayout>
     );
   }
 };

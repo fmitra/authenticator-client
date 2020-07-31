@@ -3,6 +3,7 @@ import { classes } from '@authenticator/ui';
 
 interface Props {
   class?: string;
+  withoutWrapper?: boolean;
   children: ComponentChildren;
 };
 
@@ -11,9 +12,13 @@ const AppLayout = (props: Props): JSX.Element => (
     'container': true,
     [props.class || '']: Boolean(props.class),
   })}>
-    <div class='container__item'>
-      {props.children}
-    </div>
+    {
+      props.withoutWrapper ?
+      props.children :
+      <div class='container__item'>
+        {props.children}
+      </div>
+    }
   </div>
 );
 

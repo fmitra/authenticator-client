@@ -44,19 +44,19 @@ export default class TFAOptions extends Component<Props, State> {
 
   render(): JSX.Element {
     const options = this.props.options.map(x => (
-      <div class='login-tfa-options__option' onClick={() => this.handleTFASelect(x)}>
+      <div class='login-options__option' onClick={() => this.handleTFASelect(x)}>
         <span>{tfaOptionMap[x]}</span>
       </div>
     ));
 
     return (
-      <div class='login-tfa-options'>
-        <div class='login-tfa-options__toggle'
+      <div class='login-options'>
+        <div class='login-options__toggle'
           onClick={this.toggleOptions}>
           {
             this.state.isOptionsVisible ?
             <span>Select an option below:</span> :
-            <span class='login-tfa-options__toggle-link'>See other options for logging in</span>
+            <span class='login-options__toggle-link'>See other options for logging in</span>
           }
         </div>
         {this.state.isOptionsVisible && options}

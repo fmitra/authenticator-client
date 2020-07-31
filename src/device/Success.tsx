@@ -1,11 +1,13 @@
 import { h } from 'preact';
-import { Success } from '@authenticator/ui/components';
+import { AppLayout, Success } from '@authenticator/ui/components';
 
 const DeviceSuccess = (): JSX.Element => {
   return (
-    <Success>
-      <span>Device registerd</span>
-    </Success>
+    <AppLayout withoutWrapper={true}>
+      <Success>
+        <span>Device registerd</span>
+      </Success>
+    </AppLayout>
   );
 };
 
