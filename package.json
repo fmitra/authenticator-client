@@ -69,7 +69,7 @@
     ],
     "moduleNameMapper": {
       "^@authenticator/(.*)": "<rootDir>/src/$1",
-      "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/__mocks__/assetMock.ts"
+      "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/assets/assetMock.ts"
     },
     "moduleFileExtensions": [
       "ts",
