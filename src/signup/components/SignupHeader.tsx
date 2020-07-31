@@ -1,4 +1,5 @@
 import { h } from 'preact';
+import { Header } from '@authenticator/ui/components';
 
 interface Props {
   isIntro: boolean;
@@ -7,32 +8,39 @@ interface Props {
 }
 
 const Intro = (): JSX.Element => (
-  <div class='signup-header__content'>
-    <div class='signup-header__title'>Create an account</div>
-    <div class='signup-header__subtitle'>
-      <span>Enter your email address or phone number</span>
-      <span>and start using our app today.</span>
-    </div>
-  </div>
+  <Header
+    title={
+      <span class='title'>Create an account</span>
+    }
+    subtitle={
+      <div>
+        <span class='subtitle'>Enter your email address or phone number</span>
+        <span class='subtitle'>and start usign our app today.</span>
+      </div>
+    }
+  />
 );
 
 const AskPassword = (props: Props): JSX.Element => (
-  <div class='signup-header__content'>
-    <div class='signup-header__title'>Create a password</div>
-    <div class='signup-header__subtitle'>
-      <span>You're almost there!</span>
-      <span>Create a password that complies with our password policy.</span>
-    </div>
+  <Header
+    title={
+      <span class='title'>Create a password</span>
+    }
+    subtitle={
+      <div>
+        <span class='subtitle'>You're almost there!</span>
+        <span class='subtitle'>Create a password that complies with our password poilcy.</span>
+      </div>
+    }
+  >
     <div class='signup-header__username' onClick={props.goBack}>
       {props.username}
     </div>
-  </div>
+  </Header>
 );
 
 const SignupHeader = (props: Props): JSX.Element => (
-  <div class='signup-header'>
-    { props.isIntro ? <Intro /> : <AskPassword {...props} /> }
-  </div>
+  props.isIntro ? <Intro /> : <AskPassword {...props} />
 );
 
 export default SignupHeader;

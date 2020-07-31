@@ -80,14 +80,12 @@ export default class Contact extends Component<Props, State> {
           language={window.navigator.language || ''}
           value={this.state.address}
           id='contact-address' />
-
         <Button
           name='Send Code'
           class='button--wide'
           hasError={this.state.errors.notOk}
           isDisabled={this.props.isRequesting || !this.state.address}
           onClick={this.handleSubmit} />
-
         <Disclaimer />
       </AppLayout>
     );

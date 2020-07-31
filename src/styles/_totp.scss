@@ -2,28 +2,6 @@
   margin-top: $size-x9;
 }
 
-.totp-header {
-  text-align: center;
-
-  &__title {
-    font-size: 28px;
-    margin-bottom: $size-x5;
-    > span {
-      font-size: 28px;
-      display: block;
-      clear: both;
-    }
-  }
-
-  &__subtitle {
-    margin-bottom: $size-x2;
-    > span {
-      display: block;
-      clear: both;
-    }
-  }
-}
-
 .totp-qr {
   > img {
     width: 250px;

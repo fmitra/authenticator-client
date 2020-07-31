@@ -28,23 +28,10 @@
   }
 }
 
-.login-header {
-  &__title {
-    font-size: 28px;
-    margin-bottom: $size-x5;
-    > span {
-      font-size: 28px;
-      display: block;
-      clear: both;
-    }
-  }
-
+.header--login {
+  text-align: left;
   &__subtitle {
     margin-bottom: $size-x2;
-    > span {
-      display: block;
-      clear: both;
-    }
   }
 }
 
@@ -69,6 +56,13 @@
     display: block;
     margin-top: $size-x9;
     color: $color-neutral-90;
+  }
+
+  &__icon {
+    margin-bottom: $size-x4;
+    > img {
+      width: 50px;
+    }
   }
 }
 
