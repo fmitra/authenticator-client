@@ -31,6 +31,7 @@ export default class TOTP extends Component<Props, State> {
 
   static defaultProps = {
     error: null,
+    totp: '',
     secret: (): void => {},
     enable: (data: TOTPRequest): void => {},
     isRequesting: false,

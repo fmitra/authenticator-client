@@ -124,7 +124,7 @@ class Token {
   }
 
   get tfaOptions(): TFAOption[] {
-    return this.unpackedToken().tfa_options;
+    return this.unpackedToken().tfa_options || [];
   }
 
   get defaultTFA(): TFAOption {
