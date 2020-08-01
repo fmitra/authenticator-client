@@ -34,14 +34,6 @@ export const checkAddress = (data: DeliveryRequest): ContactThunk => async (disp
     return;
   }
 
-  if (!response.resultSuccess) {
-    dispatch({ type: REQUEST_ERROR, error: {
-      code: 'empty_response',
-      message: 'No response received',
-    } });
-    return;
-  }
-
   try {
     Token.set(response.resultSuccess.token);
   } catch(e) {
@@ -67,14 +59,6 @@ export const verify = (data: VerifyContactRequest): ContactThunk => async (dispa
     response = await ContactAPI.verify(data);
   } catch(e) {
     dispatch({ type: REQUEST_ERROR, error: e.resultError });
-    return;
-  }
-
-  if (!response.resultSuccess) {
-    dispatch({ type: REQUEST_ERROR, error: {
-      code: 'empty_response',
-      message: 'No response received',
-    } });
     return;
   }
 

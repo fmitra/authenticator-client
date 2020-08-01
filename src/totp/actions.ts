@@ -30,14 +30,6 @@ export const secret = (): TOTPThunk => async (dispatch): Promise<void> => {
     return;
   }
 
-  if (!response.resultSuccess) {
-    dispatch({ type: REQUEST_ERROR, error: {
-      code: 'empty_response',
-      message: 'No response received',
-    } });
-    return;
-  }
-
   dispatch({ type: SECRET_CREATED, totp: response.resultSuccess.totp });
 };
 
@@ -50,14 +42,6 @@ export const enable = (data: TOTPRequest): TOTPThunk => async (dispatch): Promis
     response = await TOTPAPI.enable(data);
   } catch(e) {
     dispatch({ type: REQUEST_ERROR, error: e.resultError });
-    return;
-  }
-
-  if (!response.resultSuccess) {
-    dispatch({ type: REQUEST_ERROR, error: {
-      code: 'empty_response',
-      message: 'No response received',
-    } });
     return;
   }
 

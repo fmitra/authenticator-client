@@ -42,14 +42,6 @@ export const register = (data: SignupRequest): SignupThunk => async (dispatch): 
     return;
   }
 
-  if (!response.resultSuccess) {
-    dispatch({ type: REQUEST_ERROR, error: {
-      code: 'empty_response',
-      message: 'No response received',
-    } });
-    return;
-  }
-
   try {
     Token.set(response.resultSuccess.token);
   } catch(e) {
@@ -75,14 +67,6 @@ export const verify = (data: VerifyCodeRequest): SignupThunk => async (dispatch)
     response = await SignupAPI.verify(data);
   } catch(e) {
     dispatch({ type: REQUEST_ERROR, error: e.resultError });
-    return;
-  }
-
-  if (!response.resultSuccess) {
-    dispatch({ type: REQUEST_ERROR, error: {
-      code: 'empty_response',
-      message: 'No response received',
-    } });
     return;
   }
 

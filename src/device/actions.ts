@@ -91,14 +91,6 @@ export const registerDevice = (credentialsAPI: CredentialsContainer): PublicKeyC
     return;
   }
 
-  if (!response.resultSuccess) {
-    dispatch({ type: REQUEST_ERROR, error: {
-      code: 'empty_response',
-      message: 'No response received',
-    } });
-    return;
-  }
-
   try {
     Token.set(response.resultSuccess.token);
   } catch(e) {

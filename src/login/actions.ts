@@ -41,14 +41,6 @@ export const login = (data: LoginRequest): LoginThunk => async (dispatch): Promi
     return;
   }
 
-  if (!response.resultSuccess) {
-    dispatch({ type: REQUEST_ERROR, error: {
-      code: 'empty_response',
-      message: 'No response received',
-    } });
-    return;
-  }
-
   try {
     Token.set(response.resultSuccess.token);
   } catch(e) {
@@ -71,14 +63,6 @@ export const verifyCode = (data: VerifyCodeRequest): LoginThunk => async (dispat
     response = await LoginAPI.verifyCode(data);
   } catch(e) {
     dispatch({ type: REQUEST_ERROR, error: e.resultError });
-    return;
-  }
-
-  if (!response.resultSuccess) {
-    dispatch({ type: REQUEST_ERROR, error: {
-      code: 'empty_response',
-      message: 'No response received',
-    } });
     return;
   }
 
@@ -167,14 +151,6 @@ export const verifyDevice = (credentialsAPI: CredentialsContainer): LoginThunk =
     return;
   }
 
-  if (!response.resultSuccess) {
-    dispatch({ type: REQUEST_ERROR, error: {
-      code: 'empty_response',
-      message: 'No response received',
-    } });
-    return;
-  }
-
   try {
     Token.set(response.resultSuccess.token);
   } catch(e) {
@@ -201,14 +177,6 @@ export const resendCode = (data: SendRequest): LoginThunk => async (dispatch): P
     response = await ContactAPI.send(data);
   } catch(e) {
     dispatch({ type: REQUEST_ERROR, error: e.resultError });
-    return;
-  }
-
-  if (!response.resultSuccess) {
-    dispatch({ type: REQUEST_ERROR, error: {
-      code: 'empty_response',
-      message: 'No response received',
-    } });
     return;
   }
 

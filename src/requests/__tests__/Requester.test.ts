@@ -1,6 +1,6 @@
 import fetchMock from 'fetch-mock';
 
-import { SignupAPI, APIResponse, TokenResponse } from '@authenticator/requests';
+import { SignupAPI } from '@authenticator/requests';
 import Token from '@authenticator/identity/Token';
 import config from '@authenticator/config';
 
@@ -15,21 +15,19 @@ describe('Requestor Test', (): void => {
       status: 500,
     });
 
-    let response: APIResponse<TokenResponse>;
     try {
-      response = await SignupAPI.register({
+      await SignupAPI.register({
         password: 'swordfish',
         identity: 'jane@example.com',
         type: 'email',
       });
     } catch (e) {
-      response = e;
+      expect(e.ok).toBe(false);
+      expect(e.resultError).toEqual({
+        message: 'Unable to complete request. Please try again later.',
+        code: 'request_failure',
+      });
     }
-    expect(response.ok).toBe(false);
-    expect(response.resultError).toEqual({
-      message: 'Unable to complete request. Please try again later.',
-      code: 'request_failure',
-    });
   });
 
   test('handles API request error', async (): Promise<void> => {
@@ -44,21 +42,19 @@ describe('Requestor Test', (): void => {
       },
     });
 
-    let response: APIResponse<TokenResponse>;
     try {
-      response = await SignupAPI.register({
+      await SignupAPI.register({
         password: 'swordfish',
         identity: 'jane@example.com',
         type: 'email',
       });
     } catch (e) {
-      response = e;
+      expect(e.ok).toBe(false);
+      expect(e.resultError).toEqual({
+        message: 'Password must be at least 8 characters.',
+        code: 'min_password_length',
+      });
     }
-    expect(response.ok).toBe(false);
-    expect(response.resultError).toEqual({
-      message: 'Password must be at least 8 characters.',
-      code: 'min_password_length',
-    });
   });
 
   test('sets authorization header if token is found', async (): Promise<void> => {

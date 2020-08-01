@@ -28,14 +28,6 @@ export const disable = (data: TOTPRequest): TOTPThunk => async (dispatch): Promi
     return;
   }
 
-  if (!response.resultSuccess) {
-    dispatch({ type: REQUEST_ERROR, error: {
-      code: 'empty_response',
-      message: 'No response received',
-    } });
-    return;
-  }
-
   try {
     Token.set(response.resultSuccess.token);
   } catch(e) {

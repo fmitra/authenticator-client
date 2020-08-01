@@ -3,9 +3,10 @@ import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 
 import config from '@authenticator/config';
-import { verifyCode, verifyDevice, login } from '@authenticator/login/actions';
+import { restartFlow, verifyCode, verifyDevice, login } from '@authenticator/login/actions';
 import {
   REQUEST,
+  SUBMIT_IDENTITY,
   REQUEST_ERROR,
   VERIFIED,
   VERIFY_ACCOUNT,
@@ -226,6 +227,13 @@ describe('Login Actions: Verify Test', (): void => {
         code: 'credentials_dom_error',
         message: 'whoops!',
       }},
+    ]);
+  });
+
+  test('dispatches SUBMIT_IDENTITY', async (): Promise<void> => {
+    await storeMock.dispatch(restartFlow());
+    expect(storeMock.getActions()).toEqual([
+      { type: SUBMIT_IDENTITY }
     ]);
   });
 });

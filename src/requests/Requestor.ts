@@ -10,11 +10,16 @@ interface RequestOpt {
 }
 
 export interface APIResponse<T> {
-  ok?: boolean;
-  status?: number;
-  resultSuccess?: T;
-  resultError?: AppError;
-  requestError?: any;
+  ok: boolean;
+  status: number;
+  resultSuccess: T;
+}
+
+export interface APIErrorResponse {
+  ok: boolean;
+  status: number;
+  resultError: AppError;
+  requestError: string;
 }
 
 export default class Requestor {
@@ -27,43 +32,52 @@ export default class Requestor {
   }
 
   private async makeRequest<T>(request: RequestInfo): Promise<APIResponse<T>> {
-    const response: APIResponse<T> = {};
-
-    const onError = (fetchResp: Response): void => {
-      response.status = fetchResp.status;
-      response.ok = false;
-      response.resultError = {
+    const onError = async (fetchResp: Response): Promise<APIErrorResponse> => {
+      let errorResponse: AppError;
+      const defaultError: AppError = {
         code: 'request_failure',
         message: 'Unable to complete request. Please try again later.',
-      };
-      response.requestError = fetchResp;
-    };
-
-    const onSuccess = async (fetchResp: Response): Promise<void> => {
-      response.status = fetchResp.status;
-      response.ok = fetchResp.ok;
-
-      const body = await fetchResp.json();
-      if (response.ok) {
-        response.resultSuccess = body;
-        return;
+      }
+      try {
+        const body = await fetchResp.json();
+        errorResponse = body.error;
+      } catch(e) {
+        errorResponse = defaultError;
       }
 
-      response.resultError = body.error;
+      const error: APIErrorResponse = {
+        ok: false,
+        status: fetchResp.status,
+        resultError: errorResponse,
+        requestError: fetchResp.statusText,
+      };
+
+      return error;
+    };
+
+    const onSuccess = async (fetchResp: Response): Promise<APIResponse<T>> => {
+      if (!fetchResp.ok) {
+        throw(fetchResp);
+      }
+
+      const body = await fetchResp.json();
+      const response: APIResponse<T> = {
+        ok: fetchResp.ok,
+        status: fetchResp.status,
+        resultSuccess: body,
+      };
+
+      return response;
     };
 
     try {
       const resp = await fetch(request);
-      await onSuccess(resp);
+      const response = await onSuccess(resp);
+      return Promise.resolve(response);
     } catch (e) {
-      onError(e);
+      const error = await onError(e);
+      return Promise.reject(error);
     }
-
-    if (!response.ok) {
-      return Promise.reject(response);
-    }
-
-    return Promise.resolve(response);
   }
 
   protected headers(): {[key: string]: string} {

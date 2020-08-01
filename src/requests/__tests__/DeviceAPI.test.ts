@@ -75,6 +75,7 @@ describe('DeviceAPI Test', (): void => {
     });
     await expect(DeviceAPI.initiate()).rejects.toEqual({
       ok: false,
+      requestError: 'Bad Request',
       resultError: {
         message: 'Invalid domain',
         code: 'webauthn'

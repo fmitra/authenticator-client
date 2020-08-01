@@ -1,6 +1,7 @@
 import {
   REQUEST,
   REQUEST_ERROR,
+  REQUEST_SUCCESS,
   VERIFY_ACCOUNT,
   VERIFIED,
   SUBMIT_IDENTITY,
@@ -57,5 +58,13 @@ describe('login Reducer Test', (): void => {
     result.needAccountDetails = false;
     result.needVerification = false;
     expect(reducer(currentState, { type: VERIFIED })).toEqual(result);
+  });
+
+  test('handles REQUEST_SUCCESS', (): void => {
+    const currentState = { ...defaultState };
+    currentState.isRequesting = true;
+
+    const result = { ...defaultState };
+    expect(reducer(currentState, { type: REQUEST_SUCCESS })).toEqual(result);
   });
 });
