@@ -31,10 +31,7 @@ export const disable = (data: TOTPRequest): TOTPThunk => async (dispatch): Promi
   try {
     Token.set(response.resultSuccess.token);
   } catch(e) {
-    dispatch({ type: REQUEST_ERROR, error: {
-      code: 'invalid_token',
-      message: 'Token is not correctly formatted',
-    } });
+    dispatch({ type: REQUEST_ERROR, error: e });
     return;
   }
 

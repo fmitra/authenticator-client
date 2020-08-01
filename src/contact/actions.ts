@@ -37,10 +37,7 @@ export const checkAddress = (data: DeliveryRequest): ContactThunk => async (disp
   try {
     Token.set(response.resultSuccess.token);
   } catch(e) {
-    dispatch({ type: REQUEST_ERROR, error: {
-      code: 'invalid_token',
-      message: 'Token is not correctly formatted',
-    } });
+    dispatch({ type: REQUEST_ERROR, error: e });
     return;
   }
 
@@ -65,10 +62,7 @@ export const verify = (data: VerifyContactRequest): ContactThunk => async (dispa
   try {
     Token.set(response.resultSuccess.token);
   } catch(e) {
-    dispatch({ type: REQUEST_ERROR, error: {
-      code: 'invalid_token',
-      message: 'Token is not correctly formatted',
-    } });
+    dispatch({ type: REQUEST_ERROR, error: e });
     return;
   }
 

@@ -26,13 +26,6 @@ const retrieveCredentialCreationOptions = async (): Promise<InitDeviceResponse> 
     throw e.resultError;
   }
 
-  if (!response.resultSuccess) {
-    throw {
-      code: 'empty_response',
-      message: 'No response received',
-    };
-  }
-
   return response.resultSuccess;
 };
 
@@ -94,10 +87,7 @@ export const registerDevice = (credentialsAPI: CredentialsContainer): PublicKeyC
   try {
     Token.set(response.resultSuccess.token);
   } catch(e) {
-    dispatch({ type: REQUEST_ERROR, error: {
-      code: 'invalid_token',
-      message: 'Token is not correctly formatted',
-    } });
+    dispatch({ type: REQUEST_ERROR, error: e });
     return;
   }
 

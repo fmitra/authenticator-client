@@ -71,18 +71,16 @@ class Token {
 
   /**
    * Parses and sets a token to the object.
-   *
-   * WARNING: Setting a token may raise an exception either
-   * while parsing the base64 encoded string or parsing the
-   * decoded string to JSON.
-   *
-   * The caller should budget and handle the exceptions
-   * appropriately. We do not handle exceptions here as it is
-   * important for callers to be aware if an invalid token was
-   * received.
    */
   set(t: string): void {
-    this.parsedToken = this.unpackToken(t);
+    try {
+      this.parsedToken = this.unpackToken(t);
+    } catch (e) {
+      throw({
+        code: 'invalid_token',
+        message: 'Token is not correctly formatted',
+      });
+    }
 
     const localToken = config.token.name;
     this.storage.setItem(localToken, t);

@@ -44,10 +44,7 @@ export const login = (data: LoginRequest): LoginThunk => async (dispatch): Promi
   try {
     Token.set(response.resultSuccess.token);
   } catch(e) {
-    dispatch({ type: REQUEST_ERROR, error: {
-      code: 'invalid_token',
-      message: 'Token is not correctly formatted',
-    } });
+    dispatch({ type: REQUEST_ERROR, error: e });
     return;
   }
 
@@ -69,10 +66,7 @@ export const verifyCode = (data: VerifyCodeRequest): LoginThunk => async (dispat
   try {
     Token.set(response.resultSuccess.token);
   } catch(e) {
-    dispatch({ type: REQUEST_ERROR, error: {
-      code: 'invalid_token',
-      message: 'Token is not correctly formatted',
-    } });
+    dispatch({ type: REQUEST_ERROR, error: e });
     return;
   }
 
@@ -154,10 +148,7 @@ export const verifyDevice = (credentialsAPI: CredentialsContainer): LoginThunk =
   try {
     Token.set(response.resultSuccess.token);
   } catch(e) {
-    dispatch({ type: REQUEST_ERROR, error: {
-      code: 'invalid_token',
-      message: 'Token is not correctly formatted',
-    } });
+    dispatch({ type: REQUEST_ERROR, error: e });
     return;
   }
 
@@ -183,10 +174,7 @@ export const resendCode = (data: SendRequest): LoginThunk => async (dispatch): P
   try {
     Token.set(response.resultSuccess.token);
   } catch(e) {
-    dispatch({ type: REQUEST_ERROR, error: {
-      code: 'invalid_token',
-      message: 'Token is not correctly formatted',
-    } });
+    dispatch({ type: REQUEST_ERROR, error: e });
     return;
   }
 
