@@ -55,13 +55,13 @@ export default class Device extends Component<Props, State> {
           errors={this.state.errors} />}
         {
           !this.props.isRequesting ?
-          <Button
-            name='Add Device'
-            class='button--wide'
-            hasError={false}
-            isDisabled={this.props.isRequesting}
-            onClick={this.handleSubmit} /> :
-          <Loader class='device-loader' />
+            <Button
+              name='Add Device'
+              class='button--wide'
+              hasError={false}
+              isDisabled={this.props.isRequesting}
+              onClick={this.handleSubmit} /> :
+            <Loader class='device-loader' />
         }
       </AppLayout>
     );

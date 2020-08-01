@@ -16,6 +16,10 @@ import {
 
 export type TOTPThunk = ThunkAction<void, { totp: State }, void, Action>;
 
+/**
+ * Submits a TOTP code to disable TOTP as a 2FA option
+ * for a user.
+ */
 export const disable = (data: TOTPRequest): TOTPThunk => async (dispatch): Promise<void> => {
   let response: APIResponse<TokenResponse>;
 

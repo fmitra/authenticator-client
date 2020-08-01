@@ -16,6 +16,10 @@ const ErrorMessage = (props: { error: string; key: string }): JSX.Element => (
   </div>
 );
 
+/**
+ * A component to map all available `FormErrors`
+ * into the UI
+ */
 const Errors = (props: Props): JSX.Element => (
   <div class={classes({
     'error': true,

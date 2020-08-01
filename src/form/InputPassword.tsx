@@ -32,6 +32,10 @@ const handleInput = (evt: Event, onInput: {(password: string): void}): void => {
   onInput(value);
 };
 
+/**
+ * Higher level component to expose a validated password
+ * submitted through an `Input` component.
+ */
 const InputPassword = (props: Props): JSX.Element => (
   <Input
     class={props.class}
@@ -41,7 +45,7 @@ const InputPassword = (props: Props): JSX.Element => (
     placeholder={props.placeholder}
     type='password'
     onChange={props.onChange}
-    onInput={(evt: Event) => handleInput(evt, props.onInput)}
+    onInput={(evt: Event): void => handleInput(evt, props.onInput)}
     validator={props.validator || validatePassword}
     id={props.id} />
 );

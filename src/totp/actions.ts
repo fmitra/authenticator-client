@@ -18,6 +18,9 @@ import {
 
 export type TOTPThunk = ThunkAction<void, { totp: State }, void, Action>;
 
+/**
+ * Generates a new TOTP secret for a user.
+ */
 export const secret = (): TOTPThunk => async (dispatch): Promise<void> => {
   let response: APIResponse<SecretResponse>;
 
@@ -33,6 +36,10 @@ export const secret = (): TOTPThunk => async (dispatch): Promise<void> => {
   dispatch({ type: SECRET_CREATED, totp: response.resultSuccess.totp });
 };
 
+/**
+ * Submits a TOTP code to enable a new TOTP secret
+ * on a user's profile.
+ */
 export const enable = (data: TOTPRequest): TOTPThunk => async (dispatch): Promise<void> => {
   let response: APIResponse<TokenResponse>;
 

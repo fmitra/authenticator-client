@@ -77,6 +77,10 @@ export const verify = (data: VerifyCodeRequest): SignupThunk => async (dispatch)
   dispatch({ type: VERIFIED });
 };
 
+/**
+ * Returns a user to the start of the sign up flow
+ * (username and credentials submission)
+ */
 export const restartFlow = (): SignupThunk => async (dispatch): Promise<void> => {
   dispatch({ type: CREATE_ACCOUNT });
 }

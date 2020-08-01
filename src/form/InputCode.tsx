@@ -14,6 +14,10 @@ interface Props {
   onInput: { (code: string): void };
 }
 
+/**
+ * Higher level component to expose a validated TOTP
+ * code submitted through an `Input` component.
+ */
 export default class InputCode extends Component<Props, {}> {
   handleCode = (e: Event): void => {
     const { value } = (e.currentTarget as HTMLFormElement);

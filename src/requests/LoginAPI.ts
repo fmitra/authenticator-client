@@ -91,7 +91,7 @@ class LoginAPI extends Requestor {
       return Promise.reject(new Error('no credentials found'));
     }
 
-    interface credential {
+    interface Cred {
       id: BufferSource;
       type: string;
     }
@@ -107,7 +107,7 @@ class LoginAPI extends Requestor {
       response.resultSuccess.publicKey.challenge as unknown as string
     ), (c: string): number => c.charCodeAt(0));
 
-    response.resultSuccess.publicKey.allowCredentials.forEach((cred: credential) => {
+    response.resultSuccess.publicKey.allowCredentials.forEach((cred: Cred): void => {
       cred.id = Uint8Array.from(atob(
         cred.id as unknown as string
       ), (c: string): number => c.charCodeAt(0));

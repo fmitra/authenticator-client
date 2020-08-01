@@ -59,7 +59,7 @@ describe('Requestor Test', (): void => {
 
   test('sets authorization header if token is found', async (): Promise<void> => {
     const mock = jest.spyOn(Token, 'token', 'get')
-    mock.mockImplementation(() => 'jwt-token');
+    mock.mockImplementation((): string => 'jwt-token');
 
     const url = `${config.api.baseURL}/api/v1/signup/verify`;
     fetchMock.mock(url, {

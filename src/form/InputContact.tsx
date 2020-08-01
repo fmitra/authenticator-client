@@ -71,6 +71,10 @@ const validateContact = (language: string): { (input: string | number): NullAppE
   }
 };
 
+/**
+ * Higher level component to expose a validated user email
+ * or phone number submitted through an `Input` component.
+ */
 export default class InputContact extends Component<Props, {}> {
   handleInput = (e: Event): void => {
     const { language, onInput } = this.props;

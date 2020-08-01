@@ -92,7 +92,7 @@ export default class Login extends Component<Props, State> {
           <LoginHeader />
           <InputContact
             onInput={this.handleUsername}
-            onChange={(e: Event, error: NullAppError) => {
+            onChange={(e: Event, error: NullAppError): void => {
               this.setErrors('username', error);
             }}
             language={window.navigator.language || ''}

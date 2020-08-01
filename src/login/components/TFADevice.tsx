@@ -21,12 +21,14 @@ const TFADevice = (props: Props): JSX.Element => {
       </div>
       {
         !props.isRequesting ?
-        <Button
-          name='Ready'
-          hasError={false}
-          isDisabled={props.isRequesting}
-          onClick={() => props.verifyDevice(window.navigator.credentials)} /> :
-        <Loader class='loader--login' />
+          <Button
+            name='Ready'
+            hasError={false}
+            isDisabled={props.isRequesting}
+            onClick={(): { (x: CredentialsContainer): any } =>
+              props.verifyDevice(window.navigator.credentials)
+            } /> :
+          <Loader class='loader--login' />
       }
     </div>
   );

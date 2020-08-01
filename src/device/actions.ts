@@ -17,6 +17,10 @@ import {
 
 export type PublicKeyCreation = ThunkAction<void, { device: State }, void, Action>;
 
+/**
+ * Retrieves a server generated challenge to register a FIDO compliant
+ * device
+ */
 const retrieveCredentialCreationOptions = async (): Promise<InitDeviceResponse> => {
   let response: APIResponse<InitDeviceResponse>;
 
@@ -29,6 +33,9 @@ const retrieveCredentialCreationOptions = async (): Promise<InitDeviceResponse> 
   return response.resultSuccess;
 };
 
+/**
+ * Create a credentials object using the browser's Webauthn API.
+ */
 const createUserCredentials = async (credentialsAPI: CredentialsContainer, options: InitDeviceResponse): Promise<CredentialResponse> => {
   let credential: Credential | null;
 
@@ -54,7 +61,7 @@ const createUserCredentials = async (credentialsAPI: CredentialsContainer, optio
 };
 
 /**
- * Requests device registration through the browsers credentials API.
+ * Requests device registration through the browsers Webauthn API.
  */
 export const registerDevice = (credentialsAPI: CredentialsContainer): PublicKeyCreation => async (dispatch): Promise<void> => {
   let credentialCreationOptions: InitDeviceResponse;

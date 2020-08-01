@@ -4,12 +4,12 @@ import { NullAppError } from '@authenticator/errors';
 import { InputNewPassword, Button } from '@authenticator/form';
 
 interface Props {
-  onSubmit: { (): void }
-  goBack: { (): void }
-  onConfirmPasswordInput: { (password: string): void }
-  onNewPasswordInput: { (): void }
-  onNewPasswordChange: { (error: NullAppError): void }
-  onConfirmPasswordChange: { (error: NullAppError): void }
+  onSubmit: { (): void };
+  goBack: { (): void };
+  onConfirmPasswordInput: { (password: string): void };
+  onNewPasswordInput: { (): void };
+  onNewPasswordChange: { (error: NullAppError): void };
+  onConfirmPasswordChange: { (error: NullAppError): void };
   isDisabled: boolean;
   newPasswordError: NullAppError;
   confirmPasswordError: NullAppError;

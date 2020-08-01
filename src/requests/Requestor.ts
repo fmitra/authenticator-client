@@ -22,6 +22,11 @@ export interface APIErrorResponse {
   requestError: string;
 }
 
+/**
+ * Requestor standardizes response and error handling
+ * from the browser's fetch API when communciating
+ * with the project's backend.
+ */
 export default class Requestor {
   protected baseURL: string;
   protected prefix: string;

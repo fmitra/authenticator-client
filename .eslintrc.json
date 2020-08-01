@@ -29,6 +29,7 @@
     "@typescript-eslint/no-explicit-any": "any",
     "@typescript-eslint/explicit-member-accessibility": "off",
     // ignore valid preact properties
+    "react/no-unescaped-entities": "off",
     "react/no-unknown-property": [2, {"ignore": [
       "for",
       "class"

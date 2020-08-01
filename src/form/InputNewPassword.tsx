@@ -23,6 +23,9 @@ interface State {
   confirmedPassword: string;
 }
 
+/**
+ * A dual input field to submit and confirm a new password.
+ */
 export default class InputNewPassword extends Component<Props, State> {
   handleNewPasswordChange = (evt: Event, error: NullAppError): void => {
     const { onNewPasswordChange } = this.props;

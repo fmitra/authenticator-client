@@ -51,6 +51,10 @@ export const login = (data: LoginRequest): LoginThunk => async (dispatch): Promi
   dispatch({ type: VERIFY_ACCOUNT });
 };
 
+/**
+ * Verifies a code to complete 2FA and retrieve a verified
+ * JWT token.
+ */
 export const verifyCode = (data: VerifyCodeRequest): LoginThunk => async (dispatch): Promise<void> => {
   let response: APIResponse<TokenResponse>;
 
@@ -74,6 +78,10 @@ export const verifyCode = (data: VerifyCodeRequest): LoginThunk => async (dispat
 };
 
 
+/**
+ * Retrieves a signing challenge to be signed against a User's
+ * FIDO compliant device.
+ */
 const retrieveCredentialCreationOptions = async (): Promise<VerifyDeviceResponse> => {
   let response: APIResponse<VerifyDeviceResponse>;
 
@@ -83,16 +91,13 @@ const retrieveCredentialCreationOptions = async (): Promise<VerifyDeviceResponse
     throw e.resultError;
   }
 
-  if (!response.resultSuccess) {
-    throw {
-      code: 'empty_response',
-      message: 'No response received',
-    };
-  }
-
   return response.resultSuccess;
 };
 
+/**
+ * Retrieves a credentials object using the browser's Webauthn API
+ * to be used for signing functions.
+ */
 const createUserCredentials = async (credentialsAPI: CredentialsContainer, options: VerifyDeviceResponse): Promise<PubKeyCredentialResponse> => {
   let credential: Credential | null;
 
@@ -102,7 +107,7 @@ const createUserCredentials = async (credentialsAPI: CredentialsContainer, optio
     throw {
       code: 'credentials_dom_error',
       message: e.message || (
-        'We couldn\'t register your device. Please check that your device is in use'
+        'We couldn\'t retrieve your credentials. Please check that your device is in use'
       ),
     }
   }
@@ -110,13 +115,17 @@ const createUserCredentials = async (credentialsAPI: CredentialsContainer, optio
   if (!credential) {
     throw {
       code: 'credentials_dom_error',
-      message: 'We couldn\'t register your device. Please try again later',
+      message: 'We couldn\'t retrieve your credentials. Please try again later',
     };
   }
 
   return credential as PubKeyCredentialResponse;
 };
 
+/**
+ * Signs a server generated challenge with a User's FIDO compliant
+ * device to complete 2FA and retrieve a verified JWT token.
+ */
 export const verifyDevice = (credentialsAPI: CredentialsContainer): LoginThunk => async (dispatch): Promise<void> => {
   let credentialCreationOptions: VerifyDeviceResponse;
   let credential: PubKeyCredentialResponse;
@@ -155,10 +164,16 @@ export const verifyDevice = (credentialsAPI: CredentialsContainer): LoginThunk =
   dispatch({ type: VERIFIED });
 };
 
+/**
+ * Return back to the first step of the login flow (retrieve username/credentials)
+ */
 export const restartFlow = (): LoginThunk => async (dispatch): Promise<void> => {
   dispatch({ type: SUBMIT_IDENTITY });
 }
 
+/**
+ * Requests an OTP code to be re-deliveed to a user via email or SMS.
+ */
 export const resendCode = (data: SendRequest): LoginThunk => async (dispatch): Promise<void> => {
   let response: APIResponse<TokenResponse>;
 

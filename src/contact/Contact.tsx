@@ -74,7 +74,7 @@ export default class Contact extends Component<Props, State> {
         <InputContact
           error={this.state.errors.any()}
           onInput={this.handleAddress}
-          onChange={(e: Event, error: NullAppError) => {
+          onChange={(e: Event, error: NullAppError): void => {
             this.setErrors('address', error);
           }}
           language={window.navigator.language || ''}

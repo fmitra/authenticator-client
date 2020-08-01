@@ -19,7 +19,7 @@ const Header = (props: Props): JSX.Element => (
       </div>
       { props.subtitle && <div class='header__subtitle'>
         {props.subtitle}
-        </div> }
+      </div> }
       {props.children && props.children}
     </div>
   </div>

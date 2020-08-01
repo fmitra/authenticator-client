@@ -3,12 +3,13 @@ import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 
 import config from '@authenticator/config';
-import { register, verify } from '@authenticator/signup/actions';
+import { restartFlow, register, verify } from '@authenticator/signup/actions';
 import { VerifyCodeRequest, SignupRequest } from '@authenticator/requests';
 import {
   REQUEST,
   REQUEST_ERROR,
   VERIFY_ACCOUNT,
+  CREATE_ACCOUNT,
   VERIFIED,
 } from '@authenticator/signup/constants';
 import { mockToken } from '@authenticator/identity/mock';
@@ -165,6 +166,13 @@ describe('Signup Actions: Verify Test', (): void => {
     expect(storeMock.getActions()).toEqual([
       { type: REQUEST },
       { type: VERIFIED },
+    ]);
+  });
+
+  test('dispatches CREATE_ACCOUNT when restarting flow', async (): Promise<void> => {
+    await storeMock.dispatch(restartFlow());
+    expect(storeMock.getActions()).toEqual([
+      { type: CREATE_ACCOUNT }
     ]);
   });
 });

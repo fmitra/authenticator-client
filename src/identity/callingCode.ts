@@ -207,7 +207,11 @@ const countries: {[key: string]: string} = {
   WF: "+681",
 };
 
-const callingCode = (language: string):string => {
+/**
+ * Returns a default country calling code
+ * based on a user's browser's language.
+ */
+const callingCode = (language: string): string => {
   const region = language.slice(3).toUpperCase();
   const lang = language.slice(0, 2).toUpperCase();
 

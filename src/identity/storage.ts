@@ -35,7 +35,9 @@ export const cookieStorage = {
   },
 
   getItem: (k: string): string | null => {
-    const cookieStr: string | undefined = document.cookie.split('; ').find(x => x.startsWith(k));
+    const cookieStr: string | undefined = document.cookie
+      .split('; ')
+      .find((x: string): boolean  => x.startsWith(k));
     if (!cookieStr) {
       return null;
     }

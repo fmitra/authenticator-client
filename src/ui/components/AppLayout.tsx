@@ -14,10 +14,10 @@ const AppLayout = (props: Props): JSX.Element => (
   })}>
     {
       props.withoutWrapper ?
-      props.children :
-      <div class='container__item'>
-        {props.children}
-      </div>
+        props.children :
+        <div class='container__item'>
+          {props.children}
+        </div>
     }
   </div>
 );
