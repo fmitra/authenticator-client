@@ -69,7 +69,7 @@ export default class Contact extends Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <AppLayout class='contact'>
+      <AppLayout class='container--graphic contact'>
         <ContactHeader />
         <InputContact
           error={this.state.errors.any()}

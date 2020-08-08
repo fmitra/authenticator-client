@@ -65,7 +65,7 @@ export default class ContactVerify extends Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <AppLayout class='contact'>
+      <AppLayout class='container--graphic contact'>
         <CodeHeader
           lastMessageAddress={Token.lastMessageAddress}
           goBack={this.props.restartFlow} />

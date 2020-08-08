@@ -4,6 +4,7 @@ import TFAOptions from '@authenticator/login/components/TFAOptions';
 import LoginHeader from '@authenticator/login/components/LoginHeader';
 import SignupInstead from '@authenticator/login/components/SignupInstead';
 import DeviceHeader from '@authenticator/login/components/DeviceHeader';
+import Splash from '@authenticator/login/components/Splash';
 
 export {
   TFACode,
@@ -12,4 +13,5 @@ export {
   LoginHeader,
   SignupInstead,
   DeviceHeader,
+  Splash,
 };

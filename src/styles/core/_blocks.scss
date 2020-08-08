@@ -9,8 +9,10 @@
 .container__item {
   width: 100%;
   max-width: $screen-x2;
-  background-color: $color-neutral-0;
+  background-color: $color-theme-70;
   padding: $size-x1 * 30;
+  border-radius: $size-x3;
+  color: $color-neutral-0;
 
   @media (max-width: $screen-x2) {
     padding: $size-x1 * 15;
@@ -21,3 +23,8 @@
   }
 }
 
+.container--graphic {
+  background: url('../../assets/images/bg-party.jpg') no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+}

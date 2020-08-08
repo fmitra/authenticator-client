@@ -45,8 +45,9 @@
   }
 
   &__divider {
-    border-bottom: 1px solid $color-neutral-90;
-    margin-bottom: $size-x8;
+    color: $color-neutral-30;
+    border-bottom: 1px solid $color-neutral-30;
+    margin: $size-x12 0 $size-x10 0;
     position: relative;
     > span {
       position: absolute;
@@ -57,15 +58,14 @@
       left: 50%;
       margin-left: -40px;
       text-align: center;
-      background-color: $color-neutral-0;
+      background-color: $color-theme-70;
     }
   }
 }
 
 .signup-header {
   &__username {
-    color: $color-neutral-0;
-    background-color: $color-neutral-30;
+    color: $color-neutral-30;
     text-align: left;
     cursor: pointer;
     @extend .input__input;

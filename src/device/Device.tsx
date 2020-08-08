@@ -42,7 +42,7 @@ export default class Device extends Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <AppLayout class='device'>
+      <AppLayout class='container--graphic device'>
         <div class='device-icon'>
           <img src={iconFingerprint} />
         </div>

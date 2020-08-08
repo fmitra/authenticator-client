@@ -1,7 +1,19 @@
+.login {
+  background-color: $color-theme-70;
+}
+
 .login-splash {
   width: 45%;
   height: 100%;
-  background-color: $color-theme-50;
+  background-color: $color-theme-0;
+  padding: $size-x5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  > img {
+    width: 100%;
+    max-width: 100%;
+  }
   @media (max-width: $screen-x2) {
     display: none;
   }
@@ -30,6 +42,7 @@
 
 .header--login {
   text-align: left;
+  color: $color-neutral-0;
   &__subtitle {
     margin-bottom: $size-x2;
   }
@@ -76,14 +89,14 @@
   }
 
   &__toggle-link {
-    color: $color-theme-50;
+    color: $color-neutral-30;
   }
 
   &__option {
-    padding: $size-x3;
+    padding: $size-x3 $size-x6;
     margin-bottom: $size-x2;
     border-radius: $size-x1;
-    background-color: $color-neutral-10;
+    background-color: $color-theme-10;
     cursor: pointer;
   }
 }

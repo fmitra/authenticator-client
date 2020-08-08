@@ -27,11 +27,6 @@ input[type=number],
 input[type=password] {
   box-shadow: none;
   background: none;
-
-  &:focus {
-    border: 1px solid $color-neutral-90;
-    outline: none;
-  }
 }
 
 input::-webkit-outer-spin-button,

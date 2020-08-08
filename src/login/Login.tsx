@@ -8,7 +8,7 @@ import {
   InputPassword,
 } from '@authenticator/form';
 import { ContactMethod } from '@authenticator/identity/contact';
-import { SignupInstead, LoginHeader } from '@authenticator/login/components';
+import { Splash, SignupInstead, LoginHeader } from '@authenticator/login/components';
 import { AppLayout, Disclaimer } from '@authenticator/ui/components';
 
 interface Props {
@@ -87,7 +87,7 @@ export default class Login extends Component<Props, State> {
 
     return (
       <AppLayout class='login' withoutWrapper={true}>
-        <div class='login-splash'></div>
+        <Splash />
         <div class='login-form'>
           <LoginHeader />
           <InputContact

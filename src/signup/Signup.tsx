@@ -98,7 +98,7 @@ export default class Signup extends Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <AppLayout class='signup'>
+      <AppLayout class='container--graphic signup'>
         <SignupHeader
           goBack={this.toggleUsername}
           isIntro={!this.state.isUsernameSet}

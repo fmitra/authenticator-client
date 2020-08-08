@@ -3,9 +3,9 @@ import { AppLayout, Success } from '@authenticator/ui/components';
 
 const DeviceSuccess = (): JSX.Element => {
   return (
-    <AppLayout withoutWrapper={true}>
+    <AppLayout class='container--graphic' withoutWrapper={true}>
       <Success>
-        <span>Device registerd</span>
+        <span>Device registered</span>
       </Success>
     </AppLayout>
   );

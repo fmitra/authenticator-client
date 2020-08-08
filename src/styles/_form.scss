@@ -1,17 +1,3 @@
-.input--error {
-  .input__input {
-    border: 1px solid $color-red-10;
-  }
-
-  input[type=text],
-  input[type=number],
-  input[type=password] {
-    &:focus {
-      border: 1px solid $color-red-10;
-    }
-  }
-}
-
 .input__error-message {
   color: $color-red-10;
   font-size: $size-x3;
@@ -29,11 +15,18 @@
   width: 100%;
   padding: $size-x4 $size-x7;
   border: 1px solid $color-neutral-30;
+  color: $color-neutral-30;
   border-radius: $size-x1;
   margin-top: $size-x5;
 
   &::placeholder {
     color: $color-neutral-30;
+  }
+
+  &:focus {
+    color: $color-neutral-0;
+    border: 1px solid $color-neutral-0;
+    outline: none;
   }
 }
 
@@ -52,16 +45,17 @@
   }
 
   &:disabled {
-    background-color: $color-neutral-30;
     cursor: not-allowed;
   }
 }
 
 .button--inactive {
   .button__button {
-    border: 1px solid $color-theme-50;
-    background-color: $color-neutral-0;
+    background-color: $color-neutral-10;
     color: $color-theme-50;
+    &:hover {
+      background-color: $color-neutral-0;
+    }
   }
 }
 

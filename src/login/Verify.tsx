@@ -104,7 +104,7 @@ export default class LoginVerify extends Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <AppLayout class='login'>
+      <AppLayout class='container--graphic login-verify'>
         { !this.state.isDeviceView ?
           <CodeHeader
             lastMessageAddress={Token.lastMessageAddress}

@@ -63,7 +63,7 @@ export default class TOTPDisable extends Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <AppLayout class='totp'>
+      <AppLayout class='container--graphic totp'>
         <TOTPHeader />
         <InputCode
           value={this.state.code}

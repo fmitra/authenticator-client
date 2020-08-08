@@ -70,7 +70,7 @@ export default class TOTP extends Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <AppLayout class='totp'>
+      <AppLayout class='container--graphic totp'>
         <TOTPHeader totp={this.props.totp} />
         { !this.props.totp && <Button
           name='Show QR Code'

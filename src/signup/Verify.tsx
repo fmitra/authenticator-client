@@ -65,7 +65,7 @@ export default class Verify extends Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <AppLayout class='signup'>
+      <AppLayout class='container--graphic signup'>
         <CodeHeader
           lastMessageAddress={Token.lastMessageAddress}
           goBack={this.props.restartFlow} />
