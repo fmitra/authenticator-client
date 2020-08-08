@@ -1,14 +1,35 @@
 # authenticator-client
 
-A generic user authentication client supporting Email/SMS, TOTP, FIDO U2F and WebAuthn.
+A generic user authentication client supporting Email/SMS, TOTP, FIDO U2F
 
-## Overview
+## Contents
 
-This is the client-side implementation for the `authenticator` backend found [here](https://github.com/fmitra/authenticator)
+* [Overview](#overview)
 
-## Development
+* [Development](#development)
 
-Recommended Node version is LTS v10.15.x. Assumming nvm is being used:
+  * [Getting Started](#getting-started)
+  * [Full Stack Setup with Nginx](#dev-fullstack)
+  * [Test and Lint](#test-and-lint)
+  * [Production Setup](#production)
+
+## <a name="overview">Overview</a>
+
+This is the client-side implementation for the `authenticator` backend found [here](https://github.com/fmitra/authenticator).
+
+This is mainly written as a proof of concept, and not all features on the backend service
+are exposed here. In particular, we only cover the following:
+
+1. User registration
+2. User login with email/SMS, TOTP, FIDO U2F
+3. Enabling FIDO U2F devices for registered users
+4. Changing contact details for registered users
+
+## <a name="development">Development</a>
+
+### <a name="getting-started">Getting Started</a>
+
+Recommended Node version is LTS v10.22.x. Assumming nvm is being used:
 
 ```
 nvm use
@@ -26,10 +47,10 @@ After the local configuration is created, default values can be overriden by upd
 this project on `api.project.local`:
 
 ```
-config.api.baseURL = 'https://api.project.local`
+config.api.baseURL = 'https://api.project.local'
 ```
 
-### Full Stack Setup with Nginx
+### <a name="dev-fullstack">Full Stack Setup with Nginx</a>
 
 For a full stack set up, we'll want both the frontend and backend parts of this
 project running on the same root domain with HTTPS configured to mimic a production
@@ -83,9 +104,23 @@ server {
 }
 ```
 
-Test and lint
+### <a name="test-and-lint">Test and Lint</a>
 
 ```
 npm run test
 npm run lint
 ```
+
+### <a name="production">Production Setup</a>
+
+To get started, make sure your [production](./src/config/production.ts) or [staging](./src/config/staging.ts) deloyment settings are configured.
+
+Similar to the developer environment, you'll need to enable the config and build the assets.
+
+```
+npm run config:prod
+npm run build
+```
+
+Production assets will be found under the `./dist` directory. A single `index.html` file
+is your entry point to the application.

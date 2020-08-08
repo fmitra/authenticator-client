@@ -8,6 +8,7 @@ const local = {
 };
 
 module.exports = {
+  mode: 'development',
   context: local.sources,
   entry: './index.tsx',
 

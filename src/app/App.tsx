@@ -8,15 +8,16 @@ import Device from '@authenticator/device';
 import TOTP from '@authenticator/totp';
 import TOTPDisable from '@authenticator/totpDisable';
 import Contact from '@authenticator/contact';
-import routes from '@authenticator/app/routes';
+import routes, { Redirect } from '@authenticator/app/routes';
 import store, { history } from '@authenticator/app/store';
 import '@styles';
 
 export default class App extends Component {
-  public render(): JSX.Element {
+  render(): JSX.Element {
     return (
       <Provider store={store}>
         <Router history={history}>
+          <Redirect path='/' to={routes.LOGIN} />
           <Login path={routes.LOGIN} />
           <Signup path={routes.SIGNUP} />
           <Contact path={routes.CONTACT} />

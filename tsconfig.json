@@ -24,8 +24,8 @@
     "experimentalDecorators": true,
     "typeRoots": [
       "node_modules/@types",
-      // Third party modules not supported with no available
-      // types package on npm.
+      // Third party modules with missing
+      // TypeScript definitions
       "types"
     ],
     "baseUrl": ".",

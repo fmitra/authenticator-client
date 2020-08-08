@@ -1,4 +1,4 @@
-interface AppConfig {
+export interface AppConfig {
   token: {
     name: string;
   };
