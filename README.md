@@ -29,7 +29,7 @@ are exposed here. In particular, we only cover the following:
 
 ### <a name="getting-started">Getting Started</a>
 
-Recommended Node version is LTS v10.22.x. Assumming nvm is being used:
+Recommended Node version is LTS v12.18.x.  Assumming nvm is being used:
 
 ```
 nvm use
