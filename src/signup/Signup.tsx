@@ -110,8 +110,8 @@ export default class Signup extends Component<Props, State> {
             this.setErrors('username', error);
           }}
           value={this.state.username}
-          isDisabled={this.props.isRequesting || !this.state.username}
-          hasError={this.state.errors.notOk}
+          isDisabled={!this.state.username}
+          hasError={Boolean(this.state.errors.get('username'))}
           error={this.state.errors.get('username')}
           onSubmit={this.toggleUsername} /> }
 
