@@ -25,6 +25,8 @@ are exposed here. In particular, we only cover the following:
 3. Enabling FIDO U2F devices for registered users
 4. Changing contact details for registered users
 
+![ui](./docs/img/screens.jpg)
+
 ## <a name="development">Development</a>
 
 ### <a name="getting-started">Getting Started</a>
