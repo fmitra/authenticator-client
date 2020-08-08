@@ -4,27 +4,28 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-}
 
-.container__item {
-  width: 100%;
-  max-width: $screen-x2;
-  background-color: $color-theme-70;
-  padding: $size-x1 * 30;
-  border-radius: $size-x3;
-  color: $color-neutral-0;
+  &__item {
+    width: 100%;
+    max-width: $screen-x2;
+    background-color: $color-theme-70;
+    padding: $size-x1 * 30;
+    border-radius: $size-x3;
+    color: $color-neutral-0;
 
-  @media (max-width: $screen-x2) {
-    padding: $size-x1 * 15;
+    @media (max-width: $screen-x2) {
+      padding: $size-x1 * 15;
+      margin: $size-x3;
+    }
+
+    @media (max-width: $screen-x1) {
+      padding: $size-x7;
+    }
   }
 
-  @media (max-width: $screen-x1) {
-    padding: $size-x7;
+  &--graphic {
+    background: url('../../assets/images/bg-party.jpg') no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
   }
-}
-
-.container--graphic {
-  background: url('../../assets/images/bg-party.jpg') no-repeat;
-  background-size: cover;
-  background-position: 50% 50%;
 }

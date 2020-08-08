@@ -33,6 +33,7 @@
 
   @media (max-width: $screen-x2) {
     width: 100%;
+    margin: $size-x3;
   }
 
   @media (max-width: $screen-x1) {
@@ -46,17 +47,26 @@
   &__subtitle {
     margin-bottom: $size-x2;
   }
+  @media (max-width: $screen-x2) {
+    text-align: center;
+  }
 }
 
 .login-signup {
   margin-top: $size-x10;
   margin-bottom: $size-x5;
   color: $color-neutral-50;
+  @media (max-width: $screen-x2) {
+    text-align: center;
+  }
 }
 
 .login-disclaimer {
   text-align: left;
   margin-top: 0;
+  @media (max-width: $screen-x2) {
+    text-align: center;
+  }
 }
 
 .login-errors {
