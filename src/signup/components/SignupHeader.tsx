@@ -15,7 +15,7 @@ const Intro = (): JSX.Element => (
     subtitle={
       <div>
         <span class='subtitle'>Enter your email address or phone number</span>
-        <span class='subtitle'>and start usign our app today.</span>
+        <span class='subtitle'>and start using our app today.</span>
       </div>
     }
   />
