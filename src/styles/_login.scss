@@ -11,13 +11,16 @@
   width: 45%;
   height: 100%;
   background-color: $color-theme-0;
-  padding: $size-x12;
+  padding: $size-x3 * 8;
   display: flex;
   align-items: center;
   justify-content: center;
   > img {
     width: 100%;
     max-width: 100%;
+  }
+  @media (max-width: $screen-x4) {
+    padding: $size-x12;
   }
   @media (max-width: $screen-x2) {
     display: none;
