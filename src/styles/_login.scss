@@ -1,12 +1,17 @@
 .login {
   background-color: $color-theme-70;
+  @media (max-width: $screen-x2) {
+    background: url('../../assets/images/bg-party.jpg') no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+  }
 }
 
 .login-splash {
   width: 45%;
   height: 100%;
   background-color: $color-theme-0;
-  padding: $size-x5;
+  padding: $size-x12;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,6 +39,10 @@
   @media (max-width: $screen-x2) {
     width: 100%;
     margin: $size-x3;
+    border-radius: $size-x3;
+    padding: $size-x1 * 15;
+    max-width: $screen-x2;
+    background-color: $color-theme-70;
   }
 
   @media (max-width: $screen-x1) {
