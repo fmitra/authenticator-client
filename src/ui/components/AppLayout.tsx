@@ -1,5 +1,6 @@
 import { h, ComponentChildren } from 'preact';
 import { classes } from '@authenticator/ui';
+import { DemoBar } from '@authenticator/ui/components';
 
 interface Props {
   class?: string;
@@ -8,18 +9,20 @@ interface Props {
 };
 
 const AppLayout = (props: Props): JSX.Element => (
-  <div class={classes({
-    'container': true,
-    [props.class || '']: Boolean(props.class),
-  })}>
-    {
-      props.withoutWrapper ?
-        props.children :
-        <div class='container__item'>
-          {props.children}
-        </div>
-    }
-  </div>
+  <DemoBar>
+    <div class={classes({
+      'container': true,
+      [props.class || '']: Boolean(props.class),
+    })}>
+      {
+        props.withoutWrapper ?
+          props.children :
+          <div class='container__item'>
+            {props.children}
+          </div>
+      }
+    </div>
+  </DemoBar>
 );
 
 export default AppLayout;

@@ -5,16 +5,17 @@
 @import "core/blocks";
 
 // General Components
-@import "form";
-@import "error";
-@import "header";
 @import "code-header";
-@import "success";
+@import "demo-bar";
 @import "disclaimer";
+@import "error";
+@import "form";
+@import "header";
 @import "loader";
+@import "success";
 
 // Views
-@import "signup";
-@import "login";
 @import "device";
+@import "login";
+@import "signup";
 @import "totp";

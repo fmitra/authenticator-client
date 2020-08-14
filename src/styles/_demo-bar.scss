@@ -1,0 +1,91 @@
+.demo-bar-spacer {
+  @media (max-height: $screen-x2) {
+    margin-bottom: $size-x11;
+  }
+}
+
+.demo-bar-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.demo-bar {
+  width: 100%;
+  height: $size-x11;
+  background-color: $color-theme-50;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 $size-x3;
+  color: $color-neutral-0;
+  > img {
+    height: $size-x5;
+    width: $size-x5;
+    margin-right: $size-x3;
+    cursor: pointer;
+  }
+}
+
+.demo-bar-helper {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $color-theme-50;
+  z-index: 5;
+  color: $color-neutral-0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__wrapper {
+    max-width: 80%;
+    width: 100%;
+    padding: $size-x3;
+    @media (max-width: $screen-x2) {
+      max-width: 100%;
+    }
+  }
+
+  &__link {
+    width: 100%;
+    display: block;
+    padding: $size-x3;
+    cursor: pointer;
+    border-bottom: 1px solid $color-theme-70;
+    text-decoration: none;
+    &:link, &:visited, &:active {
+      color: $color-neutral-0;
+    }
+    &:hover {
+      border-bottom: 1px solid $color-neutral-0;
+    }
+    &--close {
+      color: $color-theme-70;
+    }
+  }
+
+  &__intro {
+    max-width: 50%;
+    margin: 0 auto $size-x6 auto;
+    background-color: $color-theme-70;
+    text-align: center;
+    color: $color-theme-50;
+    border-radius: $size-x1;
+    padding: $size-x5;
+    > span {
+      &:first-child {
+        margin-bottom: $size-x5;
+      }
+      display: block;
+    }
+    @media (max-width: $screen-x2) {
+      max-width: 100%;
+    }
+  }
+}
