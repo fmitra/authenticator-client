@@ -1,3 +1,5 @@
+![Build](https://github.com/fmitra/authenticator-client/workflows/Build/badge.svg) [![codecov](https://codecov.io/gh/fmitra/authenticator-client/branch/master/graph/badge.svg?token=8PYD45QC0B)](https://codecov.io/gh/fmitra/authenticator-client)
+
 # authenticator-client
 
 A generic user authentication client supporting Email/SMS, TOTP, FIDO U2F
@@ -35,6 +37,7 @@ Recommended Node version is LTS v12.18.x.  Assumming nvm is being used:
 
 ```
 nvm use
+npm install
 ```
 
 Create a local configuration file and start the test server.

@@ -1,0 +1,55 @@
+name: Build
+
+on:
+  push:
+    branches:
+    - '*'
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Set up Node
+      uses: actions/setup-node@v2-beta
+      with:
+        node-version: 12
+
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up dependencies
+      run: |
+        npm install
+        npm run config:dev
+
+    - name: Test
+      run: npm test
+
+    - name: Codecov upload
+      uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        directory: coverage
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Set up Node
+      uses: actions/setup-node@v2-beta
+      with:
+        node-version: 12
+
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up dependencies
+      run: |
+        npm install
+        npm run config:dev
+
+    - name: Lint
+      run: npm run lint

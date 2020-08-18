@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.tsx",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "test:dev": "jest -o --watch",
     "lint": "eslint --ext .ts,.tsx src",
     "start": "webpack-dev-server --config ./webpack.config.dev.js --hot --https --history-api-fallback --progress",
