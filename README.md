@@ -1,4 +1,4 @@
-![Build](https://github.com/fmitra/authenticator-client/workflows/Build/badge.svg) [![codecov](https://codecov.io/gh/fmitra/authenticator-client/branch/master/graph/badge.svg?token=8PYD45QC0B)](https://codecov.io/gh/fmitra/authenticator-client)
+![Build](https://github.com/fmitra/authenticator-client/workflows/Build/badge.svg) [![codecov](https://codecov.io/gh/fmitra/authenticator-client/branch/master/graph/badge.svg?token=8PYD45QC0B&service=github)](https://codecov.io/gh/fmitra/authenticator-client)
 
 # authenticator-client
 
