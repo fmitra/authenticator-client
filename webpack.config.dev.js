@@ -1,4 +1,5 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const local = {
   sources: path.resolve(__dirname, 'src/'),
@@ -13,7 +14,7 @@ module.exports = {
   entry: './index.tsx',
 
   output: {
-    path: local.dist,
+    path: local.sources,
     publicPath: '/',
     filename: 'app.js'
   },
@@ -75,5 +76,11 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'index.ejs'
+    })
+  ]
 };
