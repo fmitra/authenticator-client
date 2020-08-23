@@ -8,7 +8,7 @@ const LoginHeader = (): JSX.Element => (
       <span class='title'>Login</span>
     }
     subtitle={
-      <span class='subtitle'>It's so good it doesn't even need a headline.</span>
+      <span class='subtitle'>Login with either an email address or phone number.</span>
     }
   />
 );
