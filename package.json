@@ -14,7 +14,7 @@
     "build": "NODE_ENV=production webpack --config ./webpack.config.prod.js --history-api-fallback --progress --bail"
   },
   "author": "Francis Mitra",
-  "license": "MIT",
+  "license": "BSD 3-Clause",
   "dependencies": {
     "history": "^4.9.0",
     "preact": "^8.4.2",

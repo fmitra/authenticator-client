@@ -44,7 +44,7 @@ Create a local configuration file and start the test server.
 
 ```
 npm run config:dev
-npm run start
+npx npm run start
 ```
 
 After the local configuration is created, default values can be overriden by updating
@@ -112,8 +112,8 @@ server {
 ### <a name="test-and-lint">Test and Lint</a>
 
 ```
-npm run test
-npm run lint
+npx npm run test
+npx npm run lint
 ```
 
 ### <a name="production">Production Setup</a>
@@ -124,7 +124,7 @@ Similar to the developer environment, you'll need to enable the config and build
 
 ```
 npm run config:prod
-npm run build
+npx npm run build
 ```
 
 Production assets will be found under the `./dist` directory. A single `index.html` file
